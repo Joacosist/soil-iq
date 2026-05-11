@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Soil-IQ: Plataforma AgTech con sensores IoT, imágenes satelitales e inteligencia artificial para optimizar la fertilización y aumentar tu rentabilidad hasta USD 80/ha.">
+  <meta name="theme-color" content="#2D7A4F">
+  <title>Soil-IQ — Inteligencia para tu suelo</title>
+
+  <!-- Preconnect para Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --verde:      #2D7A4F;
+      --verde-dark: #1A3C2A;
+      --verde-light:#3A9660;
+      --amber:      #E8A020;
+      --amber-light:#F5B84A;
+      --white:      #FFFFFF;
+      --gray-50:    #F9FAFB;
+      --gray-100:   #F3F4F6;
+      --gray-200:   #E5E7EB;
+      --gray-400:   #9CA3AF;
+      --gray-600:   #4B5563;
+      --gray-800:   #1F2937;
+      --black:      #0D1117;
+      --radius:     12px;
+      --radius-lg:  20px;
+      --shadow:     0 4px 24px rgba(0,0,0,.08);
+      --shadow-lg:  0 8px 48px rgba(0,0,0,.14);
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: var(--gray-800);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; display: block; }
+    a   { text-decoration: none; color: inherit; }
+
+    .container {
+      width: 100%;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ─── Utility ───────────────────────────────────────────────────── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(45,122,79,.12);
+      color: var(--verde);
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+      border: 1px solid rgba(45,122,79,.2);
+    }
+    .badge--amber {
+      background: rgba(232,160,32,.12);
+      color: #9A6610;
+      border-color: rgba(232,160,32,.25);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      border-radius: var(--radius);
+      padding: 14px 28px;
+      transition: transform .15s, box-shadow .15s, background .15s;
+    }
+    .btn:hover  { transform: translateY(-2px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary {
+      background: var(--amber);
+      color: var(--black);
+      box-shadow: 0 4px 20px rgba(232,160,32,.35);
+    }
+    .btn-primary:hover { background: var(--amber-light); box-shadow: 0 6px 28px rgba(232,160,32,.45); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,.5);
+    }
+    .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,.08); }
+
+    .btn-verde {
+      background: var(--verde);
+      color: var(--white);
+      box-shadow: 0 4px 20px rgba(45,122,79,.3);
+    }
+    .btn-verde:hover { background: var(--verde-light); }
+
+    .btn-lg { font-size: 1.1rem; padding: 18px 36px; border-radius: 14px; }
+    .btn-sm { font-size: .875rem; padding: 10px 20px; }
+
+    /* ─── Navbar ────────────────────────────────────────────────────── */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(26,60,42,.97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .navbar__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .navbar__logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+    .navbar__logo-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--verde);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+    .navbar__logo span { color: var(--amber); }
+
+    .navbar__links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .navbar__links a {
+      color: rgba(255,255,255,.75);
+      font-size: .9rem;
+      font-weight: 500;
+      transition: color .15s;
+    }
+    .navbar__links a:hover { color: var(--white); }
+
+    .navbar__cta { display: flex; align-items: center; gap: 12px; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: all .3s;
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 64px 0 0;
+      background: var(--verde-dark);
+      padding: 24px;
+      z-index: 99;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--white);
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+
+    /* ─── Hero ──────────────────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(145deg, var(--verde-dark) 0%, #223D2E 50%, #1A3C2A 100%);
+      padding: 100px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(45,122,79,.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; left: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(232,160,32,.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero__badge { margin-bottom: 20px; }
+    .hero__badge .badge { background: rgba(232,160,32,.15); color: var(--amber); border-color: rgba(232,160,32,.3); }
+
+    .hero__title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .hero__title .highlight { color: var(--amber); }
+
+    .hero__subtitle {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,.75);
+      margin-bottom: 36px;
+      max-width: 500px;
+      line-height: 1.7;
+    }
+
+    .hero__actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+
+    .hero__trust {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: rgba(255,255,255,.5);
+      font-size: .8rem;
+    }
+    .hero__trust-icons { display: flex; gap: -4px; }
+    .hero__trust-avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--verde);
+      border: 2px solid var(--verde-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .65rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-left: -8px;
+    }
+    .hero__trust-avatar:first-child { margin-left: 0; }
+
+    /* Hero card / mockup */
+    .hero__visual {
+      position: relative;
+    }
+    .hero__card {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius-lg);
+      backdrop-filter: blur(12px);
+      padding: 28px;
+      box-shadow: var(--shadow-lg);
+    }
+    .hero__card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .hero__card-title { color: var(--white); font-weight: 700; font-size: .9rem; }
+    .dot-live {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .75rem;
+      color: #4ADE80;
+      font-weight: 600;
+    }
+    .dot-live::before {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #4ADE80;
+      box-shadow: 0 0 8px #4ADE80;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .4; }
+    }
+
+    .soil-meter {
+      margin-bottom: 20px;
+    }
+    .soil-meter__label {
+      display: flex;
+      justify-content: space-between;
+      color: rgba(255,255,255,.6);
+      font-size: .78rem;
+      margin-bottom: 6px;
+    }
+    .soil-meter__bar {
+      height: 8px;
+      background: rgba(255,255,255,.1);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+    .soil-meter__fill {
+      height: 100%;
+      border-radius: 100px;
+      background: linear-gradient(90deg, var(--verde), var(--amber));
+      transition: width 1s ease;
+    }
+
+    .hero__metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .hero__metric {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      padding: 14px;
+    }
+    .hero__metric-value {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+    .hero__metric-value.positive { color: #4ADE80; }
+    .hero__metric-value.amber    { color: var(--amber); }
+    .hero__metric-label { font-size: .72rem; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+    .hero__floating {
+      position: absolute;
+      background: var(--verde-dark);
+      border: 1px solid rgba(45,122,79,.4);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      box-shadow: var(--shadow);
+    }
+    .hero__floating--top {
+      top: -20px; right: -20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero__floating--bottom {
+      bottom: -20px; left: -20px;
+      font-size: .8rem;
+      color: var(--white);
+    }
+    .floating-icon {
+      font-size: 1.4rem;
+    }
+    .floating-text { font-size: .78rem; color: var(--white); }
+    .floating-text strong { display: block; font-size: .95rem; color: var(--amber); }
+
+    /* ─── Stats Bar ─────────────────────────────────────────────────── */
+    .stats-bar {
+      background: var(--verde-dark);
+      border-top: 1px solid rgba(255,255,255,.06);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      padding: 32px 0;
+    }
+    .stats-bar__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      text-align: center;
+    }
+    .stats-bar__item { color: var(--white); }
+    .stats-bar__number {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--amber);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stats-bar__label { font-size: .82rem; color: rgba(255,255,255,.55); line-height: 1.4; }
+    .stats-bar__divider {
+      width: 1px;
+      background: rgba(255,255,255,.08);
+      margin: 0 auto;
+    }
+
+    /* ─── Problem Section ───────────────────────────────────────────── */
+    .section { padding: 88px 0; }
+    .section--gray { background: var(--gray-50); }
+    .section--dark { background: var(--verde-dark); }
+
+    .section__header { text-align: center; margin-bottom: 60px; }
+    .section__header .badge { margin-bottom: 14px; }
+    .section__title {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 800;
+      color: var(--gray-800);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section__title--white { color: var(--white); }
+    .section__subtitle {
+      font-size: 1.05rem;
+      color: var(--gray-600);
+      max-width: 580px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    .section__subtitle--white { color: rgba(255,255,255,.65); }
+
+    .problem__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .problem__card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .problem__card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--verde), var(--amber));
+    }
+    .problem__icon {
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+    }
+    .problem__stat {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--verde-dark);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .problem__stat span { color: var(--verde); font-size: 1.4rem; }
+    .problem__label { font-weight: 700; color: var(--gray-800); margin-bottom: 8px; font-size: .95rem; }
+    .problem__desc { font-size: .875rem; color: var(--gray-600); line-height: 1.6; }
+
+    /* ─── How it Works ──────────────────────────────────────────────── */
+    .steps__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    .steps__grid::before {
+      content: '';
+      position: absolute;
+      top: 48px;
+      left: calc(16.66% + 24px);
+      right: calc(16.66% + 24px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--verde), var(--amber));
+      z-index: 0;
+    }
+
+    .step {
+      text-align: center;
+      padding: 0 32px;
+      position: relative;
+      z-index: 1;
+    }
+    .step__number {
+      width: 96px; height: 96px;
+      border-radius: 50%;
+      background: var(--verde-dark);
+      color: var(--white);
+      font-size: 1.5rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      border: 4px solid var(--verde);
+      box-shadow: 0 0 0 8px rgba(45,122,79,.1);
+    }
+    .step__icon { font-size: 2rem; }
+    .step__title { font-size: 1.1rem; font-weight: 800; color: var(--gray-800); margin-bottom: 10px; }
+    .step__desc { font-size: .875rem; color: var(--gray-600); line-height: 1.6; }
+
+    /* ─── Features ──────────────────────────────────────────────────── */
+    .features__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .feature-card {
+      display: flex;
+      gap: 20px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      transition: background .2s, border-color .2s;
+    }
+    .feature-card:hover {
+      background: rgba(255,255,255,.07);
+      border-color: rgba(45,122,79,.4);
+    }
+    .feature-card__icon {
+      width: 52px; height: 52px;
+      min-width: 52px;
+      background: rgba(45,122,79,.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+    .feature-card__body {}
+    .feature-card__title { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+    .feature-card__desc { font-size: .85rem; color: rgba(255,255,255,.55); line-height: 1.6; }
+    .feature-card__tag {
+      display: inline-block;
+      font-size: .68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      background: rgba(232,160,32,.15);
+      color: var(--amber);
+      padding: 2px 8px;
+      border-radius: 100px;
+      margin-top: 8px;
+    }
+
+    /* ─── Marketplace ───────────────────────────────────────────────── */
+    .marketplace {
+      background: linear-gradient(135deg, #F0FDF4 0%, #ECFDF5 50%, #F0FDF4 100%);
+      border-radius: var(--radius-lg);
+      padding: 64px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      margin: 0 24px;
+    }
+    .marketplace__title { font-size: 2rem; font-weight: 800; color: var(--verde-dark); margin-bottom: 16px; line-height: 1.2; }
+    .marketplace__desc { font-size: 1rem; color: var(--gray-600); line-height: 1.7; margin-bottom: 24px; }
+    .marketplace__list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+    .marketplace__list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: .9rem;
+      color: var(--gray-700, #374151);
+    }
+    .marketplace__list li::before {
+      content: '✓';
+      color: var(--verde);
+      font-weight: 700;
+      margin-top: 1px;
+      min-width: 16px;
+    }
+
+    .marketplace__visual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .market-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+    .market-card__label { font-size: .72rem; color: var(--gray-400); font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+    .market-card__value { font-size: 1.4rem; font-weight: 800; color: var(--verde-dark); margin: 4px 0; }
+    .market-card__sub { font-size: .75rem; color: var(--gray-600); }
+    .market-card--full { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; }
+
+    /* ─── Pricing ───────────────────────────────────────────────────── */
+    .pricing__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+    .pricing-card {
+      background: var(--white);
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .pricing-card:hover { border-color: var(--verde); box-shadow: var(--shadow-lg); }
+    .pricing-card--featured {
+      border-color: var(--verde);
+      box-shadow: 0 0 0 4px rgba(45,122,79,.08), var(--shadow-lg);
+      position: relative;
+    }
+    .pricing-card__badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--verde);
+      color: var(--white);
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      padding: 4px 16px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .pricing-card__name { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--gray-400); margin-bottom: 8px; }
+    .pricing-card__price {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--gray-800);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .pricing-card__price sup { font-size: 1.1rem; vertical-align: super; font-weight: 700; }
+    .pricing-card__price small { font-size: .9rem; font-weight: 500; color: var(--gray-400); }
+    .pricing-card__tagline { font-size: .82rem; color: var(--gray-600); margin-bottom: 20px; min-height: 36px; line-height: 1.4; }
+    .pricing-card__divider { height: 1px; background: var(--gray-100); margin-bottom: 20px; }
+    .pricing-card__features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+    .pricing-card__features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: .82rem;
+      color: var(--gray-600);
+    }
+    .pricing-card__features li::before {
+      content: '✓';
+      color: var(--verde);
+      font-weight: 700;
+      min-width: 14px;
+      margin-top: 1px;
+    }
+    .pricing-card__features li.no::before { content: '✕'; color: var(--gray-300); }
+    .pricing-card__features li.no { color: var(--gray-400); }
+
+    .pricing__note {
+      text-align: center;
+      margin-top: 32px;
+      font-size: .875rem;
+      color: var(--gray-600);
+    }
+    .pricing__note strong { color: var(--verde); }
+
+    /* ─── Testimonials / Social proof ──────────────────────────────── */
+    .testimonials__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .testimonial-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+    .testimonial-card__quote {
+      font-size: .92rem;
+      color: var(--gray-700, #374151);
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    .testimonial-card__quote::before { content: '"'; color: var(--verde); font-size: 2rem; line-height: 0; vertical-align: -0.4em; margin-right: 4px; }
+    .testimonial-card__author { display: flex; align-items: center; gap: 12px; }
+    .testimonial-card__avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--verde), var(--verde-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-weight: 700;
+      font-size: .85rem;
+    }
+    .testimonial-card__name { font-weight: 700; font-size: .88rem; color: var(--gray-800); }
+    .testimonial-card__role { font-size: .75rem; color: var(--gray-400); }
+    .testimonial-card__stars { color: var(--amber); font-size: .85rem; margin-bottom: 16px; }
+
+    /* ─── Partners ──────────────────────────────────────────────────── */
+    .partners__grid {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .partner-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: .55;
+      transition: opacity .2s;
+      filter: grayscale(1);
+    }
+    .partner-logo:hover { opacity: 1; filter: none; }
+    .partner-logo__icon {
+      width: 48px; height: 48px;
+      background: var(--gray-200);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+    .partner-logo__name { font-size: .85rem; font-weight: 700; color: var(--gray-600); }
+
+    /* ─── Final CTA ─────────────────────────────────────────────────── */
+    .final-cta {
+      background: linear-gradient(135deg, var(--verde-dark) 0%, #223D2E 100%);
+      padding: 100px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232D7A4F' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 1;
+    }
+    .final-cta__inner { position: relative; z-index: 1; }
+    .final-cta__title {
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .final-cta__title .highlight { color: var(--amber); }
+    .final-cta__subtitle {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.65);
+      max-width: 500px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .final-cta__actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+    .final-cta__note { font-size: .8rem; color: rgba(255,255,255,.4); }
+
+    /* ─── Footer ────────────────────────────────────────────────────── */
+    footer {
+      background: var(--black);
+      padding: 48px 0 32px;
+    }
+    .footer__top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer__brand { }
+    .footer__logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .footer__logo-icon {
+      width: 32px; height: 32px;
+      background: var(--verde);
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .9rem;
+    }
+    .footer__logo span { color: var(--amber); }
+    .footer__tagline { font-size: .82rem; color: rgba(255,255,255,.4); line-height: 1.6; max-width: 260px; }
+    .footer__col-title { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: rgba(255,255,255,.35); margin-bottom: 16px; }
+    .footer__links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer__links a { font-size: .85rem; color: rgba(255,255,255,.5); transition: color .15s; }
+    .footer__links a:hover { color: var(--white); }
+    .footer__divider { height: 1px; background: rgba(255,255,255,.06); margin-bottom: 24px; }
+    .footer__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer__copy { font-size: .78rem; color: rgba(255,255,255,.3); }
+    .footer__legal { display: flex; gap: 24px; }
+    .footer__legal a { font-size: .78rem; color: rgba(255,255,255,.3); transition: color .15s; }
+    .footer__legal a:hover { color: rgba(255,255,255,.6); }
+
+    /* ─── Responsive ────────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .pricing__grid { grid-template-columns: repeat(2, 1fr); }
+      .footer__top   { grid-template-columns: 1fr 1fr; }
+      .marketplace   { grid-template-columns: 1fr; gap: 40px; padding: 40px 32px; }
+    }
+
+    @media (max-width: 768px) {
+      .navbar__links { display: none; }
+      .navbar__cta   { display: none; }
+      .hamburger     { display: flex; }
+
+      .hero          { padding: 60px 0 56px; }
+      .hero__inner   { grid-template-columns: 1fr; gap: 48px; }
+      .hero__visual  { display: none; }
+
+      .stats-bar__grid     { grid-template-columns: repeat(2, 1fr); }
+      .problem__grid       { grid-template-columns: 1fr; }
+      .steps__grid         { grid-template-columns: 1fr; }
+      .steps__grid::before { display: none; }
+      .features__grid      { grid-template-columns: 1fr; }
+      .testimonials__grid  { grid-template-columns: 1fr; }
+      .pricing__grid       { grid-template-columns: 1fr; }
+      .marketplace         { margin: 0; padding: 32px 24px; }
+      .marketplace__visual { grid-template-columns: 1fr 1fr; }
+      .footer__top         { grid-template-columns: 1fr; gap: 32px; }
+      .footer__bottom      { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 480px) {
+      .hero__actions   { flex-direction: column; align-items: flex-start; }
+      .stats-bar__grid { grid-template-columns: 1fr 1fr; }
+      .final-cta__actions { flex-direction: column; align-items: center; }
+    }
+
+    /* ─── Scroll animations ─────────────────────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-in-delay-1 { transition-delay: .1s; }
+    .fade-in-delay-2 { transition-delay: .2s; }
+    .fade-in-delay-3 { transition-delay: .3s; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     NAVBAR
+════════════════════════════════════════════════════════════════════ -->
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar__inner">
+      <a href="#" class="navbar__logo">
+        <div class="navbar__logo-icon">🌱</div>
+        Soil-<span>IQ</span>
+      </a>
+
+      <ul class="navbar__links">
+        <li><a href="#como-funciona">Cómo funciona</a></li>
+        <li><a href="#features">Tecnología</a></li>
+        <li><a href="#precios">Precios</a></li>
+        <li><a href="#marketplace">Marketplace</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+
+      <div class="navbar__cta">
+        <a href="#precios" class="btn btn-outline btn-sm">Ver planes</a>
+        <a href="app.html" class="btn btn-primary btn-sm">Ingresar →</a>
+      </div>
+
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#como-funciona" onclick="toggleMenu()">Cómo funciona</a>
+  <a href="#features" onclick="toggleMenu()">Tecnología</a>
+  <a href="#precios" onclick="toggleMenu()">Precios</a>
+  <a href="#marketplace" onclick="toggleMenu()">Marketplace</a>
+  <a href="app.html"><strong>Ingresar a la plataforma →</strong></a>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero__inner">
+      <!-- Copy -->
+      <div>
+        <div class="hero__badge">
+          <span class="badge badge--amber">🚀 AgTech · IA · IoT · Satelital</span>
+        </div>
+        <h1 class="hero__title">
+          Inteligencia que nutre<br>
+          tu suelo, datos que<br>
+          <span class="highlight">potencian tu cosecha</span>
+        </h1>
+        <p class="hero__subtitle">
+          Soil-IQ combina sensores IoT, imágenes satelitales e inteligencia artificial para que fertilices exactamente donde hace falta. Ahorrá hasta <strong style="color:#E8A020">USD 80 por hectárea</strong> — sin depender de señal 4G.
+        </p>
+
+        <div class="hero__actions">
+          <a href="app.html" class="btn btn-primary btn-lg">Ingresar a la plataforma →</a>
+          <a href="#como-funciona" class="btn btn-outline btn-lg">Ver cómo funciona</a>
+        </div>
+
+        <div class="hero__trust">
+          <div class="hero__trust-icons">
+            <div class="hero__trust-avatar">JR</div>
+            <div class="hero__trust-avatar">MC</div>
+            <div class="hero__trust-avatar">PL</div>
+            <div class="hero__trust-avatar">AN</div>
+          </div>
+          <span>+500 productores ya optimizan con Soil-IQ · Sin tarjeta de crédito</span>
+        </div>
+      </div>
+
+      <!-- Visual Card -->
+      <div class="hero__visual fade-in">
+        <div class="hero__card">
+          <div class="hero__card-header">
+            <span class="hero__card-title">📡 Dashboard de campo — Lote Sur</span>
+            <span class="dot-live">En vivo</span>
+          </div>
+
+          <div class="soil-meter">
+            <div class="soil-meter__label">
+              <span>Nitrógeno disponible</span><span>78 kg/ha</span>
+            </div>
+            <div class="soil-meter__bar"><div class="soil-meter__fill" style="width:78%"></div></div>
+          </div>
+          <div class="soil-meter">
+            <div class="soil-meter__label">
+              <span>Fósforo asimilable</span><span>42 ppm</span>
+            </div>
+            <div class="soil-meter__bar"><div class="soil-meter__fill" style="width:42%"></div></div>
+          </div>
+          <div class="soil-meter" style="margin-bottom:20px">
+            <div class="soil-meter__label">
+              <span>Humedad volumétrica</span><span>62%</span>
+            </div>
+            <div class="soil-meter__bar"><div class="soil-meter__fill" style="width:62%"></div></div>
+          </div>
+
+          <div class="hero__metrics">
+            <div class="hero__metric">
+              <div class="hero__metric-value positive">+USD 67</div>
+              <div class="hero__metric-label">ahorro / ha · campaña</div>
+            </div>
+            <div class="hero__metric">
+              <div class="hero__metric-value amber">340 ha</div>
+              <div class="hero__metric-label">superficie monitorizada</div>
+            </div>
+            <div class="hero__metric">
+              <div class="hero__metric-value">92%</div>
+              <div class="hero__metric-label">precisión del modelo IA</div>
+            </div>
+            <div class="hero__metric">
+              <div class="hero__metric-value positive">↓18%</div>
+              <div class="hero__metric-label">fertilizante aplicado</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__floating hero__floating--top">
+          <span class="floating-icon">🛰️</span>
+          <div class="floating-text">
+            <strong>Sentinel-2 · Landsat</strong>
+            NDVI actualizado 48 h
+          </div>
+        </div>
+        <div class="hero__floating hero__floating--bottom">
+          📶 LoRaWAN — Sin internet en el campo
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     STATS BAR
+════════════════════════════════════════════════════════════════════ -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-bar__grid">
+      <div class="stats-bar__item fade-in">
+        <div class="stats-bar__number">70%</div>
+        <div class="stats-bar__label">de los productores fertiliza a ciegas, sin análisis de suelo</div>
+      </div>
+      <div class="stats-bar__item fade-in fade-in-delay-1">
+        <div class="stats-bar__number">USD 900M</div>
+        <div class="stats-bar__label">se pierden anualmente en Argentina por mala fertilización</div>
+      </div>
+      <div class="stats-bar__item fade-in fade-in-delay-2">
+        <div class="stats-bar__number">USD 80</div>
+        <div class="stats-bar__label">ahorro por hectárea con fertilización de precisión guiada por IA</div>
+      </div>
+      <div class="stats-bar__item fade-in fade-in-delay-3">
+        <div class="stats-bar__number">+35M ha</div>
+        <div class="stats-bar__label">de la Pampa argentina son el mercado objetivo de Soil-IQ</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     PROBLEMA
+════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="problema">
+  <div class="container">
+    <div class="section__header">
+      <span class="badge">El problema</span>
+      <h2 class="section__title">El campo pierde millones por<br>datos que nadie está midiendo</h2>
+      <p class="section__subtitle">Los productores medianos toman decisiones de fertilización basadas en experiencia y consultas puntuales. Eso cuesta caro.</p>
+    </div>
+
+    <div class="problem__grid">
+      <div class="problem__card fade-in">
+        <div class="problem__icon">🔬</div>
+        <div class="problem__stat">70<span>%</span></div>
+        <div class="problem__label">Fertiliza sin análisis real</div>
+        <div class="problem__desc">La mayoría aplica dosis históricas o por experiencia. Sin datos de suelo actualizados, el margen de error puede superar el 30%.</div>
+      </div>
+      <div class="problem__card fade-in fade-in-delay-1">
+        <div class="problem__icon">💸</div>
+        <div class="problem__stat">USD 30<span>–80</span></div>
+        <div class="problem__label">Pérdida por hectárea evitable</div>
+        <div class="problem__desc">Entre insumos desperdiciados y rendimiento no capturado, un productor de 500 ha pierde entre USD 15.000 y USD 40.000 por campaña.</div>
+      </div>
+      <div class="problem__card fade-in fade-in-delay-2">
+        <div class="problem__icon">📡</div>
+        <div class="problem__stat">Sin<span> 4G</span></div>
+        <div class="problem__label">El campo no tiene conectividad</div>
+        <div class="problem__desc">El 60% de las zonas rurales pampeanas no tiene señal 4G confiable. Las soluciones actuales simplemente no funcionan en campo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     CÓMO FUNCIONA
+════════════════════════════════════════════════════════════════════ -->
+<section class="section section--gray" id="como-funciona">
+  <div class="container">
+    <div class="section__header">
+      <span class="badge">Cómo funciona</span>
+      <h2 class="section__title">De sensor a decisión en tres pasos</h2>
+      <p class="section__subtitle">Capturamos datos del suelo donde estás, los procesamos con IA y te decimos exactamente qué hacer — sin importar si hay internet.</p>
+    </div>
+
+    <div class="steps__grid">
+      <div class="step fade-in">
+        <div class="step__number"><span class="step__icon">📡</span></div>
+        <h3 class="step__title">1. Captura de datos</h3>
+        <p class="step__desc">Nuestros sensores LoRaWAN miden pH, N, P, K, temperatura y humedad en tiempo real. Funcionan sin internet. Los datos se envían automáticamente cuando hay señal — o se sincronizan al conectar tu teléfono. Complementamos con imágenes satelitales Sentinel-2 y Landsat para mapear variabilidad espacial.</p>
+      </div>
+      <div class="step fade-in fade-in-delay-1">
+        <div class="step__number"><span class="step__icon">🧠</span></div>
+        <h3 class="step__title">2. Análisis con IA</h3>
+        <p class="step__desc">Nuestros modelos de machine learning integran datos de sensores, satélite, análisis de suelo históricos y condiciones climáticas. El resultado: mapas de fertilidad a nivel sub-parcela, recomendaciones de dosis variable y alertas tempranas de deficiencias nutricionales.</p>
+      </div>
+      <div class="step fade-in fade-in-delay-2">
+        <div class="step__number"><span class="step__icon">💡</span></div>
+        <h3 class="step__title">3. Decisión + Acción</h3>
+        <p class="step__desc">Recibís en tu teléfono: qué aplicar, cuánto, dónde y cuándo. Exportás el mapa de prescripción a tu monitor de siembra. Si necesitás insumos o laboratoristas, los encontrás directo en nuestro Marketplace — con precios transparentes y calificaciones.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     FEATURES / TECNOLOGÍA
+════════════════════════════════════════════════════════════════════ -->
+<section class="section section--dark" id="features">
+  <div class="container">
+    <div class="section__header">
+      <span class="badge">Tecnología</span>
+      <h2 class="section__title section__title--white">Infraestructura construida<br>para el campo argentino</h2>
+      <p class="section__subtitle section__subtitle--white">No adaptamos tecnología urbana. Diseñamos desde cero para las condiciones del productor pampeano.</p>
+    </div>
+
+    <div class="features__grid">
+      <div class="feature-card fade-in">
+        <div class="feature-card__icon">📶</div>
+        <div class="feature-card__body">
+          <h3 class="feature-card__title">Red LoRaWAN — Offline First</h3>
+          <p class="feature-card__desc">Sensores con batería de 5 años que transmiten a 15 km sin 4G. Primero en Argentina con cobertura rural nativa.</p>
+          <span class="feature-card__tag">Diferenciador clave</span>
+        </div>
+      </div>
+
+      <div class="feature-card fade-in fade-in-delay-1">
+        <div class="feature-card__icon">🛰️</div>
+        <div class="feature-card__body">
+          <h3 class="feature-card__title">Imágenes satelitales NDVI</h3>
+          <p class="feature-card__desc">Integramos Sentinel-2 (10 m) y Landsat (30 m) para detectar variabilidad espacial y calcular índices de estrés hídrico y nutricional a nivel sub-parcela.</p>
+          <span class="feature-card__tag">Resolución 10 m</span>
+        </div>
+      </div>
+
+      <div class="feature-card fade-in fade-in-delay-2">
+        <div class="feature-card__icon">🤖</div>
+        <div class="feature-card__body">
+          <h3 class="feature-card__title">Modelos de Machine Learning</h3>
+          <p class="feature-card__desc">Entrenados sobre el dataset más grande de suelos pampeanos. Predicen rendimiento, recomienda dosis variable y aprenden con cada campaña de cada productor.</p>
+          <span class="feature-card__tag">92% precisión</span>
+        </div>
+      </div>
+
+      <div class="feature-card fade-in fade-in-delay-3">
+        <div class="feature-card__icon">📱</div>
+        <div class="feature-card__body">
+          <h3 class="feature-card__title">App móvil + OCR de análisis</h3>
+          <p class="feature-card__desc">Subí una foto del análisis de suelo de cualquier laboratorio y nuestra IA lo digitaliza en segundos. Compatible con todos los formatos del mercado.</p>
+          <span class="feature-card__tag">iOS · Android</span>
+        </div>
+      </div>
+
+      <div class="feature-card fade-in">
+        <div class="feature-card__icon">🗺️</div>
+        <div class="feature-card__body">
+          <h3 class="feature-card__title">GIS — Mapas de prescripción</h3>
+          <p class="feature-card__desc">Exportá mapas shape compatibles con John Deere, AGCO y Case IH. Aplicación a tasa variable directo desde el monitor de siembra sin pasos adicionales.</p>
+          <span class="feature-card__tag">Exportación shape/KML</span>
+        </div>
+      </div>
+
+      <div class="feature-card fade-in fade-in-delay-1">
+        <div class="feature-card__icon">🔒</div>
+        <div class="feature-card__body">
+          <h3 class="feature-card__title">Datos seguros y propios</h3>
+          <p class="feature-card__desc">Tus datos son tuyos. Encriptación end-to-end, servidores en Argentina, cumplimiento Ley 25.326. Nunca los vendemos ni compartimos sin tu autorización.</p>
+          <span class="feature-card__tag">Privacidad garantizada</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     MARKETPLACE
+════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="marketplace" style="background: var(--gray-50);">
+  <div class="container">
+    <div class="marketplace fade-in">
+      <div>
+        <span class="badge badge--amber" style="margin-bottom:16px">Marketplace AgTech</span>
+        <h2 class="marketplace__title">El campo necesita proveedor. Soil-IQ lo conecta.</h2>
+        <p class="marketplace__desc">
+          Desde la plataforma contratás laboratoristas, comprás fertilizantes con precios transparentes y accedés a servicios de aplicación variable — todo con el respaldo de la reputación del proveedor validada por la comunidad.
+        </p>
+        <ul class="marketplace__list">
+          <li>Laboratoristas certificados con turno online y resultado digital</li>
+          <li>Fertilizantes con precios transparentes y envío a campo</li>
+          <li>Contratistas de aplicación variable georreferenciados</li>
+          <li>Asesores CREA/AAPRESID conectados a tus datos en tiempo real</li>
+          <li>Comisión 3–8% solo cuando cerrás la operación</li>
+        </ul>
+        <a href="#empezar" class="btn btn-verde">Explorar proveedores</a>
+      </div>
+
+      <div class="marketplace__visual">
+        <div class="market-card">
+          <div class="market-card__label">Laboratoristas activos</div>
+          <div class="market-card__value">142</div>
+          <div class="market-card__sub">Zona Pampa Húmeda</div>
+        </div>
+        <div class="market-card">
+          <div class="market-card__label">Análisis promedio</div>
+          <div class="market-card__value">$8.400</div>
+          <div class="market-card__sub">vs $12.000 mercado</div>
+        </div>
+        <div class="market-card">
+          <div class="market-card__label">Rating proveedores</div>
+          <div class="market-card__value">4.8 ★</div>
+          <div class="market-card__sub">Base de +800 reviews</div>
+        </div>
+        <div class="market-card">
+          <div class="market-card__label">Tiempo respuesta</div>
+          <div class="market-card__value">&lt;24 h</div>
+          <div class="market-card__sub">Turno confirmado</div>
+        </div>
+        <div class="market-card market-card--full">
+          <div>
+            <div class="market-card__label">Ahorro en insumos frente a precio mostrador</div>
+            <div class="market-card__value" style="font-size:1.8rem">Hasta 22% menos</div>
+          </div>
+          <span style="font-size:2rem">💰</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SOCIAL PROOF / TESTIMONIOS
+════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="testimonios">
+  <div class="container">
+    <div class="section__header">
+      <span class="badge">Productores reales</span>
+      <h2 class="section__title">Resultados que hablan solos</h2>
+      <p class="section__subtitle">Productores de la Pampa argentina comparten su experiencia en la primera campaña con Soil-IQ.</p>
+    </div>
+
+    <div class="testimonials__grid">
+      <div class="testimonial-card fade-in">
+        <div class="testimonial-card__stars">★★★★★</div>
+        <p class="testimonial-card__quote">En la primera campaña ahorré USD 47 por hectárea en urea. Tengo 420 ha así que estamos hablando de casi USD 20.000 que antes tiraba a la basura. Lo que no entiendo es por qué no existía antes.</p>
+        <div class="testimonial-card__author">
+          <div class="testimonial-card__avatar">JR</div>
+          <div>
+            <div class="testimonial-card__name">Javier Rodríguez</div>
+            <div class="testimonial-card__role">Productor ganadero-agrícola · 420 ha · Trenque Lauquen, Bs.As.</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-in fade-in-delay-1">
+        <div class="testimonial-card__stars">★★★★★</div>
+        <p class="testimonial-card__quote">Lo que más me sorprendió es que funciona en el campo sin señal. Siempre tuve miedo de los sistemas que dependen de internet. Con Soil-IQ, cuando llego a la tranquera todo ya está sincronizado.</p>
+        <div class="testimonial-card__author">
+          <div class="testimonial-card__avatar">MC</div>
+          <div>
+            <div class="testimonial-card__name">Marcela Castro</div>
+            <div class="testimonial-card__role">Productora agrícola · 680 ha · Río Cuarto, Córdoba</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-in fade-in-delay-2">
+        <div class="testimonial-card__stars">★★★★★</div>
+        <p class="testimonial-card__quote">Soy asesor de 12 productores. Con Soil-IQ centralizo todos los lotes en un mismo dashboard. Antes tardaba 3 días en recopilar información; ahora lo veo en tiempo real. Mis clientes renuevan solos.</p>
+        <div class="testimonial-card__author">
+          <div class="testimonial-card__avatar">PL</div>
+          <div>
+            <div class="testimonial-card__name">Pablo López</div>
+            <div class="testimonial-card__role">Ing. Agrónomo · Asesor CREA · Santa Fe</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     PRECIOS
+════════════════════════════════════════════════════════════════════ -->
+<section class="section section--gray" id="precios">
+  <div class="container">
+    <div class="section__header">
+      <span class="badge">Precios</span>
+      <h2 class="section__title">Transparente, sin sorpresas</h2>
+      <p class="section__subtitle">Empezá gratis, pagás cuando el valor es evidente. Sin permanencia mínima, sin letra chica.</p>
+    </div>
+
+    <div class="pricing__grid">
+      <!-- Free -->
+      <div class="pricing-card fade-in">
+        <div class="pricing-card__name">Free</div>
+        <div class="pricing-card__price">$0</div>
+        <div class="pricing-card__tagline">Para conocer Soil-IQ sin compromiso</div>
+        <div class="pricing-card__divider"></div>
+        <ul class="pricing-card__features">
+          <li>Dashboard básico de suelo</li>
+          <li>1 lote activo (hasta 100 ha)</li>
+          <li>NDVI satelital mensual</li>
+          <li>Digitalización OCR de análisis</li>
+          <li>Acceso al Marketplace</li>
+          <li class="no">Recomendaciones de dosis IA</li>
+          <li class="no">Mapas de prescripción</li>
+          <li class="no">Sensores IoT incluidos</li>
+        </ul>
+        <a href="#empezar" class="btn btn-verde" style="width:100%;justify-content:center">Empezar gratis</a>
+      </div>
+
+      <!-- Análisis Puntual -->
+      <div class="pricing-card fade-in fade-in-delay-1">
+        <div class="pricing-card__name">Análisis Puntual</div>
+        <div class="pricing-card__price"><sup>USD</sup>45<small>/lote</small></div>
+        <div class="pricing-card__tagline">Pago único por análisis. Ideal para validar antes de fertilizar.</div>
+        <div class="pricing-card__divider"></div>
+        <ul class="pricing-card__features">
+          <li>Todo el plan Free</li>
+          <li>Informe IA completo por lote</li>
+          <li>Recomendación de dosis por zona</li>
+          <li>Mapa de prescripción exportable</li>
+          <li>Comparativo vs. campaña anterior</li>
+          <li class="no">Monitoreo continuo</li>
+          <li class="no">Sensores IoT incluidos</li>
+          <li class="no">Soporte agronómico</li>
+        </ul>
+        <a href="#empezar" class="btn" style="width:100%;justify-content:center;background:var(--gray-100);color:var(--gray-800)">Comprar análisis</a>
+      </div>
+
+      <!-- Pro — featured -->
+      <div class="pricing-card pricing-card--featured fade-in fade-in-delay-2">
+        <div class="pricing-card__badge">Más popular</div>
+        <div class="pricing-card__name">Pro</div>
+        <div class="pricing-card__price"><sup>USD</sup>4<small>/ha/año</small></div>
+        <div class="pricing-card__tagline">Monitoreo continuo toda la campaña. Se paga solo en la primera fertilización.</div>
+        <div class="pricing-card__divider"></div>
+        <ul class="pricing-card__features">
+          <li>Todo el plan Análisis Puntual</li>
+          <li>Monitoreo IoT en tiempo real</li>
+          <li>Alertas automáticas por umbral</li>
+          <li>NDVI semanal (Sentinel-2)</li>
+          <li>Recomendaciones estacionales IA</li>
+          <li>Exportación shape/KML/GeoTIFF</li>
+          <li>Soporte agronómico prioritario</li>
+          <li>API para integración de maquinaria</li>
+        </ul>
+        <a href="#empezar" class="btn btn-primary" style="width:100%;justify-content:center">Empezar con Pro</a>
+      </div>
+
+      <!-- Enterprise -->
+      <div class="pricing-card fade-in fade-in-delay-3">
+        <div class="pricing-card__name">Enterprise</div>
+        <div class="pricing-card__price" style="font-size:1.6rem">A medida</div>
+        <div class="pricing-card__tagline">Para fondos de inversión, cooperativas y acopios con +2.500 ha.</div>
+        <div class="pricing-card__divider"></div>
+        <ul class="pricing-card__features">
+          <li>Todo el plan Pro</li>
+          <li>Multi-campo y multi-usuario</li>
+          <li>Tablero consolidado de grupo</li>
+          <li>Integración ERP / SAP</li>
+          <li>Dataset histórico propietario</li>
+          <li>Capacitación y onboarding</li>
+          <li>SLA garantizado 99.9%</li>
+          <li>Asesor agronómico dedicado</li>
+        </ul>
+        <a href="#contacto" class="btn btn-verde" style="width:100%;justify-content:center">Contactar ventas</a>
+      </div>
+    </div>
+
+    <p class="pricing__note">
+      <strong>Sin permanencia mínima.</strong> Cancelás cuando querés. El plan Pro se amortiza con el ahorro de la primera aplicación de fertilizante. <br>
+      Los sensores IoT se alquilan o compran por separado. Consultanos para el equipo de tu lote.
+    </p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     PARTNERS / CREDIBILIDAD
+════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="partners">
+  <div class="container">
+    <div class="section__header" style="margin-bottom:40px">
+      <span class="badge">Respaldo institucional</span>
+      <h2 class="section__title">Validado por las instituciones<br>que el campo respeta</h2>
+    </div>
+
+    <div class="partners__grid">
+      <div class="partner-logo">
+        <div class="partner-logo__icon">🌾</div>
+        <div class="partner-logo__name">INTA</div>
+      </div>
+      <div class="partner-logo">
+        <div class="partner-logo__icon">🤝</div>
+        <div class="partner-logo__name">AAPRESID</div>
+      </div>
+      <div class="partner-logo">
+        <div class="partner-logo__icon">📊</div>
+        <div class="partner-logo__name">Bolsa de Cereales</div>
+      </div>
+      <div class="partner-logo">
+        <div class="partner-logo__icon">🏛️</div>
+        <div class="partner-logo__name">Universidad Austral</div>
+      </div>
+      <div class="partner-logo">
+        <div class="partner-logo__icon">🚜</div>
+        <div class="partner-logo__name">CREA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     FINAL CTA
+════════════════════════════════════════════════════════════════════ -->
+<section class="final-cta" id="empezar">
+  <div class="container">
+    <div class="final-cta__inner">
+      <h2 class="final-cta__title">
+        Tu próxima campaña puede rendir<br>
+        <span class="highlight">USD 80 más por hectárea</span>
+      </h2>
+      <p class="final-cta__subtitle">
+        Empezá hoy gratis. Configurás tu primer lote en menos de 10 minutos — y en 48 horas tenés tu primer análisis de suelo con IA.
+      </p>
+      <div class="final-cta__actions">
+        <a href="app.html" class="btn btn-primary btn-lg">Ingresar a la plataforma →</a>
+        <a href="#contacto" class="btn btn-outline btn-lg">Hablar con un agrónomo</a>
+      </div>
+      <p class="final-cta__note">Sin tarjeta de crédito · Sin permanencia mínima · Soporte en español</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════════════ -->
+<footer id="contacto">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <div class="footer__logo">
+          <div class="footer__logo-icon">🌱</div>
+          Soil-<span>IQ</span>
+        </div>
+        <p class="footer__tagline">Inteligencia que nutre tu suelo, datos que potencian tu cosecha. Hecho en Argentina para el campo argentino.</p>
+      </div>
+      <div>
+        <div class="footer__col-title">Plataforma</div>
+        <ul class="footer__links">
+          <li><a href="#como-funciona">Cómo funciona</a></li>
+          <li><a href="#features">Tecnología IoT</a></li>
+          <li><a href="#features">Análisis satelital</a></li>
+          <li><a href="#marketplace">Marketplace</a></li>
+          <li><a href="#precios">Precios</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__col-title">Empresa</div>
+        <ul class="footer__links">
+          <li><a href="#">Sobre Soil-IQ</a></li>
+          <li><a href="#">Blog agronómico</a></li>
+          <li><a href="#">Casos de éxito</a></li>
+          <li><a href="#">Para asesores</a></li>
+          <li><a href="#">Prensa</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__col-title">Contacto</div>
+        <ul class="footer__links">
+          <li><a href="#">hola@soil-iq.com.ar</a></li>
+          <li><a href="#">+54 11 XXXX-XXXX</a></li>
+          <li><a href="#">WhatsApp campo</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__divider"></div>
+
+    <div class="footer__bottom">
+      <p class="footer__copy">© 2026 Soil-IQ. Desarrollado en Universidad Austral. Todos los derechos reservados.</p>
+      <div class="footer__legal">
+        <a href="#">Política de privacidad</a>
+        <a href="#">Términos de uso</a>
+        <a href="#">Seguridad de datos</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     JS — Minimal, no dependencies
+════════════════════════════════════════════════════════════════════ -->
+<script>
+  /* Mobile menu toggle */
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  /* Scroll animations */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  /* Smooth close mobile menu on nav link click */
+  document.querySelectorAll('.mobile-menu a').forEach(a => {
+    a.addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.remove('open');
+    });
+  });
+
+  /* Soil meters animation on load */
+  window.addEventListener('load', () => {
+    document.querySelectorAll('.soil-meter__fill').forEach(bar => {
+      const target = bar.style.width;
+      bar.style.width = '0';
+      setTimeout(() => { bar.style.width = target; }, 400);
+    });
+  });
+
+  /* Counter animation for stats bar */
+  function animateCounter(el, target, suffix, prefix) {
+    const duration = 1800;
+    const start = performance.now();
+    const isFloat = target % 1 !== 0;
+
+    function update(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = isFloat ? (eased * target).toFixed(1) : Math.round(eased * target);
+      el.textContent = (prefix || '') + current + (suffix || '');
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const num = e.target.querySelector('.stats-bar__number');
+        if (!num || num.dataset.animated) return;
+        num.dataset.animated = '1';
+        const text = num.textContent;
+        if (text.includes('900M')) animateCounter(num, 900, 'M', 'USD ');
+        else if (text.includes('70%')) animateCounter(num, 70, '%');
+        else if (text.includes('80')) animateCounter(num, 80, '', 'USD ');
+        else if (text.includes('35M')) animateCounter(num, 35, 'M ha', '+');
+        statsObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.stats-bar__item').forEach(el => statsObserver.observe(el));
+</script>
+
+</body>
+</html>
