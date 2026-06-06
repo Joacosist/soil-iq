@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Soil-IQ: Plataforma AgTech con sensores IoT, imágenes satelitales e inteligencia artificial para optimizar la fertilización y aumentar tu rentabilidad hasta USD 80/ha.">
+  <meta name="description" content="Soil-IQ: Plataforma AgTech que convierte las pasadas de tu maquinaria en datos de suelo. Para contratistas que quieren diferenciarse y productores que quieren fertilizar con precisión.">
   <meta name="theme-color" content="#2D7A4F">
   <title>Soil-IQ — Inteligencia para tu suelo</title>
 
@@ -452,7 +452,7 @@
 
     .problem__grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 24px;
     }
     .problem__card {
@@ -622,7 +622,7 @@
     /* ─── Pricing ───────────────────────────────────────────────────── */
     .pricing__grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 20px;
       align-items: start;
     }
@@ -857,7 +857,7 @@
       .hero__visual  { display: none; }
 
       .stats-bar__grid     { grid-template-columns: repeat(2, 1fr); }
-      .problem__grid       { grid-template-columns: 1fr; }
+      .problem__grid       { grid-template-columns: 1fr 1fr; }
       .steps__grid         { grid-template-columns: 1fr; }
       .steps__grid::before { display: none; }
       .features__grid      { grid-template-columns: 1fr; }
@@ -873,6 +873,660 @@
       .hero__actions   { flex-direction: column; align-items: flex-start; }
       .stats-bar__grid { grid-template-columns: 1fr 1fr; }
       .final-cta__actions { flex-direction: column; align-items: center; }
+    }
+
+    /* ─── Contractor Section ───────────────────────────────────────── */
+    .contractor-section {
+      background: linear-gradient(150deg, #0F2D1C 0%, #1A3C2A 45%, #0D2318 100%);
+      padding: 96px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .contractor-section::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(232,160,32,.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .contractor-section::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -80px;
+      width: 360px; height: 360px;
+      background: radial-gradient(circle, rgba(45,122,79,.18) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .contractor-headline {
+      text-align: center;
+      margin-bottom: 64px;
+      position: relative;
+      z-index: 1;
+    }
+    .contractor-headline .badge {
+      background: rgba(232,160,32,.15);
+      color: var(--amber);
+      border-color: rgba(232,160,32,.3);
+      margin-bottom: 20px;
+    }
+    .contractor-headline h2 {
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .contractor-headline h2 em {
+      color: var(--amber);
+      font-style: normal;
+    }
+    .contractor-headline p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,.6);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .contractor-benefits {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 48px;
+      position: relative;
+      z-index: 1;
+    }
+    .cb-card {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      transition: background .2s, border-color .2s, transform .2s;
+    }
+    .cb-card:hover {
+      background: rgba(255,255,255,.08);
+      border-color: rgba(45,122,79,.5);
+      transform: translateY(-4px);
+    }
+    .cb-card__icon {
+      font-size: 2.4rem;
+      margin-bottom: 18px;
+      display: block;
+    }
+    .cb-card__title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+    .cb-card__desc {
+      font-size: .875rem;
+      color: rgba(255,255,255,.5);
+      line-height: 1.65;
+    }
+    .cb-card__highlight {
+      display: inline-block;
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--amber);
+      background: rgba(232,160,32,.12);
+      border: 1px solid rgba(232,160,32,.25);
+      padding: 3px 10px;
+      border-radius: 100px;
+      margin-top: 14px;
+    }
+
+    .earn-banner {
+      background: linear-gradient(135deg, rgba(232,160,32,.15) 0%, rgba(232,160,32,.05) 100%);
+      border: 1px solid rgba(232,160,32,.3);
+      border-radius: var(--radius-lg);
+      padding: 40px 48px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: center;
+      margin-bottom: 48px;
+      position: relative;
+      z-index: 1;
+    }
+    .earn-banner__left {}
+    .earn-banner__eyebrow {
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--amber);
+      margin-bottom: 10px;
+    }
+    .earn-banner__title {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .earn-banner__title em { color: var(--amber); font-style: normal; }
+    .earn-banner__desc {
+      font-size: .9rem;
+      color: rgba(255,255,255,.55);
+      line-height: 1.65;
+      max-width: 520px;
+    }
+    .earn-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 240px;
+    }
+    .earn-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .earn-step__num {
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      border-radius: 50%;
+      background: var(--verde);
+      color: var(--white);
+      font-size: .72rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .earn-step__text {
+      font-size: .82rem;
+      color: rgba(255,255,255,.65);
+      line-height: 1.5;
+      padding-top: 4px;
+    }
+    .earn-step__text strong { color: var(--white); }
+
+    .contractor-quote {
+      text-align: center;
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 1;
+    }
+    .contractor-quote blockquote {
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      font-weight: 700;
+      color: rgba(255,255,255,.85);
+      font-style: italic;
+      line-height: 1.5;
+      max-width: 680px;
+      margin: 0 auto 12px;
+    }
+    .contractor-quote blockquote::before { content: '"'; color: var(--amber); }
+    .contractor-quote blockquote::after  { content: '"'; color: var(--amber); }
+    .contractor-quote cite {
+      font-size: .8rem;
+      color: rgba(255,255,255,.35);
+      font-style: normal;
+    }
+
+    .contractor-cta {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .contractor-cta p {
+      font-size: .8rem;
+      color: rgba(255,255,255,.35);
+      margin-top: 12px;
+    }
+
+    /* Audience toggle tabs */
+    .audience-tabs {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 48px;
+    }
+    .audience-tab {
+      padding: 10px 24px;
+      border-radius: 100px;
+      font-size: .875rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 2px solid var(--gray-200);
+      color: var(--gray-600);
+      background: var(--white);
+      transition: all .15s;
+    }
+    .audience-tab.active {
+      background: var(--verde);
+      color: var(--white);
+      border-color: var(--verde);
+    }
+
+    @media (max-width: 768px) {
+      .contractor-benefits { grid-template-columns: 1fr; }
+      .earn-banner { grid-template-columns: 1fr; padding: 28px 24px; }
+      .earn-steps { min-width: unset; }
+    }
+
+    /* ─── Solución ──────────────────────────────────────────────────── */
+    .solution-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .solution-lead {
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 900;
+      color: var(--gray-800);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .solution-lead em { color: var(--verde); font-style: normal; }
+    .solution-sub {
+      font-size: 1rem;
+      color: var(--gray-600);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .solution-items { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
+    .solution-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 18px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-left: 4px solid var(--verde);
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+    .solution-item__icon { font-size: 1.4rem; min-width: 28px; margin-top: 1px; }
+    .solution-item__title { font-size: .9rem; font-weight: 700; color: var(--gray-800); margin-bottom: 2px; }
+    .solution-item__desc  { font-size: .78rem; color: var(--gray-600); line-height: 1.5; }
+    .solution-visual {
+      background: linear-gradient(145deg, var(--verde-dark), #223D2E);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-lg);
+    }
+    .solution-visual__label {
+      font-size: .7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: rgba(255,255,255,.4);
+      margin-bottom: 16px;
+    }
+    .solution-visual__row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      font-size: .85rem;
+    }
+    .solution-visual__row:last-of-type { border-bottom: none; }
+    .solution-visual__key { color: rgba(255,255,255,.5); }
+    .solution-visual__val { font-weight: 700; color: var(--white); }
+    .solution-visual__val.pos { color: #4ADE80; }
+    .solution-visual__val.warn { color: var(--amber); }
+    .solution-cta-note {
+      font-size: .8rem;
+      color: var(--gray-400);
+      margin-top: 8px;
+    }
+    @media (max-width: 768px) {
+      .solution-split { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    /* ─── Mercado (TAM/SAM/SOM) ────────────────────────────────────── */
+    .tam-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .tam-card {
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .tam-card--tam  { background: linear-gradient(135deg,#0F2D1C,#1A3C2A); border: 1px solid rgba(45,122,79,.4); }
+    .tam-card--sam  { background: linear-gradient(135deg,#1A3C2A,#2D7A4F); border: 1px solid rgba(45,122,79,.5); }
+    .tam-card--som  { background: linear-gradient(135deg,#2D7A4F,#3A9660); border: 1px solid rgba(45,122,79,.6); }
+    .tam-card__eyebrow {
+      font-size: .7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--amber);
+      margin-bottom: 12px;
+    }
+    .tam-card__value {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .tam-card__detail {
+      font-size: .78rem;
+      color: rgba(255,255,255,.55);
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+    .tam-card__desc {
+      font-size: .82rem;
+      color: rgba(255,255,255,.5);
+      line-height: 1.6;
+    }
+    .tam-card__label {
+      font-size: .8rem;
+      font-weight: 700;
+      color: rgba(255,255,255,.35);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 6px;
+    }
+    .market-stats-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+    }
+    .market-stat { text-align: center; }
+    .market-stat__value {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--verde-dark);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .market-stat__label {
+      font-size: .75rem;
+      color: var(--gray-600);
+      line-height: 1.4;
+    }
+
+    /* ─── Modelo de Negocio ─────────────────────────────────────────── */
+    .bm-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    .bm-card {
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      border: 2px solid var(--gray-200);
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+    .bm-card--contractor { border-color: #3B82F6; }
+    .bm-card--producer   { border-color: var(--verde); }
+    .bm-card__header {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--gray-800);
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .bm-row {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .bm-row__item { display: flex; flex-direction: column; gap: 4px; }
+    .bm-row__key {
+      font-size: .7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--gray-400);
+    }
+    .bm-row__val {
+      font-size: .9rem;
+      color: var(--gray-800);
+      font-weight: 600;
+      line-height: 1.4;
+    }
+    .bm-row__val span {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 100px;
+      margin-left: 6px;
+    }
+    .bm-tag-blue  { background:#DBEAFE;color:#1D4ED8; }
+    .bm-tag-green { background:#DCFCE7;color:#15803D; }
+    .ltvcac-banner {
+      background: linear-gradient(135deg,var(--verde-dark),#223D2E);
+      border-radius: var(--radius-lg);
+      padding: 28px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .ltvcac-banner__main {
+      font-size: clamp(1.2rem,2vw,1.6rem);
+      font-weight: 900;
+      color: var(--white);
+    }
+    .ltvcac-banner__main em { color: var(--amber); font-style: normal; }
+    .ltvcac-banner__sub {
+      font-size: .85rem;
+      color: rgba(255,255,255,.5);
+    }
+    .ltvcac-stat {
+      text-align: right;
+    }
+    .ltvcac-stat__num {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--amber);
+      line-height: 1;
+    }
+    .ltvcac-stat__label {
+      font-size: .72rem;
+      color: rgba(255,255,255,.4);
+      margin-top: 4px;
+    }
+
+    /* ─── Roadmap ───────────────────────────────────────────────────── */
+    .roadmap-timeline {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      position: relative;
+      margin-bottom: 16px;
+    }
+    .roadmap-timeline::before {
+      content: '';
+      position: absolute;
+      top: 36px;
+      left: calc(10% + 12px);
+      right: calc(10% + 12px);
+      height: 3px;
+      background: linear-gradient(90deg, var(--verde), var(--amber));
+      z-index: 0;
+    }
+    .rm-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .rm-step__dot {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      border: 4px solid;
+    }
+    .rm-step--done .rm-step__dot {
+      background: var(--verde);
+      border-color: var(--verde);
+      color: var(--white);
+      box-shadow: 0 0 0 8px rgba(45,122,79,.15);
+    }
+    .rm-step--pending .rm-step__dot {
+      background: rgba(255,255,255,.05);
+      border-color: rgba(255,255,255,.2);
+      color: rgba(255,255,255,.5);
+    }
+    .rm-step__period {
+      font-size: .75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 8px;
+    }
+    .rm-step--done   .rm-step__period { color: var(--amber); }
+    .rm-step--pending .rm-step__period { color: rgba(255,255,255,.4); }
+    .rm-step__title {
+      font-size: .9rem;
+      font-weight: 700;
+      text-align: center;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+    .rm-step--done   .rm-step__title { color: var(--white); }
+    .rm-step--pending .rm-step__title { color: rgba(255,255,255,.65); }
+    .rm-step__desc {
+      font-size: .75rem;
+      text-align: center;
+      line-height: 1.5;
+      color: rgba(255,255,255,.4);
+    }
+    .rm-step--done .rm-step__desc { color: rgba(255,255,255,.55); }
+
+    /* ─── Equipo ────────────────────────────────────────────────────── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    .team-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .team-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .team-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--verde), var(--verde-dark));
+      color: var(--white);
+      font-size: .95rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      overflow: hidden;
+    }
+    .team-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .team-card__name {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--gray-800);
+      margin-bottom: 4px;
+    }
+    .team-card__role {
+      font-size: .75rem;
+      color: var(--gray-400);
+      line-height: 1.4;
+    }
+    .advisor-card {
+      background: linear-gradient(135deg,#F0FDF4,#ECFDF5);
+      border: 2px solid var(--verde);
+      border-radius: var(--radius-lg);
+      padding: 32px 40px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      box-shadow: 0 0 0 4px rgba(45,122,79,.08), var(--shadow);
+    }
+    .advisor-avatar {
+      width: 72px;
+      height: 72px;
+      min-width: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--verde), var(--verde-dark));
+      color: var(--white);
+      font-size: 1.1rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .advisor-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .72rem;
+      font-weight: 700;
+      background: var(--verde);
+      color: var(--white);
+      padding: 3px 12px;
+      border-radius: 100px;
+      margin-bottom: 8px;
+    }
+    .advisor-card__name {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--verde-dark);
+      margin-bottom: 4px;
+    }
+    .advisor-card__role {
+      font-size: .82rem;
+      color: var(--gray-600);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      .tam-grid           { grid-template-columns: 1fr; }
+      .bm-grid            { grid-template-columns: 1fr; }
+      .roadmap-timeline   { grid-template-columns: 1fr 1fr; gap: 24px; }
+      .roadmap-timeline::before { display: none; }
+      .team-grid          { grid-template-columns: 1fr 1fr; }
+      .advisor-card       { flex-direction: column; text-align: center; }
+      .market-stats-strip { grid-template-columns: 1fr 1fr; }
+      .ltvcac-banner      { flex-direction: column; text-align: center; }
+      .ltvcac-stat        { text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .team-grid { grid-template-columns: 1fr; }
+      .market-stats-strip { grid-template-columns: 1fr; }
     }
 
     /* ─── Scroll animations ─────────────────────────────────────────── */
@@ -904,11 +1558,11 @@
       </a>
 
       <ul class="navbar__links">
-        <li><a href="#como-funciona">Cómo funciona</a></li>
-        <li><a href="#features">Tecnología</a></li>
+        <li><a href="#problema">Problema</a></li>
+        <li><a href="#mercado">Mercado</a></li>
+        <li><a href="#modelo">Modelo</a></li>
+        <li><a href="#equipo">Equipo</a></li>
         <li><a href="#precios">Precios</a></li>
-        <li><a href="#marketplace">Marketplace</a></li>
-        <li><a href="#contacto">Contacto</a></li>
       </ul>
 
       <div class="navbar__cta">
@@ -925,11 +1579,13 @@
 
 <!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#como-funciona" onclick="toggleMenu()">Cómo funciona</a>
-  <a href="#features" onclick="toggleMenu()">Tecnología</a>
+  <a href="#problema" onclick="toggleMenu()">El problema</a>
+  <a href="#mercado" onclick="toggleMenu()">Mercado</a>
+  <a href="#modelo" onclick="toggleMenu()">Modelo de negocio</a>
+  <a href="#roadmap" onclick="toggleMenu()">Roadmap</a>
+  <a href="#equipo" onclick="toggleMenu()">Equipo</a>
   <a href="#precios" onclick="toggleMenu()">Precios</a>
-  <a href="#marketplace" onclick="toggleMenu()">Marketplace</a>
-  <a href="app.html"><strong>Ingresar a la plataforma →</strong></a>
+  <a href="app.html"><strong>Ver la plataforma →</strong></a>
 </div>
 
 
@@ -942,30 +1598,30 @@
       <!-- Copy -->
       <div>
         <div class="hero__badge">
-          <span class="badge badge--amber">🚀 AgTech · IA · IoT · Satelital</span>
+          <span class="badge badge--amber">🚜 Para contratistas y productores · AgTech argentino</span>
         </div>
         <h1 class="hero__title">
-          Inteligencia que nutre<br>
-          tu suelo, datos que<br>
-          <span class="highlight">potencian tu cosecha</span>
+          La maquinaria agrícola<br>
+          convertida en datos que<br>
+          <span class="highlight">tomen decisiones</span>
         </h1>
         <p class="hero__subtitle">
-          Soil-IQ combina sensores IoT, imágenes satelitales e inteligencia artificial para que fertilices exactamente donde hace falta. Ahorrá hasta <strong style="color:#E8A020">USD 80 por hectárea</strong> — sin depender de señal 4G.
+          El kit de sensores Soil-IQ se monta en la maquinaria del contratista. Cada pasada registra datos de suelo que permiten al productor fertilizar con precisión y al contratista diferenciarse de la competencia. <strong style="color:#E8A020">Una inversión que se amortiza en la primera campaña.</strong>
         </p>
 
         <div class="hero__actions">
-          <a href="app.html" class="btn btn-primary btn-lg">Ingresar a la plataforma →</a>
-          <a href="#como-funciona" class="btn btn-outline btn-lg">Ver cómo funciona</a>
+          <a href="app.html" class="btn btn-primary btn-lg">Ver la plataforma →</a>
+          <a href="#problema" class="btn btn-outline btn-lg">Ver cómo funciona</a>
         </div>
 
         <div class="hero__trust">
           <div class="hero__trust-icons">
+            <div class="hero__trust-avatar">RC</div>
             <div class="hero__trust-avatar">JR</div>
             <div class="hero__trust-avatar">MC</div>
             <div class="hero__trust-avatar">PL</div>
-            <div class="hero__trust-avatar">AN</div>
           </div>
-          <span>+500 productores ya optimizan con Soil-IQ · Sin tarjeta de crédito</span>
+          <span>Contratistas y productores ya usan Soil-IQ · Sin tarjeta de crédito</span>
         </div>
       </div>
 
@@ -973,7 +1629,7 @@
       <div class="hero__visual fade-in">
         <div class="hero__card">
           <div class="hero__card-header">
-            <span class="hero__card-title">📡 Dashboard de campo — Lote Sur</span>
+            <span class="hero__card-title">🚜 Pasada en curso — Est. La Esperanza</span>
             <span class="dot-live">En vivo</span>
           </div>
 
@@ -1017,14 +1673,14 @@
         </div>
 
         <div class="hero__floating hero__floating--top">
-          <span class="floating-icon">🛰️</span>
+          <span class="floating-icon">📍</span>
           <div class="floating-text">
-            <strong>Sentinel-2 · Landsat</strong>
-            NDVI actualizado 48 h
+            <strong>Lote 3 · 85 ha recorridas</strong>
+            1.240 puntos de datos registrados
           </div>
         </div>
         <div class="hero__floating hero__floating--bottom">
-          📶 LoRaWAN — Sin internet en el campo
+          💰 Ingreso extra por cada ha de datos subida
         </div>
       </div>
     </div>
@@ -1059,6 +1715,8 @@
 </div>
 
 
+
+
 <!-- ═══════════════════════════════════════════════════════════════════
      PROBLEMA
 ════════════════════════════════════════════════════════════════════ -->
@@ -1089,37 +1747,127 @@
         <div class="problem__label">El campo no tiene conectividad</div>
         <div class="problem__desc">El 60% de las zonas rurales pampeanas no tiene señal 4G confiable. Las soluciones actuales simplemente no funcionan en campo.</div>
       </div>
+      <div class="problem__card fade-in fade-in-delay-3">
+        <div class="problem__icon">📍</div>
+        <div class="problem__stat">2–4<span> pts</span></div>
+        <div class="problem__label">El análisis tradicional no es preciso</div>
+        <div class="problem__desc">El método estándar toma 2 a 4 muestras por cada 100 ha. Soil-IQ registra miles de puntos por pasada — zonas críticas que hoy quedan ocultas entre muestras se vuelven visibles en el mapa.</div>
+      </div>
     </div>
   </div>
 </section>
 
 
 <!-- ═══════════════════════════════════════════════════════════════════
-     CÓMO FUNCIONA
+     LA SOLUCIÓN
 ════════════════════════════════════════════════════════════════════ -->
-<section class="section section--gray" id="como-funciona">
+<section class="section section--gray" id="solucion">
+  <div class="container">
+    <div class="section__header fade-in">
+      <span class="badge">La solución</span>
+      <h2 class="section__title">Convertimos la maquinaria agrícola<br>en un laboratorio móvil de suelos</h2>
+      <p class="section__subtitle">Soil-IQ es la capa de inteligencia que une el dato del suelo con la decisión agronómica — sin hardware propio del productor, sin interrumpir la campaña.</p>
+    </div>
+
+    <div class="solution-split fade-in">
+      <div>
+        <div class="solution-lead">El productor recibe<br><em>precisión agronómica</em><br>en su celular.</div>
+        <p class="solution-sub">No más PDFs que nadie vuelve a abrir. No más esperar semanas para decidir con datos del mes anterior. Soil-IQ entrega la prescripción en horas, sobre el lote que el contratista acaba de trabajar.</p>
+
+        <div class="solution-items">
+          <div class="solution-item">
+            <div class="solution-item__icon">🗺️</div>
+            <div>
+              <div class="solution-item__title">Mapa georreferenciado del lote</div>
+              <div class="solution-item__desc">Mapa privado e interactivo con capas de pH, nutrientes y humedad. Se acumula campaña a campaña como historial del suelo.</div>
+            </div>
+          </div>
+          <div class="solution-item">
+            <div class="solution-item__icon">💡</div>
+            <div>
+              <div class="solution-item__title">Prescripción agronómica accionable</div>
+              <div class="solution-item__desc">Qué aplicar, cuánto, dónde y cuándo — en lenguaje simple. Sin necesidad de ser ingeniero agrónomo para interpretarlo.</div>
+            </div>
+          </div>
+          <div class="solution-item">
+            <div class="solution-item__icon">📊</div>
+            <div>
+              <div class="solution-item__title">Historial acumulado del suelo</div>
+              <div class="solution-item__desc">Cada campaña enriquece el perfil del lote. Con el tiempo, ese historial vale más que un análisis puntual — es el activo del campo.</div>
+            </div>
+          </div>
+          <div class="solution-item">
+            <div class="solution-item__icon">🚜</div>
+            <div>
+              <div class="solution-item__title">El contratista se diferencia</div>
+              <div class="solution-item__desc">Sale de la comoditización: ya no compite solo por precio. Ofrece un servicio que ningún otro contratista sin Soil-IQ puede dar.</div>
+            </div>
+          </div>
+        </div>
+        <p class="solution-cta-note">En horas, no semanas · Sin hardware propio del productor · Sin interrumpir la campaña</p>
+      </div>
+
+      <div class="solution-visual">
+        <div class="solution-visual__label">📱 Dashboard productor — Lote Norte · 120 ha</div>
+        <div class="solution-visual__row">
+          <span class="solution-visual__key">pH promedio</span>
+          <span class="solution-visual__val">6.4 — óptimo</span>
+        </div>
+        <div class="solution-visual__row">
+          <span class="solution-visual__key">Nitrógeno disponible</span>
+          <span class="solution-visual__val warn">38 kg/ha ⚠ bajo</span>
+        </div>
+        <div class="solution-visual__row">
+          <span class="solution-visual__key">Fósforo asimilable</span>
+          <span class="solution-visual__val warn">11 ppm ⚠ crítico</span>
+        </div>
+        <div class="solution-visual__row">
+          <span class="solution-visual__key">Materia orgánica</span>
+          <span class="solution-visual__val">3.8%</span>
+        </div>
+        <div style="margin:20px 0;height:1px;background:rgba(255,255,255,.08)"></div>
+        <div class="solution-visual__label">🤖 Prescripción IA</div>
+        <div style="background:rgba(45,122,79,.25);border:1px solid rgba(45,122,79,.4);border-radius:10px;padding:14px 16px;margin-bottom:10px">
+          <div style="font-size:.78rem;font-weight:700;color:#4ADE80;margin-bottom:6px">Zona norte (40 ha)</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.8);line-height:1.5">Aplicar fosfato diamónico 80 kg/ha + urea 60 kg/ha antes de siembra</div>
+        </div>
+        <div style="background:rgba(232,160,32,.12);border:1px solid rgba(232,160,32,.25);border-radius:10px;padding:14px 16px">
+          <div style="font-size:.78rem;font-weight:700;color:var(--amber);margin-bottom:6px">Zona sur (80 ha)</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.8);line-height:1.5">Nitrógeno en rango. Mantener dosis histórica. Revisar fósforo en lote 3.</div>
+        </div>
+        <div style="margin-top:16px;font-size:.72rem;color:rgba(255,255,255,.3);text-align:center">Generado en base a la pasada del 01/06/2026 · Contratista: R. Campos</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     CÓMO RECOLECTAMOS LOS DATOS
+════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="como-funciona">
   <div class="container">
     <div class="section__header">
-      <span class="badge">Cómo funciona</span>
-      <h2 class="section__title">De sensor a decisión en tres pasos</h2>
-      <p class="section__subtitle">Capturamos datos del suelo donde estás, los procesamos con IA y te decimos exactamente qué hacer — sin importar si hay internet.</p>
+      <span class="badge">Cómo recolectamos los datos</span>
+      <h2 class="section__title">Los sensores van en la máquina.<br>El dato se captura en movimiento.</h2>
+      <p class="section__subtitle">El contratista trabaja como siempre. Mientras tanto, el kit Soil-IQ registra el suelo en cada punto del lote — sin detener la operación ni agregar pasos.</p>
     </div>
 
     <div class="steps__grid">
       <div class="step fade-in">
-        <div class="step__number"><span class="step__icon">📡</span></div>
-        <h3 class="step__title">1. Captura de datos</h3>
-        <p class="step__desc">Nuestros sensores LoRaWAN miden pH, N, P, K, temperatura y humedad en tiempo real. Funcionan sin internet. Los datos se envían automáticamente cuando hay señal — o se sincronizan al conectar tu teléfono. Complementamos con imágenes satelitales Sentinel-2 y Landsat para mapear variabilidad espacial.</p>
+        <div class="step__number"><span class="step__icon">🔧</span></div>
+        <h3 class="step__title">1. Kit instalado una sola vez</h3>
+        <p class="step__desc">El kit multi-sensor se monta en la cosechadora, pulverizadora o sembradora del contratista. Una vez instalado, no requiere ninguna acción adicional por parte del operario.</p>
       </div>
       <div class="step fade-in fade-in-delay-1">
-        <div class="step__number"><span class="step__icon">🧠</span></div>
-        <h3 class="step__title">2. Análisis con IA</h3>
-        <p class="step__desc">Nuestros modelos de machine learning integran datos de sensores, satélite, análisis de suelo históricos y condiciones climáticas. El resultado: mapas de fertilidad a nivel sub-parcela, recomendaciones de dosis variable y alertas tempranas de deficiencias nutricionales.</p>
+        <div class="step__number"><span class="step__icon">📡</span></div>
+        <h3 class="step__title">2. Captura continua en pasada</h3>
+        <p class="step__desc">Mientras la máquina recorre el lote, los sensores registran pH, N, P, K, temperatura y humedad en cada punto. El GPS geolocaliza cada medición. Sin señal, los datos se guardan localmente — sincronización automática al llegar a la tranquera.</p>
       </div>
       <div class="step fade-in fade-in-delay-2">
-        <div class="step__number"><span class="step__icon">💡</span></div>
-        <h3 class="step__title">3. Decisión + Acción</h3>
-        <p class="step__desc">Recibís en tu teléfono: qué aplicar, cuánto, dónde y cuándo. Exportás el mapa de prescripción a tu monitor de siembra. Si necesitás insumos o laboratoristas, los encontrás directo en nuestro Marketplace — con precios transparentes y calificaciones.</p>
+        <div class="step__number"><span class="step__icon">🧠</span></div>
+        <h3 class="step__title">3. IA + satélite → recomendación</h3>
+        <p class="step__desc">Los datos de la pasada se cruzan con imágenes satelitales Sentinel-2 y SAOCOM, historial del lote y condiciones climáticas. El motor de Machine Learning genera el mapa de fertilidad y la prescripción — disponible en el dashboard del productor en horas.</p>
       </div>
     </div>
   </div>
@@ -1133,17 +1881,17 @@
   <div class="container">
     <div class="section__header">
       <span class="badge">Tecnología</span>
-      <h2 class="section__title section__title--white">Infraestructura construida<br>para el campo argentino</h2>
-      <p class="section__subtitle section__subtitle--white">No adaptamos tecnología urbana. Diseñamos desde cero para las condiciones del productor pampeano.</p>
+      <h2 class="section__title section__title--white">Hardware construido<br>para la maquinaria del campo</h2>
+      <p class="section__subtitle section__subtitle--white">No adaptamos tecnología urbana. Diseñamos desde cero para sobrevivir vibración, polvo y trabajo pesado en el campo pampeano.</p>
     </div>
 
     <div class="features__grid">
       <div class="feature-card fade-in">
-        <div class="feature-card__icon">📶</div>
+        <div class="feature-card__icon">🚜</div>
         <div class="feature-card__body">
-          <h3 class="feature-card__title">Red LoRaWAN — Offline First</h3>
-          <p class="feature-card__desc">Sensores con batería de 5 años que transmiten a 15 km sin 4G. Primero en Argentina con cobertura rural nativa.</p>
-          <span class="feature-card__tag">Diferenciador clave</span>
+          <h3 class="feature-card__title">Kit multi-sensor para maquinaria</h3>
+          <p class="feature-card__desc">El kit incluye múltiples sensores que se montan en tu máquina. Resistente a vibración, polvo y lluvia. Funciona sin 4G — sincroniza los datos cuando llegás a la tranquera.</p>
+          <span class="feature-card__tag">Sin 4G · Sin WiFi</span>
         </div>
       </div>
 
@@ -1186,8 +1934,8 @@
       <div class="feature-card fade-in fade-in-delay-1">
         <div class="feature-card__icon">🔒</div>
         <div class="feature-card__body">
-          <h3 class="feature-card__title">Datos seguros y propios</h3>
-          <p class="feature-card__desc">Tus datos son tuyos. Encriptación end-to-end, servidores en Argentina, cumplimiento Ley 25.326. Nunca los vendemos ni compartimos sin tu autorización.</p>
+          <h3 class="feature-card__title">Tus datos son privados</h3>
+          <p class="feature-card__desc">Los datos de tu lote son privados: solo vos podés verlos, ningún otro productor tiene acceso. Soil-IQ puede utilizarlos de forma agregada y anonimizada para mejorar los modelos, pero tu información individual nunca es visible para terceros.</p>
           <span class="feature-card__tag">Privacidad garantizada</span>
         </div>
       </div>
@@ -1197,54 +1945,233 @@
 
 
 <!-- ═══════════════════════════════════════════════════════════════════
+     MERCADO
+════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="mercado">
+  <div class="container">
+    <div class="section__header fade-in">
+      <span class="badge">Mercado</span>
+      <h2 class="section__title">Una oportunidad de USD 1.800M<br>que nadie está capturando</h2>
+      <p class="section__subtitle">Empezamos por la pampa argentina. Miramos a LATAM.</p>
+    </div>
+
+    <div class="tam-grid">
+      <div class="tam-card tam-card--tam fade-in">
+        <div class="tam-card__eyebrow">TAM — LATAM Granario</div>
+        <div class="tam-card__value">USD 1.800M</div>
+        <div class="tam-card__detail">180M ha agrícolas · Brasil, Argentina, México + Cono Sur</div>
+        <div class="tam-card__desc">Mercado de agricultura de precisión en LATAM valorado en USD 1.800M en 2024, creciendo al 15% anual. Referencia global: USD 13.110M en 2024 → USD 23.840M en 2029 (CAGR 12,7%)</div>
+      </div>
+      <div class="tam-card tam-card--sam fade-in fade-in-delay-1">
+        <div class="tam-card__eyebrow">SAM — Región Pampeana, Argentina</div>
+        <div class="tam-card__value">USD 180M</div>
+        <div class="tam-card__detail">35M ha cultivables · 80.000 productores medianos · 57.856 EAPs de 100–500 ha</div>
+        <div class="tam-card__desc">35M ha × USD 4–5/ha/año = USD 140–175M en suscripciones, más marketplace de bioinsumos y datos B2B institucionales hasta el techo de USD 180M</div>
+      </div>
+      <div class="tam-card tam-card--som fade-in fade-in-delay-2">
+        <div class="tam-card__eyebrow">SOM — Pampa Húmeda, Año 1–2</div>
+        <div class="tam-card__value">USD 1.2M–2.4M</div>
+        <div class="tam-card__detail">30–60 contratistas · 300k–600k ha procesadas · 7,5–15% market share inicial</div>
+        <div class="tam-card__desc">Productores de la pampa húmeda con propensión activa al análisis de suelo, captados vía 30–60 contratistas ancla de zona núcleo × 10.000 ha/campaña × USD 4/ha</div>
+      </div>
+    </div>
+
+    <div class="market-stats-strip fade-in">
+      <div class="market-stat">
+        <div class="market-stat__value">70–80%</div>
+        <div class="market-stat__label">de los productores fertiliza sin datos actualizados de suelo</div>
+      </div>
+      <div class="market-stat">
+        <div class="market-stat__value">USD 900M</div>
+        <div class="market-stat__label">pérdida anual en capital natural de suelos argentinos (INTA, 2024)</div>
+      </div>
+      <div class="market-stat">
+        <div class="market-stat__value">USD 4/ha</div>
+        <div class="market-stat__label">precio blended por hectárea procesada en escenario base</div>
+      </div>
+      <div class="market-stat">
+        <div class="market-stat__value">66,7%</div>
+        <div class="market-stat__label">de los encuestados pagaría USD 3–6/ha/año (validación propia, n=6)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     MODELO DE NEGOCIO
+════════════════════════════════════════════════════════════════════ -->
+<section class="section section--gray" id="modelo">
+  <div class="container">
+    <div class="section__header fade-in">
+      <span class="badge">Modelo de negocio</span>
+      <h2 class="section__title">Dos clientes, un solo modelo<br>que se autoescala</h2>
+      <p class="section__subtitle">El contratista es el nodo de captura y distribución. El productor es el cliente recurrente. Ambos ganan — y Soil-IQ también.</p>
+    </div>
+
+    <div class="bm-grid fade-in">
+      <div class="bm-card bm-card--contractor">
+        <div class="bm-card__header">🚜 Contratista rural</div>
+        <div class="bm-row">
+          <div class="bm-row__item">
+            <div class="bm-row__key">Qué paga</div>
+            <div class="bm-row__val">Kit de sensores USD 8.000–15.000 <span class="bm-tag-blue">único</span><br>+ Royalty USD 1,75/ha procesada <span class="bm-tag-blue">recurrente</span></div>
+          </div>
+          <div class="bm-row__item">
+            <div class="bm-row__key">Qué recibe</div>
+            <div class="bm-row__val">Diferenciación competitiva real. Recibe USD 1–2/ha extra sobre el servicio estándar — a 8.000–15.000 ha el kit está repago. Sale de la comoditización.</div>
+          </div>
+          <div class="bm-row__item">
+            <div class="bm-row__key">Payback estimado</div>
+            <div class="bm-row__val">8.000–15.000 ha procesadas al USD 1–2/ha extra — el kit queda repago y desde ahí es ganancia pura</div>
+          </div>
+          <div class="bm-row__item">
+            <div class="bm-row__key">Cómo gana Soil-IQ</div>
+            <div class="bm-row__val">Venta del kit + royalty por volumen de hectáreas procesadas</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bm-card bm-card--producer">
+        <div class="bm-card__header">🌾 Productor mediano</div>
+        <div class="bm-row">
+          <div class="bm-row__item">
+            <div class="bm-row__key">Qué paga</div>
+            <div class="bm-row__val">
+              <strong>Plan Análisis:</strong> incluido en el royalty de USD 4/ha que paga el contratista — sin costo adicional para el productor <span class="bm-tag-green">incluido</span><br>
+              <strong>Plan Pro:</strong> USD 180–240/año para monitoreo continuo con Sentinel-2 semanal, alertas y IA personalizada <span class="bm-tag-green">SaaS</span>
+            </div>
+          </div>
+          <div class="bm-row__item">
+            <div class="bm-row__key">Qué recibe</div>
+            <div class="bm-row__val">Mapa georreferenciado con pH, N, P y K por zona + diagnóstico del suelo + acceso al marketplace + historial acumulado campaña a campaña</div>
+          </div>
+          <div class="bm-row__item">
+            <div class="bm-row__key">ROI claro</div>
+            <div class="bm-row__val">Ahorro de USD 30–80/ha por fertilización precisa. El Plan Pro a USD 180–240/año se amortiza con corregir una sola decisión por campaña.</div>
+          </div>
+          <div class="bm-row__item">
+            <div class="bm-row__key">Cómo gana Soil-IQ</div>
+            <div class="bm-row__val">USD 4/ha de royalty por cada análisis del contratista + fee anual USD 180–240 del Plan Pro</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ltvcac-banner fade-in">
+      <div>
+        <div class="ltvcac-banner__main">LTV/CAC estimado: <em>55x–135x</em></div>
+        <div class="ltvcac-banner__sub">Altamente eficiente. Cada contratista activo genera USD 43.000–56.000 en lifetime value · CAC objetivo &lt; USD 800 a escala</div>
+      </div>
+      <div class="ltvcac-stat">
+        <div class="ltvcac-stat__num">+28x</div>
+        <div class="ltvcac-stat__label">LTV/CAC escenario base</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     ROADMAP
+════════════════════════════════════════════════════════════════════ -->
+<section class="section section--dark" id="roadmap">
+  <div class="container">
+    <div class="section__header fade-in">
+      <span class="badge">Roadmap</span>
+      <h2 class="section__title section__title--white">De fundación a escala regional<br>en 4 años</h2>
+      <p class="section__subtitle section__subtitle--white">Cada fase construye sobre la anterior. El dataset crece con cada campaña y se vuelve irreplicable.</p>
+    </div>
+
+    <div class="roadmap-timeline fade-in">
+      <div class="rm-step rm-step--done">
+        <div class="rm-step__dot">✓</div>
+        <div class="rm-step__period">Fase 0 · May–Ago 2026</div>
+        <div class="rm-step__title">Fundación</div>
+        <div class="rm-step__desc">Diseño técnico del kit. Segunda ronda de encuestas. Incorporación del advisor. Avance con instituciones del ecosistema.</div>
+      </div>
+      <div class="rm-step rm-step--pending">
+        <div class="rm-step__dot">🚜</div>
+        <div class="rm-step__period">Fase 1 · Sep–Dic 2026</div>
+        <div class="rm-step__title">Piloto</div>
+        <div class="rm-step__desc">Kit operativo con 3–5 contratistas ancla en Córdoba Sur / Sur de Santa Fe. Primeros mapas entregados a productores. Validación de pricing en campo.</div>
+      </div>
+      <div class="rm-step rm-step--pending">
+        <div class="rm-step__dot">📈</div>
+        <div class="rm-step__period">Fase 2 · 2027</div>
+        <div class="rm-step__title">Tracción</div>
+        <div class="rm-step__desc">20–40 contratistas activos. 150.000–300.000 ha procesadas. App y dashboard en versión estable. Primeros ingresos recurrentes validados.</div>
+      </div>
+      <div class="rm-step rm-step--pending">
+        <div class="rm-step__dot">🇦🇷</div>
+        <div class="rm-step__period">Fase 3 · 2028</div>
+        <div class="rm-step__title">Escala Argentina</div>
+        <div class="rm-step__desc">100–200 contratistas activos. 600.000–1.000.000 ha procesadas. Lanzamiento del marketplace. Primeros contactos con socios en Uruguay y Brasil.</div>
+      </div>
+      <div class="rm-step rm-step--pending">
+        <div class="rm-step__dot">🌎</div>
+        <div class="rm-step__period">Fase 4 · 2029–2030</div>
+        <div class="rm-step__title">Expansión LATAM</div>
+        <div class="rm-step__desc">Operación en Uruguay y Brasil con socios locales. +2.000.000 ha mapeadas. Primeros contratos B2B institucionales. Ronda de expansión regional.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     EQUIPO
+════════════════════════════════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════════════════════════════
      MARKETPLACE
 ════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="marketplace" style="background: var(--gray-50);">
   <div class="container">
     <div class="marketplace fade-in">
       <div>
-        <span class="badge badge--amber" style="margin-bottom:16px">Marketplace AgTech</span>
-        <h2 class="marketplace__title">El campo necesita proveedor. Soil-IQ lo conecta.</h2>
+        <span class="badge badge--amber" style="margin-bottom:16px">Marketplace + Recomendaciones inteligentes</span>
+        <h2 class="marketplace__title">La IA diagnostica tu lote.<br>Soil-IQ te dice qué comprar y dónde.</h2>
         <p class="marketplace__desc">
-          Desde la plataforma contratás laboratoristas, comprás fertilizantes con precios transparentes y accedés a servicios de aplicación variable — todo con el respaldo de la reputación del proveedor validada por la comunidad.
+          Una vez que el análisis de tu lote está listo, la plataforma no solo te muestra los datos — te envía recomendaciones personalizadas de proveedores relevantes para tu zona y tu deficiencia específica. Sin tener que buscar: el insumo correcto aparece directo en tu dashboard.
         </p>
         <ul class="marketplace__list">
+          <li>Prescripción IA → sugerencia de proveedor automática basada en tu lote</li>
           <li>Laboratoristas certificados con turno online y resultado digital</li>
-          <li>Fertilizantes con precios transparentes y envío a campo</li>
-          <li>Contratistas de aplicación variable georreferenciados</li>
+          <li>Fertilizantes y bioinsumos con precios transparentes y envío a campo</li>
+          <li>Contratistas de aplicación variable georreferenciados por zona</li>
           <li>Asesores CREA/AAPRESID conectados a tus datos en tiempo real</li>
-          <li>Comisión 3–8% solo cuando cerrás la operación</li>
+          <li>Comisión 8–12% al proveedor · Gratuito para el productor</li>
         </ul>
-        <a href="#empezar" class="btn btn-verde">Explorar proveedores</a>
+        <a href="#empezar" class="btn btn-verde">Ver la plataforma</a>
       </div>
 
       <div class="marketplace__visual">
         <div class="market-card">
-          <div class="market-card__label">Laboratoristas activos</div>
-          <div class="market-card__value">142</div>
-          <div class="market-card__sub">Zona Pampa Húmeda</div>
+          <div class="market-card__label">Recomendación</div>
+          <div class="market-card__value" style="font-size:1.1rem;line-height:1.3">📩 Proveedor sugerido</div>
+          <div class="market-card__sub">Basada en el análisis real del lote</div>
         </div>
         <div class="market-card">
-          <div class="market-card__label">Análisis promedio</div>
-          <div class="market-card__value">$8.400</div>
-          <div class="market-card__sub">vs $12.000 mercado</div>
-        </div>
-        <div class="market-card">
-          <div class="market-card__label">Rating proveedores</div>
-          <div class="market-card__value">4.8 ★</div>
-          <div class="market-card__sub">Base de +800 reviews</div>
-        </div>
-        <div class="market-card">
-          <div class="market-card__label">Tiempo respuesta</div>
+          <div class="market-card__label">Tiempo de respuesta</div>
           <div class="market-card__value">&lt;24 h</div>
-          <div class="market-card__sub">Turno confirmado</div>
+          <div class="market-card__sub">Del diagnóstico al proveedor</div>
+        </div>
+        <div class="market-card">
+          <div class="market-card__label">Para el productor</div>
+          <div class="market-card__value" style="font-size:1.3rem">Gratis</div>
+          <div class="market-card__sub">Comisión al proveedor 8–12%</div>
+        </div>
+        <div class="market-card">
+          <div class="market-card__label">Ahorro vs. precio mostrador</div>
+          <div class="market-card__value">Hasta 22%</div>
+          <div class="market-card__sub">Canal sin intermediarios</div>
         </div>
         <div class="market-card market-card--full">
           <div>
-            <div class="market-card__label">Ahorro en insumos frente a precio mostrador</div>
-            <div class="market-card__value" style="font-size:1.8rem">Hasta 22% menos</div>
+            <div class="market-card__label">Efecto del canal: la IA recomienda el insumo, no el vendedor con conflicto de interés</div>
+            <div class="market-card__value" style="font-size:1.4rem">Mayor tasa de conversión · Menor CAC para el proveedor</div>
           </div>
-          <span style="font-size:2rem">💰</span>
+          <span style="font-size:2rem">🤖</span>
         </div>
       </div>
     </div>
@@ -1255,53 +2182,6 @@
 <!-- ═══════════════════════════════════════════════════════════════════
      SOCIAL PROOF / TESTIMONIOS
 ════════════════════════════════════════════════════════════════════ -->
-<section class="section" id="testimonios">
-  <div class="container">
-    <div class="section__header">
-      <span class="badge">Productores reales</span>
-      <h2 class="section__title">Resultados que hablan solos</h2>
-      <p class="section__subtitle">Productores de la Pampa argentina comparten su experiencia en la primera campaña con Soil-IQ.</p>
-    </div>
-
-    <div class="testimonials__grid">
-      <div class="testimonial-card fade-in">
-        <div class="testimonial-card__stars">★★★★★</div>
-        <p class="testimonial-card__quote">En la primera campaña ahorré USD 47 por hectárea en urea. Tengo 420 ha así que estamos hablando de casi USD 20.000 que antes tiraba a la basura. Lo que no entiendo es por qué no existía antes.</p>
-        <div class="testimonial-card__author">
-          <div class="testimonial-card__avatar">JR</div>
-          <div>
-            <div class="testimonial-card__name">Javier Rodríguez</div>
-            <div class="testimonial-card__role">Productor ganadero-agrícola · 420 ha · Trenque Lauquen, Bs.As.</div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card fade-in fade-in-delay-1">
-        <div class="testimonial-card__stars">★★★★★</div>
-        <p class="testimonial-card__quote">Lo que más me sorprendió es que funciona en el campo sin señal. Siempre tuve miedo de los sistemas que dependen de internet. Con Soil-IQ, cuando llego a la tranquera todo ya está sincronizado.</p>
-        <div class="testimonial-card__author">
-          <div class="testimonial-card__avatar">MC</div>
-          <div>
-            <div class="testimonial-card__name">Marcela Castro</div>
-            <div class="testimonial-card__role">Productora agrícola · 680 ha · Río Cuarto, Córdoba</div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card fade-in fade-in-delay-2">
-        <div class="testimonial-card__stars">★★★★★</div>
-        <p class="testimonial-card__quote">Soy asesor de 12 productores. Con Soil-IQ centralizo todos los lotes en un mismo dashboard. Antes tardaba 3 días en recopilar información; ahora lo veo en tiempo real. Mis clientes renuevan solos.</p>
-        <div class="testimonial-card__author">
-          <div class="testimonial-card__avatar">PL</div>
-          <div>
-            <div class="testimonial-card__name">Pablo López</div>
-            <div class="testimonial-card__role">Ing. Agrónomo · Asesor CREA · Santa Fe</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
 <!-- ═══════════════════════════════════════════════════════════════════
      PRECIOS
 ════════════════════════════════════════════════════════════════════ -->
@@ -1318,84 +2198,121 @@
       <div class="pricing-card fade-in">
         <div class="pricing-card__name">Free</div>
         <div class="pricing-card__price">$0</div>
-        <div class="pricing-card__tagline">Para conocer Soil-IQ sin compromiso</div>
+        <div class="pricing-card__tagline">Para cualquier productor que quiera registrarse. No requiere haber hecho un análisis con Soil-IQ.</div>
         <div class="pricing-card__divider"></div>
         <ul class="pricing-card__features">
-          <li>Dashboard básico de suelo</li>
-          <li>1 lote activo (hasta 100 ha)</li>
-          <li>NDVI satelital mensual</li>
-          <li>Digitalización OCR de análisis</li>
-          <li>Acceso al Marketplace</li>
-          <li class="no">Recomendaciones de dosis IA</li>
-          <li class="no">Mapas de prescripción</li>
-          <li class="no">Sensores IoT incluidos</li>
+          <li>Vista del lote con imágenes Sentinel-2 en resolución estándar</li>
+          <li>Carga y centralización de análisis de laboratorio propios o de campañas anteriores</li>
+          <li>Dashboard básico con los datos que el productor suba manualmente</li>
+          <li class="no">Mapas georreferenciados de pH, N, P y K por zona</li>
+          <li class="no">Diagnóstico del estado del suelo</li>
+          <li class="no">Acceso al marketplace de insumos</li>
         </ul>
         <a href="#empezar" class="btn btn-verde" style="width:100%;justify-content:center">Empezar gratis</a>
       </div>
 
-      <!-- Análisis Puntual -->
-      <div class="pricing-card fade-in fade-in-delay-1">
-        <div class="pricing-card__name">Análisis Puntual</div>
-        <div class="pricing-card__price"><sup>USD</sup>45<small>/lote</small></div>
-        <div class="pricing-card__tagline">Pago único por análisis. Ideal para validar antes de fertilizar.</div>
+      <!-- Análisis — featured -->
+      <div class="pricing-card pricing-card--featured fade-in fade-in-delay-1">
+        <div class="pricing-card__badge">Incluido en el análisis</div>
+        <div class="pricing-card__name">Análisis</div>
+        <div class="pricing-card__price" style="font-size:1.4rem;line-height:1.2">Incluido<br><small style="font-size:.7rem;color:var(--gray-400)">en el royalty de USD 4/ha</small></div>
+        <div class="pricing-card__tagline">Se activa automáticamente cada vez que el contratista realiza un análisis Soil-IQ sobre tu lote.</div>
         <div class="pricing-card__divider"></div>
         <ul class="pricing-card__features">
-          <li>Todo el plan Free</li>
-          <li>Informe IA completo por lote</li>
-          <li>Recomendación de dosis por zona</li>
-          <li>Mapa de prescripción exportable</li>
-          <li>Comparativo vs. campaña anterior</li>
-          <li class="no">Monitoreo continuo</li>
-          <li class="no">Sensores IoT incluidos</li>
-          <li class="no">Soporte agronómico</li>
+          <li>Mapa georreferenciado con valores reales de pH, N, P y K por zona</li>
+          <li>Diagnóstico descriptivo del estado del suelo</li>
+          <li>Orientaciones generales de acción</li>
+          <li>Acceso al marketplace de insumos relevantes al diagnóstico</li>
+          <li>Posibilidad de compartir el análisis con el agrónomo asesor</li>
+          <li>Historial acumulado de todos los análisis Soil-IQ sobre el lote</li>
         </ul>
-        <a href="#empezar" class="btn" style="width:100%;justify-content:center;background:var(--gray-100);color:var(--gray-800)">Comprar análisis</a>
+        <a href="#modelo" class="btn btn-primary" style="width:100%;justify-content:center">Ver modelo de negocio →</a>
       </div>
 
-      <!-- Pro — featured -->
-      <div class="pricing-card pricing-card--featured fade-in fade-in-delay-2">
-        <div class="pricing-card__badge">Más popular</div>
+      <!-- Pro -->
+      <div class="pricing-card fade-in fade-in-delay-2">
         <div class="pricing-card__name">Pro</div>
-        <div class="pricing-card__price"><sup>USD</sup>4<small>/ha/año</small></div>
-        <div class="pricing-card__tagline">Monitoreo continuo toda la campaña. Se paga solo en la primera fertilización.</div>
+        <div class="pricing-card__price"><sup>USD</sup>180<small>–240/año</small></div>
+        <div class="pricing-card__tagline">Para el productor que quiere monitoreo continuo más allá de los análisis puntuales.</div>
         <div class="pricing-card__divider"></div>
         <ul class="pricing-card__features">
-          <li>Todo el plan Análisis Puntual</li>
-          <li>Monitoreo IoT en tiempo real</li>
-          <li>Alertas automáticas por umbral</li>
-          <li>NDVI semanal (Sentinel-2)</li>
-          <li>Recomendaciones estacionales IA</li>
-          <li>Exportación shape/KML/GeoTIFF</li>
-          <li>Soporte agronómico prioritario</li>
-          <li>API para integración de maquinaria</li>
+          <li>Todo lo del Plan Análisis</li>
+          <li>Imágenes Sentinel-2 semanales con análisis de variabilidad durante la campaña</li>
+          <li>Alertas proactivas sobre cambios en el cultivo o el suelo detectados por satélite</li>
+          <li>Comparativas con promedios zonales de la región</li>
+          <li>Recomendaciones más personalizadas con mayor integración de IA</li>
+          <li>Integración de sensores propios del productor a la plataforma</li>
+          <li>Historial unificado: análisis Soil-IQ + laboratorios externos</li>
+          <li>Exportación compatible con sembradoras de fertilización variable</li>
         </ul>
-        <a href="#empezar" class="btn btn-primary" style="width:100%;justify-content:center">Empezar con Pro</a>
-      </div>
-
-      <!-- Enterprise -->
-      <div class="pricing-card fade-in fade-in-delay-3">
-        <div class="pricing-card__name">Enterprise</div>
-        <div class="pricing-card__price" style="font-size:1.6rem">A medida</div>
-        <div class="pricing-card__tagline">Para fondos de inversión, cooperativas y acopios con +2.500 ha.</div>
-        <div class="pricing-card__divider"></div>
-        <ul class="pricing-card__features">
-          <li>Todo el plan Pro</li>
-          <li>Multi-campo y multi-usuario</li>
-          <li>Tablero consolidado de grupo</li>
-          <li>Integración ERP / SAP</li>
-          <li>Dataset histórico propietario</li>
-          <li>Capacitación y onboarding</li>
-          <li>SLA garantizado 99.9%</li>
-          <li>Asesor agronómico dedicado</li>
-        </ul>
-        <a href="#contacto" class="btn btn-verde" style="width:100%;justify-content:center">Contactar ventas</a>
+        <a href="#empezar" class="btn btn-verde" style="width:100%;justify-content:center">Empezar con Pro</a>
       </div>
     </div>
 
     <p class="pricing__note">
-      <strong>Sin permanencia mínima.</strong> Cancelás cuando querés. El plan Pro se amortiza con el ahorro de la primera aplicación de fertilizante. <br>
-      Los sensores IoT se alquilan o compran por separado. Consultanos para el equipo de tu lote.
+      <strong>Sin costo adicional para el productor.</strong> El Plan Análisis está incluido en cada análisis que realice el contratista — no hay que pagar nada extra.<br>
+      <span style="color:var(--verde);font-weight:700">¿Sos contratista?</span> El modelo es diferente: adquirís el kit de sensores y cada hectárea de datos que subís genera ingresos.
+      <a href="#modelo" style="color:var(--verde);font-weight:700;text-decoration:underline">Ver modelo de negocio →</a>
     </p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     EQUIPO
+════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="equipo">
+  <div class="container">
+    <div class="section__header fade-in">
+      <span class="badge">El equipo</span>
+      <h2 class="section__title">Las personas detrás de Soil-IQ</h2>
+      <p class="section__subtitle">Seis fundadores de Universidad Austral con formación en Negocios Digitales, finanzas y marketing.</p>
+    </div>
+
+    <div class="team-grid">
+      <div class="team-card fade-in">
+        <div class="team-avatar"><img src="Joaquin sist perfil.png" alt="Joaquín Sist"></div>
+        <div class="team-card__name">Joaquín Sist</div>
+        <div class="team-card__role"><strong style="color:var(--verde)">CEO</strong><br>Universidad Austral · Negocios Digitales</div>
+      </div>
+      <div class="team-card fade-in fade-in-delay-1">
+        <div class="team-avatar"><img src="lucas bole.jpg" alt="Lucas Bolé"></div>
+        <div class="team-card__name">Lucas Bolé</div>
+        <div class="team-card__role"><strong style="color:var(--verde)">CFO</strong><br>Universidad Austral · Negocios Digitales</div>
+      </div>
+      <div class="team-card fade-in fade-in-delay-2">
+        <div class="team-avatar"><img src="franco lamperti.png" alt="Franco Lamperti"></div>
+        <div class="team-card__name">Franco Lamperti</div>
+        <div class="team-card__role"><strong style="color:var(--verde)">COO</strong><br>Universidad Austral · Negocios Digitales</div>
+      </div>
+      <div class="team-card fade-in">
+        <div class="team-avatar"><img src="facundo macagno.jpg" alt="Facundo Macagno"></div>
+        <div class="team-card__name">Facundo Macagno</div>
+        <div class="team-card__role"><strong style="color:var(--verde)">CDO</strong><br>Universidad Austral · Negocios Digitales</div>
+      </div>
+      <div class="team-card fade-in fade-in-delay-1">
+        <div class="team-avatar"><img src="Tadeo denevi.jpg" alt="Tadeo Denevi"></div>
+        <div class="team-card__name">Tadeo Denevi</div>
+        <div class="team-card__role"><strong style="color:var(--verde)">CTO</strong><br>Universidad Austral · Negocios Digitales</div>
+      </div>
+      <div class="team-card fade-in fade-in-delay-2">
+        <div class="team-avatar"><img src="Luca di bella.jpg" alt="Luca Di Bella"></div>
+        <div class="team-card__name">Luca Di Bella</div>
+        <div class="team-card__role"><strong style="color:var(--verde)">CMO</strong><br>Universidad Austral · Marketing Digital</div>
+      </div>
+    </div>
+
+    <!-- Equipo Ampliado -->
+    <div style="margin-top:48px;text-align:center">
+      <p style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gray-400);margin-bottom:24px">Equipo Ampliado</p>
+      <div style="display:flex;justify-content:center">
+        <div class="team-card fade-in" style="max-width:220px">
+          <div class="team-avatar"><img src="hernan tomasini equipo ampleado.jpg" alt="Hernán Tomasini"></div>
+          <div class="team-card__name">Hernán Tomasini</div>
+          <div class="team-card__role"><strong style="color:var(--verde)">Founder</strong><br>Manisel · HT Nuts</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1443,17 +2360,17 @@
   <div class="container">
     <div class="final-cta__inner">
       <h2 class="final-cta__title">
-        Tu próxima campaña puede rendir<br>
-        <span class="highlight">USD 80 más por hectárea</span>
+        El dataset que nadie tiene.<br>
+        La ventana que <span class="highlight">no dura para siempre</span>.
       </h2>
       <p class="final-cta__subtitle">
-        Empezá hoy gratis. Configurás tu primer lote en menos de 10 minutos — y en 48 horas tenés tu primer análisis de suelo con IA.
+        Quien capture el segmento mediano argentino en los próximos 24 meses construirá un activo regional difícil de desafiar. El timing es ahora — el hardware bajó, la IA madura y la regulación europea presiona.
       </p>
       <div class="final-cta__actions">
-        <a href="app.html" class="btn btn-primary btn-lg">Ingresar a la plataforma →</a>
-        <a href="#contacto" class="btn btn-outline btn-lg">Hablar con un agrónomo</a>
+        <a href="app.html" class="btn btn-primary btn-lg">Ver la plataforma →</a>
+        <a href="#contacto" class="btn btn-outline btn-lg">Contactar al equipo</a>
       </div>
-      <p class="final-cta__note">Sin tarjeta de crédito · Sin permanencia mínima · Soporte en español</p>
+      <p class="final-cta__note">MVP funcional · Advisor confirmado · Encuestas completadas · Listos para el piloto Q3 2026</p>
     </div>
   </div>
 </section>
@@ -1485,10 +2402,10 @@
       <div>
         <div class="footer__col-title">Empresa</div>
         <ul class="footer__links">
-          <li><a href="#">Sobre Soil-IQ</a></li>
-          <li><a href="#">Blog agronómico</a></li>
-          <li><a href="#">Casos de éxito</a></li>
-          <li><a href="#">Para asesores</a></li>
+          <li><a href="#mercado">Mercado y oportunidad</a></li>
+          <li><a href="#modelo">Modelo de negocio</a></li>
+          <li><a href="#roadmap">Roadmap</a></li>
+          <li><a href="#equipo">El equipo</a></li>
           <li><a href="#">Prensa</a></li>
         </ul>
       </div>

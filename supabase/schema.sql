@@ -11,7 +11,7 @@ create extension if not exists "uuid-ossp";
 create table if not exists public.profiles (
   id          uuid primary key references auth.users(id) on delete cascade,
   name        text not null,
-  role        text not null check (role in ('agro','admin')),
+  role        text not null check (role in ('agro','admin','contratista','productor')),
   title       text,                           -- "Ing. Agrónomo · CREA"
   initials    text,
   plan        text default 'Free' check (plan in ('Free','Pro','Enterprise')),
@@ -115,9 +115,38 @@ create table if not exists public.sensor_readings (
   ph_rt           numeric(4,2),    -- pH en tiempo real
   conductividad   numeric(6,3),    -- dS/m
   temp_ambiente   numeric(5,2),    -- °C
-  nivel_freatico  numeric(5,2),    -- m
-  senal_lorawan   numeric(5,2),    -- %
-  bateria         numeric(5,2)     -- %
+  nivel_freatico  numeric(5,2)     -- m
+);
+
+-- ── DEVICES (hardware instalado en maquinaria de contratistas) ──────────
+create table if not exists public.devices (
+  id              uuid primary key default uuid_generate_v4(),
+  contractor_id   uuid not null references auth.users(id) on delete cascade,
+  nombre          text not null,                 -- "Cosechadora Case IH 9250"
+  serial          text not null unique,          -- S/N físico del dispositivo
+  modelo          text,                          -- "SoilSense Pro V2"
+  activation_code text unique,                   -- código de activación de 1 uso
+  estado          text default 'inactivo' check (estado in ('activo','en_campo','inactivo')),
+  ultima_sync     timestamptz,
+  ha_total        numeric(10,2) default 0,
+  created_at      timestamptz default now()
+);
+
+-- ── MACHINE PASSES (pasadas/recorridas de la maquinaria) ─────────────────
+create table if not exists public.machine_passes (
+  id              uuid primary key default uuid_generate_v4(),
+  device_id       uuid not null references public.devices(id) on delete cascade,
+  contractor_id   uuid not null references auth.users(id) on delete cascade,
+  field_name      text,                          -- nombre del establecimiento (manual o inferido)
+  field_id        uuid references public.fields(id),  -- vinculado si existe en la plataforma
+  lote            text,
+  fecha_pasada    date not null,
+  ha              numeric(10,2),
+  cultivo         text,
+  puntos_datos    integer default 0,             -- cantidad de lecturas registradas
+  archivo_url     text,                          -- URL del archivo subido (CSV/JSON)
+  estado          text default 'procesado' check (estado in ('procesado','revision','error')),
+  created_at      timestamptz default now()
 );
 
 -- ── MARKETPLACE PRODUCTS ─────────────────────────────────────
@@ -148,6 +177,8 @@ alter table public.fields            enable row level security;
 alter table public.field_access      enable row level security;
 alter table public.analyses          enable row level security;
 alter table public.sensor_readings   enable row level security;
+alter table public.devices              enable row level security;
+alter table public.machine_passes       enable row level security;
 alter table public.marketplace_products enable row level security;
 
 -- Profiles: each user reads/edits their own; admins see all
@@ -203,6 +234,26 @@ create policy "sensor_readings_select" on public.sensor_readings
     or exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin')
   );
 
+-- Devices: contractor sees their own; admins see all
+create policy "devices_select" on public.devices
+  for select using (
+    contractor_id = auth.uid()
+    or exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin')
+  );
+create policy "devices_insert" on public.devices
+  for insert with check (contractor_id = auth.uid());
+create policy "devices_update_own" on public.devices
+  for update using (contractor_id = auth.uid());
+
+-- Machine passes: contractor sees their own; admins see all
+create policy "passes_select" on public.machine_passes
+  for select using (
+    contractor_id = auth.uid()
+    or exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin')
+  );
+create policy "passes_insert" on public.machine_passes
+  for insert with check (contractor_id = auth.uid());
+
 -- Marketplace: published products visible to all logged-in users; insert for admins
 create policy "mkt_select" on public.marketplace_products
   for select using (estado = 'publicado' or exists (
@@ -223,3 +274,7 @@ create index if not exists idx_field_access_field  on public.field_access(field_
 create index if not exists idx_analyses_field      on public.analyses(field_id);
 create index if not exists idx_sensor_field        on public.sensor_readings(field_id);
 create index if not exists idx_sensor_recorded     on public.sensor_readings(recorded_at desc);
+create index if not exists idx_devices_contractor  on public.devices(contractor_id);
+create index if not exists idx_passes_device       on public.machine_passes(device_id);
+create index if not exists idx_passes_contractor   on public.machine_passes(contractor_id);
+create index if not exists idx_passes_fecha        on public.machine_passes(fecha_pasada desc);

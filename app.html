@@ -127,6 +127,8 @@
       background:rgba(45,122,79,.25);color:#6EE7A0;border:1px solid rgba(45,122,79,.3);
     }
     .header-badge.admin{background:rgba(232,160,32,.2);color:var(--amber);border-color:rgba(232,160,32,.3);}
+    .header-badge.contratista{background:rgba(59,130,246,.15);color:#3B82F6;border-color:rgba(59,130,246,.3);}
+    .header-badge.productor{background:rgba(101,163,13,.12);color:#4D7C0F;border-color:rgba(101,163,13,.3);}
     .header-user{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.7);font-size:.82rem}
     .header-avatar{
       width:32px;height:32px;border-radius:50%;
@@ -442,8 +444,8 @@
           Inteligencia que nutre tu suelo,<br>datos que <em>potencian tu cosecha</em>
         </div>
         <div class="login-brand__stats">
-          <div class="login-stat">📡 <strong>142 sensores</strong> activos en la red LoRaWAN</div>
-          <div class="login-stat">🛰️ <strong>47.200 ha</strong> monitoreadas con satélite</div>
+          <div class="login-stat">🚜 Datos desde <strong>pasadas de contratistas</strong>, laboratorios y sensores instalados</div>
+          <div class="login-stat">🛰️ <strong>47.200 ha</strong> monitoreadas · 3 fuentes integradas</div>
           <div class="login-stat">🤖 <strong>92%</strong> precisión en recomendaciones IA</div>
           <div class="login-stat">💰 <strong>USD 67</strong> ahorro promedio por hectárea</div>
         </div>
@@ -512,6 +514,28 @@
             </div>
           </div>
           <span class="demo-account__tag tag-green" style="background:#DCFCE7;color:#15803D">Ing. Agrónomo</span>
+        </div>
+
+        <div class="demo-account" onclick="fillDemo('roberto@soil-iq.com','demo123')">
+          <div class="demo-account__left">
+            <div class="demo-avatar" style="background:#3B82F6">RC</div>
+            <div class="demo-account__info">
+              <div class="demo-account__name">Roberto Campos</div>
+              <div class="demo-account__email">roberto@soil-iq.com · demo123</div>
+            </div>
+          </div>
+          <span class="demo-account__tag tag-green" style="background:#DCFCE7;color:#15803D">Ing. Agrónomo</span>
+        </div>
+
+        <div class="demo-account" onclick="fillDemo('productor@soil-iq.com','demo123')">
+          <div class="demo-account__left">
+            <div class="demo-avatar" style="background:#65A30D">MG</div>
+            <div class="demo-account__info">
+              <div class="demo-account__name">Martín Gutiérrez</div>
+              <div class="demo-account__email">productor@soil-iq.com · demo123</div>
+            </div>
+          </div>
+          <span class="demo-account__tag" style="background:#ECFCCB;color:#3F6212">Productor</span>
         </div>
 
         <div class="demo-account" onclick="fillDemo('admin@soil-iq.com','admin123')">
@@ -740,10 +764,10 @@
       </div>
     </div>
 
-    <!-- Sensores IoT -->
+    <!-- Datos de maquinaria del contratista -->
     <div class="view" id="view-sensores">
-      <div class="page-title">Sensores IoT en campo</div>
-      <div class="page-sub">Datos en tiempo real · Red LoRaWAN · Última actualización: hace 4 min</div>
+      <div class="page-title">Datos de maquinaria del contratista</div>
+      <div class="page-sub">Lecturas de suelo capturadas durante pasadas · Kit SoilSense instalado en maquinaria de tu contratista</div>
 
       <div class="tab-bar" id="sensor-tab-bar">
         <!-- filled by renderSensorTabs() -->
@@ -763,10 +787,106 @@
       </div>
     </div>
 
+    <!-- ══ CONTRATISTA VIEWS ════════════════════════════════════ -->
+
+    <!-- Contratista Dashboard -->
+    <div class="view" id="view-contratista-dashboard">
+      <div id="contratista-dash-content"><!-- renderContratistaDashboard() --></div>
+    </div>
+
+    <!-- Contratista Dispositivos -->
+    <div class="view" id="view-contratista-dispositivos">
+      <div class="page-title">Mis Dispositivos</div>
+      <div class="page-sub">Hardware sensor instalado en tus maquinarias · Vinculado a la plataforma</div>
+
+      <div class="alert-strip info" style="background:#EFF6FF;border-color:#BFDBFE;color:#1E40AF">
+        🔗 Cada kit Soil-IQ que adquirís incluye múltiples sensores y un <strong>código de activación único</strong>.
+        Registrá el código del kit para vincularlo a tu cuenta y comenzar a sincronizar pasadas automáticamente.
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <div style="font-size:.875rem;font-weight:700;color:var(--gray-600)" id="dispositivos-count"></div>
+        <button class="btn-submit" style="padding:8px 20px;font-size:.82rem" onclick="showRegistrarDispositivoModal()">
+          + Registrar dispositivo
+        </button>
+      </div>
+
+      <div id="dispositivos-list"><!-- renderDispositivosList() --></div>
+    </div>
+
+    <!-- Contratista Pasadas -->
+    <div class="view" id="view-contratista-pasadas">
+      <div class="page-title">Pasadas y cargas de datos</div>
+      <div class="page-sub">Historial de recorridas · Datos de suelo recolectados por tu maquinaria</div>
+
+      <div class="upload-zone" onclick="showToast('📂 Seleccioná el archivo .csv o .json exportado por el sensor')">
+        <div class="upload-zone__icon">📡</div>
+        <div class="upload-zone__text"><strong>Arrastrá el archivo de datos del sensor aquí</strong> o hacé clic para seleccionar</div>
+        <div class="upload-zone__text" style="margin-top:4px;font-size:.72rem">Formatos soportados: .csv · .json · .gpx · SoilSense export</div>
+      </div>
+
+      <div class="panel" style="margin-top:20px">
+        <div class="panel__title">📝 Registrar pasada manualmente</div>
+        <div class="panel__sub">Ingresá los datos de una pasada sin archivo exportado</div>
+        <form onsubmit="submitPasada(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Campo / Establecimiento</label>
+              <input type="text" id="pas-campo" placeholder="Nombre del establecimiento">
+            </div>
+            <div class="form-group">
+              <label>Lote</label>
+              <input type="text" id="pas-lote" placeholder="Ej: Lote 3">
+            </div>
+            <div class="form-group">
+              <label>Fecha de pasada</label>
+              <input type="date" id="pas-fecha">
+            </div>
+            <div class="form-group">
+              <label>Dispositivo utilizado</label>
+              <select id="pas-dispositivo">
+                <!-- filled by JS -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Hectáreas trabajadas</label>
+              <input type="number" id="pas-ha" placeholder="Ej: 85" min="1">
+            </div>
+            <div class="form-group">
+              <label>Cultivo</label>
+              <select id="pas-cultivo">
+                <option>Soja</option><option>Maíz</option><option>Trigo</option>
+                <option>Girasol</option><option>Sorgo</option><option>Otro</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn-submit" style="margin-top:8px">Registrar pasada</button>
+        </form>
+      </div>
+
+      <div class="panel" style="margin-top:20px">
+        <div class="panel__title">📋 Historial de pasadas</div>
+        <div class="panel__sub" id="pasadas-count"></div>
+        <div id="pasadas-list"></div>
+      </div>
+    </div>
+
     <!-- Marketplace -->
     <div class="view" id="view-marketplace">
-      <div class="page-title">Marketplace AgTech</div>
-      <div class="page-sub">Bioinsumos, servicios y proveedores verificados para tus campos</div>
+      <!-- Recomendación de Proveedores — sección principal -->
+      <div style="background:linear-gradient(135deg,#2D7A4F 0%,#1a5c39 100%);border-radius:14px;padding:22px 24px;margin-bottom:24px;color:#fff">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+          <span style="font-size:1.5rem">🤖</span>
+          <div style="font-size:1.1rem;font-weight:700">Recomendación de Proveedores</div>
+          <span style="font-size:.7rem;font-weight:600;background:rgba(255,255,255,.18);padding:2px 8px;border-radius:20px;letter-spacing:.04em">IA · basado en tu análisis de suelo</span>
+        </div>
+        <div style="font-size:.82rem;opacity:.85;margin-bottom:16px">Productos y proveedores seleccionados según los macros detectados en tus lotes. Actualizados con cada nuevo análisis.</div>
+        <div id="recom-proveedores-mkt" style="display:grid;gap:12px"></div>
+      </div>
+
+      <!-- Marketplace completo -->
+      <div class="page-title" style="font-size:1rem;color:var(--gray-500);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Marketplace AgTech</div>
+      <div class="page-sub" style="margin-bottom:12px">Catálogo completo · Bioinsumos, servicios y proveedores verificados</div>
 
       <div class="tab-bar">
         <div class="tab active" onclick="switchMktTab('bioinsumos',this)">🧬 Bioinsumos</div>
@@ -777,6 +897,13 @@
       </div>
 
       <div id="mkt-content"><!-- JS --></div>
+    </div>
+
+    <!-- Recomendaciones -->
+    <div class="view" id="view-recomendaciones">
+      <div class="page-title">Recomendaciones de ciclo productivo</div>
+      <div class="page-sub">Orientaciones por lote según macros · Productos sugeridos del marketplace</div>
+      <div id="recom-view-content"></div>
     </div>
 
     <!-- ══ ADMIN VIEWS ══════════════════════════════════════════════ -->
@@ -811,7 +938,7 @@
         <div class="stat-card">
           <div class="stat-card__label">Sensores activos</div>
           <div class="stat-card__value" style="color:var(--verde)">142</div>
-          <div class="stat-card__sub">98.5% uptime · LoRaWAN</div>
+          <div class="stat-card__sub">98.5% uptime · instalados en campo</div>
         </div>
       </div>
 
@@ -1031,10 +1158,29 @@ let USER_FARMS = [];   // filled on login from USER_FIELD_MAP
    DEMO ACCOUNTS
 ════════════════════════════════════════════════════════ */
 const DEMO_ACCOUNTS = [
-  {email:'pablo@soil-iq.com',  pass:'demo123',  role:'agro',  name:'Pablo López',    initials:'PL', title:'Ing. Agrónomo · CREA'},
-  {email:'maria@soil-iq.com',  pass:'demo123',  role:'agro',  name:'María Fernández',initials:'MF', title:'Ing. Agrónoma · AAPRESID'},
-  {email:'jorge@soil-iq.com',  pass:'demo123',  role:'agro',  name:'Jorge Ramírez',  initials:'JR', title:'Ing. Agrónomo · Independiente'},
-  {email:'admin@soil-iq.com',  pass:'admin123', role:'admin', name:'Administrador',  initials:'AD', title:'Admin · Soil-IQ'},
+  {email:'pablo@soil-iq.com',        pass:'demo123',  role:'agro',        name:'Pablo López',    initials:'PL', title:'Ing. Agrónomo · CREA'},
+  {email:'maria@soil-iq.com',        pass:'demo123',  role:'agro',        name:'María Fernández',initials:'MF', title:'Ing. Agrónoma · AAPRESID'},
+  {email:'jorge@soil-iq.com',        pass:'demo123',  role:'agro',        name:'Jorge Ramírez',  initials:'JR', title:'Ing. Agrónomo · Independiente'},
+  {email:'roberto@soil-iq.com',      pass:'demo123',  role:'agro',        name:'Roberto Campos',   initials:'RC', title:'Ing. Agrónomo · Asesor del Productor'},
+  {email:'productor@soil-iq.com',    pass:'demo123',  role:'productor',   name:'Martín Gutiérrez', initials:'MG', title:'Productor · El Mangrullo y La Morocha'},
+  {email:'admin@soil-iq.com',        pass:'admin123', role:'admin',       name:'Administrador',    initials:'AD', title:'Admin · Soil-IQ'},
+];
+
+/* ════════════════════════════════════════════════════════
+   DEMO DATA — CONTRATISTA
+════════════════════════════════════════════════════════ */
+const DEMO_DEVICES = [
+  {id:'DEV-001', nombre:'Pulverizadora John Deere R4040', serial:'JD-R4040-2291', modelo:'Kit SoilSense Pro V2 (5 sensores)', estado:'activo',   ultima_vez:'Hoy 08:23',    ha_total:4820},
+  {id:'DEV-002', nombre:'Cosechadora Case IH 9250',       serial:'CH-9250-8847',  modelo:'Kit SoilSense Pro V2 (5 sensores)', estado:'en_campo', ultima_vez:'Hoy 11:40',    ha_total:3150},
+  {id:'DEV-003', nombre:'Sembradora Apache 8000',         serial:'AP-8000-1134',  modelo:'Kit SoilSense Lite (3 sensores)',   estado:'inactivo', ultima_vez:'Hace 3 días',  ha_total:1200},
+];
+
+const DEMO_PASSES = [
+  {id:'PAS-2026-041', fecha:'01/06/2026', campo:'Est. La Esperanza', lote:'Lote 3', ha:85,  cultivo:'Soja', dispositivo:'DEV-002', estado:'procesado', puntos:1240},
+  {id:'PAS-2026-040', fecha:'30/05/2026', campo:'Est. San Martín',   lote:'Lote 1', ha:120, cultivo:'Maíz', dispositivo:'DEV-001', estado:'procesado', puntos:1780},
+  {id:'PAS-2026-039', fecha:'28/05/2026', campo:'Est. La Esperanza', lote:'Lote 5', ha:60,  cultivo:'Soja', dispositivo:'DEV-002', estado:'procesado', puntos:890},
+  {id:'PAS-2026-038', fecha:'25/05/2026', campo:'Est. Los Algarrobos',lote:'Lote 2', ha:140, cultivo:'Trigo',dispositivo:'DEV-001', estado:'procesado', puntos:2050},
+  {id:'PAS-2026-037', fecha:'20/05/2026', campo:'Est. San Martín',   lote:'Lote 4', ha:95,  cultivo:'Maíz', dispositivo:'DEV-003', estado:'revision',  puntos:1400},
 ];
 let currentUser = null;
 
@@ -1099,6 +1245,10 @@ function logout() {
 function setupRole() {
   if (currentRole === 'agro') {
     setupAgro();
+  } else if (currentRole === 'contratista') {
+    setupContratista();
+  } else if (currentRole === 'productor') {
+    setupProductor();
   } else {
     setupAdmin();
   }
@@ -1120,8 +1270,9 @@ function setupAgro() {
 
   const nav = [
     {id:'dashboard',icon:'🏠',label:'Inicio'},
+    {id:'recomendaciones',icon:'💡',label:'Recomendaciones'},
     {id:'lab',icon:'🔬',label:'Cargar análisis de suelo'},
-    {id:'sensores',icon:'📡',label:'Sensores IoT'},
+    {id:'sensores',icon:'🚜',label:'Datos de maquinaria'},
     {id:'mapa',icon:'🗺️',label:'Mapa de campos'},
     {id:'marketplace',icon:'🛒',label:'Marketplace'},
   ];
@@ -1134,6 +1285,8 @@ function setupAgro() {
   const pubTab = document.getElementById('tab-publicar');
   if (pubTab) pubTab.style.display = 'none';
   renderMktContent('bioinsumos');
+  renderRecomendaciones();
+  renderMktRecomendaciones();
   renderDashboard(null);
   showView('view-dashboard');
 }
@@ -1173,6 +1326,490 @@ function setupAdmin() {
 }
 
 /* ════════════════════════════════════════════════════════
+   PRODUCTOR SETUP & RENDERS
+════════════════════════════════════════════════════════ */
+function setupProductor() {
+  const u = currentUser;
+  USER_FARMS = USER_FIELD_MAP[u.email].map(i => ALL_FIELDS[i]);
+
+  document.getElementById('role-badge').textContent = 'Productor';
+  document.getElementById('role-badge').className = 'header-badge productor';
+  document.getElementById('user-avatar').textContent = u.initials;
+  document.getElementById('user-name').textContent = u.name;
+  document.getElementById('sb-avatar').textContent = u.initials;
+  document.getElementById('sb-name').textContent = u.name;
+  document.getElementById('sb-role').textContent = u.title;
+  document.getElementById('sidebar-farms-section').style.display = '';
+
+  const nav = [
+    {id:'dashboard',        icon:'🏠', label:'Mis campos'},
+    {id:'recomendaciones',  icon:'💡', label:'Recomendaciones'},
+    {id:'sensores',         icon:'🚜', label:'Datos de maquinaria'},
+    {id:'mapa',             icon:'🗺️', label:'Mapa de mis campos'},
+    {id:'marketplace',      icon:'🛒', label:'Marketplace'},
+  ];
+  renderNav(nav, 'dashboard');
+  renderFarms();
+  renderSensorTabs();
+  renderSensorPanels();
+  const pubTab = document.getElementById('tab-publicar');
+  if (pubTab) pubTab.style.display = 'none';
+  renderMktContent('bioinsumos');
+  renderRecomendaciones();
+  renderMktRecomendaciones();
+  renderDashboard(null);
+  showView('view-dashboard');
+}
+
+function renderProductorOverview(el) {
+  const u = currentUser;
+  const firstName = u.name.split(' ')[0];
+  const totalHa = USER_FARMS.reduce((s,f)=>s+f.ha,0);
+  const alerts = USER_FARMS.filter(f=>f.status!=='ok').length;
+  const asesor = USER_FARMS[0]?.asesor || '—';
+  const contratista = USER_FARMS[0]?.contratista || '—';
+  const alertFarm = USER_FARMS.find(f=>f.status!=='ok');
+  const totalSavings = USER_FARMS.reduce((s,f)=>s+(f.savings||0)*f.ha,0);
+
+  el.innerHTML = `
+    <div class="page-title">Bienvenido, ${firstName} 👋</div>
+    <div class="page-sub">Vista de productor · ${USER_FARMS.length} campos propios · Campaña 2025/2026</div>
+
+    ${alertFarm?`<div class="alert-strip">⚠️ <strong>${alertFarm.name}:</strong> Fósforo por debajo del umbral óptimo. Consultá con tu asesor.</div>`:''}
+    ${!alertFarm?`<div class="alert-strip success">✅ Todos tus campos están en condiciones óptimas para la campaña.</div>`:''}
+
+    <div class="cards-grid" style="margin-bottom:20px">
+      <div class="stat-card">
+        <div class="stat-card__label">Superficie total</div>
+        <div class="stat-card__value">${totalHa.toLocaleString()}</div>
+        <div class="stat-card__sub">hectáreas bajo monitoreo</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__label">Campos registrados</div>
+        <div class="stat-card__value">${USER_FARMS.length}</div>
+        <div class="stat-card__sub">${USER_FARMS.filter(f=>f.sensors).length} con datos de maquinaria</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__label">Alertas activas</div>
+        <div class="stat-card__value" style="color:${alerts>0?'#DC2626':'#16A34A'}">${alerts}</div>
+        <div class="stat-card__sub">${alerts>0?'Requieren atención':'Todo en orden'}</div>
+      </div>
+      <div class="stat-card" style="border-left:3px solid #22C55E;background:linear-gradient(135deg,#F0FDF4 0%,#fff 60%)">
+        <div class="stat-card__label">Ahorro estimado IA</div>
+        <div class="stat-card__value" style="color:#16A34A">USD ${totalSavings>=1000?Math.round(totalSavings/1000)+'K':totalSavings||'—'}</div>
+        <div class="stat-card__sub">esta campaña · fertilización precisa</div>
+        <div class="stat-card__trend"><span class="trend-up">$30–80</span> USD/ha según lote</div>
+      </div>
+    </div>
+
+    <div class="cards-grid-2" style="margin-bottom:20px">
+      <div class="panel" style="margin-bottom:0">
+        <div class="panel__title">👨‍🔬 Tu asesor agronómico</div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0">
+          <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--verde),var(--verde-dark));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1.1rem">PL</div>
+          <div>
+            <div style="font-size:.95rem;font-weight:700;color:var(--gray-800)">${asesor}</div>
+            <div style="font-size:.75rem;color:var(--gray-400)">Ing. Agrónomo · CREA · Mat. 4821</div>
+            <div style="font-size:.72rem;color:var(--verde);margin-top:3px">● Activo · Acceso a tus campos</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel" style="margin-bottom:0">
+        <div class="panel__title">🚜 Tu contratista</div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0">
+          <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#3B82F6,#1D4ED8);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1.1rem">RC</div>
+          <div>
+            <div style="font-size:.95rem;font-weight:700;color:var(--gray-800)">${contratista}</div>
+            <div style="font-size:.75rem;color:var(--gray-400)">Campos Agro SRL · 3 máquinas con kit Soil-IQ</div>
+            <div style="font-size:.72rem;color:#3B82F6;margin-top:3px">● Activo · Realizó pasadas en tus campos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:20px;margin-bottom:20px">
+      <div class="panel" style="padding:12px">
+        <div class="panel__title" style="padding:0 12px 4px">🗺️ Mis campos · Satélite</div>
+        <div class="panel__sub" style="padding:0 12px 12px">Polígonos delimitados · Hacé clic para detalles</div>
+        <div id="map-overview-wrap" style="height:280px;border-radius:8px;position:relative">
+          <div id="map-agro-inner" style="height:100%;border-radius:8px"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel__title">🌱 Estado de suelo</div>
+        <div class="panel__sub">Resumen nutricional de tus campos</div>
+        <div style="margin-top:8px">
+          ${USER_FARMS.map(f=>`
+            <div style="margin-bottom:16px">
+              <div style="font-size:.78rem;font-weight:700;color:var(--gray-700);margin-bottom:8px;display:flex;justify-content:space-between">
+                <span>${f.name}</span>
+                <span class="tag ${STATUS_TAG[f.status]}" style="font-size:.62rem">${STATUS_LABEL[f.status]}</span>
+              </div>
+              ${soilBar('pH',f.ph,7.5,'fill-green')}
+              ${soilBar('Fósforo (ppm)',f.P,50,f.P<15?'fill-red':f.P<20?'fill-amber':'fill-green')}
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-bottom:20px">
+      <div class="panel__title">💰 Ahorro estimado con Soil-IQ · Campaña 2025/2026</div>
+      <div class="panel__sub">Recomendaciones IA de fertilización · Rango histórico: USD $30–80 por hectárea</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:16px 0">
+        ${USER_FARMS.map(f=>`
+          <div style="background:${f.savings>0?'linear-gradient(135deg,#F0FDF4,#fff)':'var(--gray-50)'};border:1px solid ${f.savings>0?'#BBF7D0':'var(--gray-200)'};border-radius:12px;padding:16px">
+            <div style="font-size:.82rem;font-weight:700;color:var(--gray-800);margin-bottom:4px">${f.name}</div>
+            <div style="font-size:.72rem;color:var(--gray-400);margin-bottom:10px">${f.ha} ha · Plan ${f.plan}</div>
+            ${f.savings>0?`
+              <div style="font-size:1.6rem;font-weight:900;color:#16A34A;line-height:1">USD ${(f.savings*f.ha).toLocaleString('es-AR')}</div>
+              <div style="font-size:.72rem;color:#15803D;margin-top:3px">USD $${f.savings}/ha esta campaña</div>
+            `:f.plan==='Free'?`
+              <div style="font-size:1rem;font-weight:700;color:var(--gray-400)">Plan Free</div>
+              <div style="font-size:.72rem;color:var(--gray-400);margin-top:3px">Activá Plan Pro para ver ahorro</div>
+              <div style="font-size:.72rem;color:#16A34A;margin-top:6px;font-weight:600">Potencial: USD ${Math.round(f.ha*45).toLocaleString('es-AR')} estimado</div>
+            `:`
+              <div style="font-size:1rem;font-weight:700;color:var(--gray-400)">Sin datos</div>
+            `}
+          </div>
+        `).join('')}
+        <div style="background:linear-gradient(135deg,#ECFDF5,#F0FDF4);border:2px solid #22C55E;border-radius:12px;padding:16px">
+          <div style="font-size:.82rem;font-weight:700;color:var(--gray-600);margin-bottom:4px">Total esta campaña</div>
+          <div style="font-size:.72rem;color:var(--gray-400);margin-bottom:10px">campos con Plan Pro activo</div>
+          <div style="font-size:2rem;font-weight:900;color:#15803D;line-height:1">USD ${totalSavings>=1000?Math.round(totalSavings/1000)+'K':totalSavings}</div>
+          <div style="font-size:.72rem;color:#166534;margin-top:6px">↑ Potencial total: USD ${Math.round((USER_FARMS.reduce((s,f)=>s+f.ha,0))*45).toLocaleString('es-AR')} con todos los campos en Pro</div>
+        </div>
+      </div>
+      <div style="padding:12px 14px;background:#FFFBEB;border:1px solid #FCD34D;border-radius:8px;font-size:.78rem;color:#92400E">
+        💡 <strong>¿Cómo funciona?</strong> Soil-IQ analiza los datos de suelo de tus campos y genera recomendaciones de fertilización precisas. El ahorro proviene de aplicar exactamente los nutrientes que tu suelo necesita, evitando exceso o déficit. Promedio histórico: <strong>USD $30–80 por hectárea por campaña.</strong>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel__title">🔬 Últimos análisis de laboratorio</div>
+      <div class="panel__sub">Cargados por tu asesor agronómico · ${asesor}</div>
+      <table class="data-table">
+        <thead><tr><th>Campo</th><th>Lote</th><th>Fecha</th><th>pH</th><th>N (kg/ha)</th><th>P (ppm)</th><th>MO (%)</th><th>Estado</th></tr></thead>
+        <tbody>
+          ${USER_FARMS.flatMap(f=>f.analyses.map(a=>`
+            <tr><td><strong>${f.name}</strong></td><td>${a.lote}</td><td>${a.fecha}</td>
+            <td>${a.ph}</td><td>${a.N}</td>
+            <td><span style="color:${a.P<15?'#DC2626':a.P<20?'#D97706':'inherit'}">${a.P}</span></td>
+            <td>${a.MO}%</td><td><span class="tag ${a.cls}">${a.estado}</span></td></tr>
+          `)).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+  setTimeout(()=>{ initMapOverview(); }, 80);
+}
+
+/* ════════════════════════════════════════════════════════
+   CONTRATISTA SETUP & RENDERS
+════════════════════════════════════════════════════════ */
+function setupContratista() {
+  const u = currentUser;
+  document.getElementById('role-badge').textContent = 'Contratista';
+  document.getElementById('role-badge').className = 'header-badge contratista';
+  document.getElementById('user-avatar').textContent = u.initials;
+  document.getElementById('user-name').textContent = u.name;
+  document.getElementById('sb-avatar').textContent = u.initials;
+  document.getElementById('sb-name').textContent = u.name;
+  document.getElementById('sb-role').textContent = u.title;
+  document.getElementById('sidebar-farms-section').style.display = 'none';
+  document.getElementById('sidebar-farms').innerHTML = '';
+
+  const nav = [
+    {id:'contratista-dashboard', icon:'🏠', label:'Inicio'},
+    {id:'contratista-dispositivos', icon:'📟', label:'Mis dispositivos'},
+    {id:'contratista-pasadas', icon:'🚜', label:'Pasadas y datos'},
+    {id:'marketplace', icon:'🛒', label:'Marketplace'},
+  ];
+  renderNav(nav, 'contratista-dashboard');
+  const pubTab = document.getElementById('tab-publicar');
+  if (pubTab) pubTab.style.display = '';
+  renderMktContent('bioinsumos');
+  renderContratistaDashboard();
+  renderDispositivosList();
+  renderPasadasList();
+  showView('view-contratista-dashboard');
+}
+
+function renderContratistaDashboard() {
+  const totalHa   = DEMO_PASSES.reduce((s,p) => s + p.ha, 0);
+  const activos   = DEMO_DEVICES.filter(d => d.estado !== 'inactivo').length;
+  const enCampo   = DEMO_DEVICES.find(d => d.estado === 'en_campo');
+  const firstName = currentUser.name.split(' ')[0];
+  const RATE      = 1.5; // USD por ha
+  const miembroDesde = 'Febrero 2026';
+
+  // Historial mensual: meses anteriores hardcoded + pasadas actuales agrupadas
+  const monthlyHistory = [
+    {mes:'Feb 2026', ha:120, earn:180},
+    {mes:'Mar 2026', ha:280, earn:420},
+    {mes:'Abr 2026', ha:340, earn:510},
+  ];
+  const byMonth = {};
+  DEMO_PASSES.forEach(p => {
+    const parts = p.fecha.split('/');
+    const key = parts[1] + '/' + parts[2];
+    const label = key === '05/2026' ? 'May 2026' : key === '06/2026' ? 'Jun 2026' : key;
+    if (!byMonth[label]) byMonth[label] = {ha:0, earn:0};
+    byMonth[label].ha += p.ha;
+    byMonth[label].earn += Math.round(p.ha * RATE * 10) / 10;
+  });
+  const allMonths = [...monthlyHistory, ...Object.entries(byMonth).map(([mes,d])=>({mes,...d}))];
+  const totalEarnings = allMonths.reduce((s,m) => s + m.earn, 0);
+  const campaignEarnings = Math.round(totalHa * RATE);
+
+  document.getElementById('contratista-dash-content').innerHTML = `
+    <div class="page-title">Buenos días, ${firstName} 👋</div>
+    <div class="page-sub">Vista general · Campaña 2025/2026 · Miembro desde ${miembroDesde} · ${DEMO_DEVICES.length} dispositivos registrados</div>
+
+    <div class="cards-grid" style="margin-bottom:20px">
+      <div class="stat-card">
+        <div class="stat-card__label">Dispositivos activos</div>
+        <div class="stat-card__value">${activos}</div>
+        <div class="stat-card__sub">de ${DEMO_DEVICES.length} registrados</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__label">Pasadas esta campaña</div>
+        <div class="stat-card__value">${DEMO_PASSES.length}</div>
+        <div class="stat-card__sub">registradas en la plataforma</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__label">Hectáreas cubiertas</div>
+        <div class="stat-card__value">${totalHa.toLocaleString('es-AR')}</div>
+        <div class="stat-card__sub">esta campaña con kit Soil-IQ</div>
+      </div>
+      <div class="stat-card" style="border-left:3px solid #22C55E;background:linear-gradient(135deg,#F0FDF4 0%,#fff 60%)">
+        <div class="stat-card__label">Ingresos Soil-IQ</div>
+        <div class="stat-card__value" style="color:#16A34A">USD ${totalEarnings.toLocaleString('es-AR')}</div>
+        <div class="stat-card__sub">acumulado desde ${miembroDesde}</div>
+        <div class="stat-card__trend"><span class="trend-up">↑ USD ${campaignEarnings}</span> esta campaña</div>
+      </div>
+    </div>
+
+    ${enCampo ? `
+    <div class="alert-strip" style="background:#EFF6FF;border-color:#93C5FD;color:#1E40AF;margin-bottom:20px">
+      📡 <strong>${enCampo.nombre}</strong> está actualmente en campo · Última sincronización: ${enCampo.ultima_vez}
+      <button class="btn-submit btn-sm" style="margin-left:12px;padding:4px 14px;font-size:.75rem" onclick="showToast('Abriendo telemetría en vivo...')">Ver en vivo</button>
+    </div>` : ''}
+
+    <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:20px;margin-bottom:20px">
+      <div class="panel" style="margin-bottom:0">
+        <div class="panel__title">💰 Ingresos por datos Soil-IQ</div>
+        <div class="panel__sub">USD $1.50 por hectárea trabajada con kit · Miembro desde ${miembroDesde}</div>
+        <table class="data-table" style="margin-top:8px">
+          <thead><tr><th>Mes</th><th>Hectáreas</th><th style="text-align:right">Ingresos</th></tr></thead>
+          <tbody>
+            ${allMonths.map(m=>`
+              <tr>
+                <td style="font-weight:600">${m.mes}</td>
+                <td style="color:var(--gray-400)">${m.ha.toLocaleString('es-AR')} ha</td>
+                <td style="text-align:right;font-weight:700;color:#16A34A">USD ${m.earn.toLocaleString('es-AR',{minimumFractionDigits:0})}</td>
+              </tr>
+            `).join('')}
+            <tr style="border-top:2px solid var(--gray-200)">
+              <td style="font-weight:800">Total</td>
+              <td style="color:var(--gray-400);font-weight:700">${allMonths.reduce((s,m)=>s+m.ha,0).toLocaleString('es-AR')} ha</td>
+              <td style="text-align:right;font-weight:900;color:#15803D;font-size:1rem">USD ${totalEarnings.toLocaleString('es-AR')}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:14px;padding:12px;background:#F0FDF4;border-radius:8px;border:1px solid #BBF7D0;font-size:.75rem;color:#166534">
+          💡 Cuanto más hectáreas trabajás con el kit Soil-IQ, más ganás. Cada nueva máquina equipada suma ingresos adicionales.
+        </div>
+      </div>
+
+      <div class="panel" style="margin-bottom:0">
+        <div class="panel__title">🚜 Últimas pasadas registradas</div>
+        <div class="panel__sub">Pasadas más recientes de tu maquinaria</div>
+        <table class="data-table">
+          <thead><tr>
+            <th>ID</th><th>Fecha</th><th>Campo</th><th>Ha</th><th>Ingreso</th><th>Estado</th>
+          </tr></thead>
+          <tbody>
+            ${DEMO_PASSES.map(p => {
+              const earn = (p.ha * RATE).toFixed(0);
+              const estadoTag = p.estado === 'procesado'
+                ? `<span class="tag tag-green">Procesado</span>`
+                : `<span class="tag" style="background:#FEF3C7;color:#92400E">En revisión</span>`;
+              return `<tr>
+                <td style="font-size:.72rem;font-family:monospace;color:var(--gray-400)">${p.id}</td>
+                <td>${p.fecha}</td>
+                <td><strong>${p.campo}</strong><br><span style="font-size:.7rem;color:var(--gray-400)">${p.lote} · ${p.cultivo}</span></td>
+                <td>${p.ha} ha</td>
+                <td style="font-weight:700;color:#16A34A">USD ${earn}</td>
+                <td>${estadoTag}</td>
+              </tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+function renderDispositivosList() {
+  const count = document.getElementById('dispositivos-count');
+  if (count) count.textContent = `${DEMO_DEVICES.length} dispositivos registrados`;
+
+  const container = document.getElementById('dispositivos-list');
+  if (!container) return;
+
+  const estadoStyle = {
+    activo:   {bg:'#DCFCE7', color:'#15803D', label:'Activo'},
+    en_campo: {bg:'#EFF6FF', color:'#1D4ED8', label:'En campo'},
+    inactivo: {bg:'#F3F4F6', color:'#6B7280', label:'Inactivo'},
+  };
+
+  container.innerHTML = DEMO_DEVICES.map(d => {
+    const s = estadoStyle[d.estado] || estadoStyle.inactivo;
+    return `
+    <div class="panel" style="margin-bottom:14px;padding:18px 20px">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+        <div style="display:flex;align-items:center;gap:14px;flex:1">
+          <div style="width:44px;height:44px;border-radius:12px;background:#EFF6FF;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0">🚜</div>
+          <div>
+            <div style="font-size:.9rem;font-weight:700;color:var(--gray-800)">${d.nombre}</div>
+            <div style="font-size:.75rem;color:var(--gray-400);margin-top:2px">
+              <span style="font-family:monospace">${d.serial}</span> · ${d.modelo}
+            </div>
+            <div style="font-size:.72rem;color:var(--gray-400);margin-top:3px">
+              Última actividad: ${d.ultima_vez} · ${d.ha_total.toLocaleString('es-AR')} ha acumuladas
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+          <span style="font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:100px;background:${s.bg};color:${s.color}">${s.label}</span>
+          <button class="btn-submit btn-sm" style="padding:5px 14px;font-size:.75rem" onclick="showDeviceDetail('${d.id}')">Ver detalle</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderPasadasList() {
+  const countEl = document.getElementById('pasadas-count');
+  if (countEl) countEl.textContent = `${DEMO_PASSES.length} pasadas registradas esta campaña`;
+
+  const sel = document.getElementById('pas-dispositivo');
+  if (sel) sel.innerHTML = DEMO_DEVICES.map(d => `<option value="${d.id}">${d.nombre}</option>`).join('');
+
+  const container = document.getElementById('pasadas-list');
+  if (!container) return;
+
+  container.innerHTML = `
+    <table class="data-table">
+      <thead><tr>
+        <th>ID Pasada</th><th>Fecha</th><th>Campo</th><th>Lote</th><th>Ha</th><th>Cultivo</th><th>Puntos</th><th>Estado</th>
+      </tr></thead>
+      <tbody>
+        ${DEMO_PASSES.map(p => {
+          const estadoTag = p.estado === 'procesado'
+            ? `<span class="tag tag-green">Procesado</span>`
+            : `<span class="tag" style="background:#FEF3C7;color:#92400E">En revisión</span>`;
+          return `<tr>
+            <td style="font-size:.72rem;font-family:monospace;color:var(--gray-400)">${p.id}</td>
+            <td>${p.fecha}</td>
+            <td><strong>${p.campo}</strong></td>
+            <td>${p.lote}</td>
+            <td>${p.ha} ha</td>
+            <td>${p.cultivo}</td>
+            <td>${p.puntos.toLocaleString('es-AR')}</td>
+            <td>${estadoTag}</td>
+          </tr>`;
+        }).join('')}
+      </tbody>
+    </table>`;
+}
+
+function showDeviceDetail(devId) {
+  const d = DEMO_DEVICES.find(x => x.id === devId);
+  if (!d) return;
+  const passes = DEMO_PASSES.filter(p => p.dispositivo === devId);
+  const totalHa = passes.reduce((s,p) => s + p.ha, 0);
+  const estadoStyle = {activo:'#15803D',en_campo:'#1D4ED8',inactivo:'#6B7280'};
+  const estadoLabel = {activo:'Activo',en_campo:'En campo',inactivo:'Inactivo'};
+
+  document.getElementById('drawer-title').textContent = d.nombre;
+  document.getElementById('drawer-sub').textContent = `${d.modelo} · S/N: ${d.serial}`;
+  document.getElementById('drawer-body').innerHTML = `
+    <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap">
+      <span class="tag" style="background:#EFF6FF;color:#1D4ED8">${d.modelo}</span>
+      <span class="tag" style="color:${estadoStyle[d.estado]};background:${d.estado==='activo'?'#DCFCE7':d.estado==='en_campo'?'#EFF6FF':'#F3F4F6'}">${estadoLabel[d.estado]}</span>
+    </div>
+    <div class="cards-grid-2" style="margin-bottom:20px">
+      <div class="stat-card" style="padding:14px">
+        <div class="stat-card__label">Pasadas registradas</div>
+        <div class="stat-card__value" style="font-size:1.8rem">${passes.length}</div>
+        <div class="stat-card__sub">esta campaña</div>
+      </div>
+      <div class="stat-card" style="padding:14px">
+        <div class="stat-card__label">Ha cubiertas</div>
+        <div class="stat-card__value" style="font-size:1.8rem">${totalHa.toLocaleString('es-AR')}</div>
+        <div class="stat-card__sub">en pasadas vinculadas</div>
+      </div>
+    </div>
+    <div style="font-size:.75rem;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Pasadas de este dispositivo</div>
+    ${passes.length ? passes.map(p => `
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:8px;border:1px solid var(--gray-200);margin-bottom:8px">
+        <div>
+          <div style="font-size:.82rem;font-weight:700">${p.campo} · ${p.lote}</div>
+          <div style="font-size:.72rem;color:var(--gray-400)">${p.fecha} · ${p.ha} ha · ${p.cultivo}</div>
+        </div>
+        <span class="tag ${p.estado==='procesado'?'tag-green':''}" style="${p.estado!=='procesado'?'background:#FEF3C7;color:#92400E':''}">
+          ${p.estado==='procesado'?'Procesado':'En revisión'}
+        </span>
+      </div>
+    `).join('') : '<div style="color:var(--gray-400);font-size:.85rem">Sin pasadas registradas para este dispositivo.</div>'}
+    <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn-submit btn-sm" onclick="showToast('Descargando historial de ${d.nombre}...')">📄 Exportar historial</button>
+      <button class="btn-submit btn-sm" style="background:#FEE2E2;color:#991B1B" onclick="showToast('Función de desvinculación próximamente disponible')">🔗 Desvincular</button>
+    </div>
+  `;
+  openDrawer();
+}
+
+function showRegistrarDispositivoModal() {
+  document.getElementById('drawer-title').textContent = 'Registrar nuevo dispositivo';
+  document.getElementById('drawer-sub').textContent = 'Vinculá tu kit de sensores a la plataforma';
+  document.getElementById('drawer-body').innerHTML = `
+    <div class="alert-strip info" style="background:#EFF6FF;border-color:#BFDBFE;color:#1E40AF;margin-bottom:20px">
+      Cada kit Soil-IQ incluye un <strong>código de activación único</strong>.
+      Ingresalo para vincular los sensores del kit a tu cuenta y comenzar a sincronizar pasadas.
+    </div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label style="font-size:.8rem;font-weight:600;color:var(--gray-600);display:block;margin-bottom:5px">Nombre de la máquina</label>
+      <input type="text" class="login-field input" placeholder="Ej: Cosechadora John Deere S780" style="width:100%;padding:10px 12px;border:1.5px solid var(--gray-200);border-radius:10px;font-family:inherit;font-size:.9rem">
+    </div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label style="font-size:.8rem;font-weight:600;color:var(--gray-600);display:block;margin-bottom:5px">Código de activación del kit</label>
+      <input type="text" class="login-field input" placeholder="Ej: SIQ-XXXX-XXXX" style="width:100%;padding:10px 12px;border:1.5px solid var(--gray-200);border-radius:10px;font-family:inherit;font-size:.9rem;font-family:monospace;text-transform:uppercase">
+    </div>
+    <div class="form-group" style="margin-bottom:20px">
+      <label style="font-size:.8rem;font-weight:600;color:var(--gray-600);display:block;margin-bottom:5px">Kit de sensores adquirido</label>
+      <select style="width:100%;padding:10px 12px;border:1.5px solid var(--gray-200);border-radius:10px;font-family:inherit;font-size:.9rem">
+        <option>SoilSense Pro V2 — Kit completo (5 sensores)</option>
+        <option>SoilSense Lite — Kit básico (3 sensores)</option>
+        <option>SoilSense Enterprise — Kit premium (8 sensores)</option>
+      </select>
+    </div>
+    <button class="btn-login" onclick="showToast('✅ Kit vinculado exitosamente · Los sensores comenzarán a sincronizar en la próxima pasada');closeDrawer()">
+      Vincular kit →
+    </button>
+  `;
+  openDrawer();
+}
+
+function submitPasada(e) {
+  e.preventDefault();
+  const campo = document.getElementById('pas-campo').value || 'sin nombre';
+  showToast(`✅ Pasada registrada en ${campo} · Datos en procesamiento`);
+}
+
+/* ════════════════════════════════════════════════════════
    NAV & FARMS
 ════════════════════════════════════════════════════════ */
 function renderNav(items, active) {
@@ -1205,7 +1842,7 @@ function renderFarms() {
       <div style="font-size:.67rem;color:rgba(255,255,255,.35);margin-top:1px">${f.loc}</div>
       <div style="margin-top:5px;display:flex;gap:5px">
         <span class="tag ${f.plan==='Enterprise'?'':f.plan==='Pro'?'tag-green':'tag-blue'}" style="${f.plan==='Enterprise'?'background:#EDE9FE;color:#6D28D9':''}font-size:.6rem">${f.plan}</span>
-        ${f.sensors?'<span class="tag tag-blue" style="font-size:.6rem">📡 IoT</span>':'<span class="tag tag-gray" style="font-size:.6rem">Sin sensor</span>'}
+        ${f.sensors?'<span class="tag tag-blue" style="font-size:.6rem">🚜 Con datos</span>':'<span class="tag tag-gray" style="font-size:.6rem">Sin pasadas</span>'}
         ${f.status==='alert'?'<span class="tag tag-red" style="font-size:.6rem">⚠ Crítico</span>':f.status==='warn'?'<span class="tag tag-amber" style="font-size:.6rem">⚠ Alerta</span>':''}
       </div>
     </div>
@@ -1247,10 +1884,127 @@ const STATUS_TAG   = {ok:'tag-green', warn:'tag-amber', alert:'tag-red'};
 function renderDashboard(farmIdx) {
   const el = document.getElementById('dash-content');
   if (farmIdx === null) {
-    renderDashboardOverview(el);
+    if (currentRole === 'productor') {
+      renderProductorOverview(el);
+    } else {
+      renderDashboardOverview(el);
+    }
   } else {
     renderDashboardFarm(el, USER_FARMS[farmIdx]);
   }
+}
+
+/* ════════════════════════════════════════════════════════
+   RECOMENDACIONES — lógica de macros → productos
+════════════════════════════════════════════════════════ */
+const MACRO_THRESHOLDS = {
+  ph:  {low:6.0, high:7.2, unit:'pH'},
+  N:   {low:60,  high:120, unit:'ppm'},
+  P:   {low:15,  high:30,  unit:'ppm'},
+  K:   {low:120, high:250, unit:'ppm'},
+};
+
+const MACRO_RECS = {
+  ph_bajo:  {icon:'🧱', titulo:'pH ácido',        recomendacion:'Aplicar encalado con calcáreo dolomítico para llevar el pH al rango óptimo (6.2–7.0). Mejora la disponibilidad de todos los nutrientes.',          etapa:'Pre-siembra',   urgencia:'alta',   producto:'BacillusActiv',   proveedor:'AgroBiotics',    tab:'bioinsumos'},
+  ph_alto:  {icon:'⚗️', titulo:'pH alcalino',      recomendacion:'pH elevado reduce disponibilidad de micronutrientes (Fe, Mn, Zn). Incorporar azufre elemental o materia orgánica para acidificación gradual.',     etapa:'Entre campaña', urgencia:'media',  producto:'HumiPlus Líquido',proveedor:'Organic Fields', tab:'bioinsumos'},
+  N_bajo:   {icon:'🌿', titulo:'Nitrógeno bajo',   recomendacion:'Incorporar inoculante biológico fijador de N₂ atmosférico. Reduce hasta 30% la dosis de urea sin pérdida de rendimiento en maíz y trigo.',        etapa:'Siembra',       urgencia:'media',  producto:'AzospirExcel',    proveedor:'MicroAgro',      tab:'bioinsumos'},
+  P_bajo:   {icon:'🔴', titulo:'Fósforo crítico',  recomendacion:'Fósforo por debajo del umbral crítico. Aplicar fosfato diamónico o MAP en línea de siembra. Complementar con solubilizador biológico de P.',      etapa:'Siembra',       urgencia:'alta',   producto:'BacillusActiv',   proveedor:'AgroBiotics',    tab:'bioinsumos'},
+  P_medio:  {icon:'🟡', titulo:'Fósforo bajo',     recomendacion:'Fósforo por debajo del óptimo. Evaluar fertilización fosfatada de mantenimiento y aplicar ácidos húmicos para mejorar disponibilidad de P.',       etapa:'Pre-siembra',   urgencia:'media',  producto:'HumiPlus Líquido',proveedor:'Organic Fields', tab:'bioinsumos'},
+  K_bajo:   {icon:'⚡', titulo:'Potasio bajo',     recomendacion:'Potasio insuficiente afecta la calidad del grano y resistencia a estrés hídrico. Aplicar cloruro de potasio o sulfato de potasio según cultivo.',  etapa:'Pre-siembra',   urgencia:'media',  producto:'HumiPlus Líquido',proveedor:'Organic Fields', tab:'bioinsumos'},
+  optimo:   {icon:'✅', titulo:'Macros óptimos',   recomendacion:'Todos los macros dentro del rango óptimo. Se recomienda fertilización de mantenimiento con micorrizas para ampliar absorción radicular.',          etapa:'Siembra',       urgencia:'baja',   producto:'MicorrhizaRed',   proveedor:'Symbiosis Lab',  tab:'bioinsumos'},
+};
+
+function getRecsForFarm(f) {
+  const items = [];
+  if (f.ph < MACRO_THRESHOLDS.ph.low)   items.push({...MACRO_RECS.ph_bajo,  macro:'pH',    valor:f.ph,   status:'bajo'});
+  else if (f.ph > MACRO_THRESHOLDS.ph.high) items.push({...MACRO_RECS.ph_alto, macro:'pH',  valor:f.ph,   status:'alto'});
+  if (f.N < MACRO_THRESHOLDS.N.low)     items.push({...MACRO_RECS.N_bajo,   macro:'N',     valor:f.N,    status:'bajo'});
+  if (f.P < MACRO_THRESHOLDS.P.low)     items.push({...MACRO_RECS.P_bajo,   macro:'P',     valor:f.P,    status:'crítico'});
+  else if (f.P < MACRO_THRESHOLDS.P.high) items.push({...MACRO_RECS.P_medio, macro:'P',    valor:f.P,    status:'bajo'});
+  if (f.K && f.K < MACRO_THRESHOLDS.K.low) items.push({...MACRO_RECS.K_bajo, macro:'K',   valor:f.K,    status:'bajo'});
+  if (items.length === 0) items.push({...MACRO_RECS.optimo, macro:'General', valor:null, status:'óptimo'});
+  return items;
+}
+
+function urgenciaTag(u) {
+  const map = {alta:'background:#FEE2E2;color:#DC2626', media:'background:#FEF3C7;color:#D97706', baja:'background:#DCFCE7;color:#15803D'};
+  return `<span style="font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:20px;${map[u]||map.baja}">${u.toUpperCase()}</span>`;
+}
+
+function renderRecomendaciones() {
+  const el = document.getElementById('recom-view-content');
+  if (!el || !USER_FARMS.length) return;
+  el.innerHTML = USER_FARMS.map((f,fi) => {
+    const recs = getRecsForFarm(f);
+    const macroStatus = (macro, val, unit) => {
+      const t = MACRO_THRESHOLDS[macro];
+      if (!t || val == null) return '';
+      const color = val < t.low ? '#DC2626' : val > t.high ? '#D97706' : '#16A34A';
+      return `<span style="font-size:.78rem;font-weight:700;color:${color}">${val} ${unit||t.unit}</span>`;
+    };
+    return `
+    <div class="panel" style="margin-bottom:20px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px">
+        <div>
+          <div style="font-size:1rem;font-weight:700;color:var(--gray-800)">🌾 ${f.name}</div>
+          <div style="font-size:.78rem;color:var(--gray-400)">${f.owner} · ${f.ha} ha · ${f.cultivo}</div>
+        </div>
+        <div style="display:flex;gap:10px;font-size:.78rem">
+          <div style="text-align:center"><div style="color:var(--gray-400)">pH</div>${macroStatus('ph',f.ph)}</div>
+          <div style="text-align:center"><div style="color:var(--gray-400)">N</div>${macroStatus('N',f.N,'ppm')}</div>
+          <div style="text-align:center"><div style="color:var(--gray-400)">P</div>${macroStatus('P',f.P,'ppm')}</div>
+          <div style="text-align:center"><div style="color:var(--gray-400)">K</div>${macroStatus('K',f.K||'—','ppm')}</div>
+        </div>
+      </div>
+      ${recs.map(r=>`
+        <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:10px;padding:14px 16px;margin-bottom:10px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <span style="font-size:1.2rem">${r.icon}</span>
+            <span style="font-weight:700;color:var(--gray-800);font-size:.9rem">${r.titulo}</span>
+            ${urgenciaTag(r.urgencia)}
+            <span style="font-size:.72rem;color:var(--gray-400);margin-left:auto">📅 Etapa: ${r.etapa}</span>
+          </div>
+          <div style="font-size:.82rem;color:var(--gray-600);margin-bottom:10px;line-height:1.5">${r.recomendacion}</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 12px;background:#fff;border-radius:8px;border:1px solid var(--gray-200)">
+            <div>
+              <div style="font-size:.7rem;color:var(--gray-400);margin-bottom:2px">PRODUCTO RECOMENDADO</div>
+              <div style="font-weight:700;color:var(--verde);font-size:.88rem">${r.producto}</div>
+              <div style="font-size:.74rem;color:var(--gray-400)">${r.proveedor}</div>
+            </div>
+            <button onclick="showView('view-marketplace');switchMktTab('${r.tab}',document.querySelector('#view-marketplace .tab-bar .tab'))" style="background:var(--verde);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:.78rem;font-weight:600;cursor:pointer">Ver en Marketplace →</button>
+          </div>
+        </div>
+      `).join('')}
+    </div>`;
+  }).join('');
+}
+
+function renderMktRecomendaciones() {
+  const el = document.getElementById('recom-proveedores-mkt');
+  if (!el || !USER_FARMS.length) return;
+  const allRecs = [];
+  USER_FARMS.forEach(f => {
+    getRecsForFarm(f).forEach(r => {
+      if (!allRecs.find(x=>x.producto===r.producto && x.status!=='óptimo'))
+        allRecs.push({...r, campo:f.name});
+    });
+  });
+  const toShow = allRecs.filter(r=>r.urgencia==='alta').concat(allRecs.filter(r=>r.urgencia==='media')).slice(0,3);
+  if (!toShow.length) { el.innerHTML = '<div style="opacity:.7;font-size:.82rem">Todos los macros en rango óptimo. Sin recomendaciones urgentes.</div>'; return; }
+  el.innerHTML = toShow.map(r=>`
+    <div style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <span style="font-size:1.3rem">${r.icon}</span>
+      <div style="flex:1;min-width:200px">
+        <div style="font-weight:700;font-size:.88rem;margin-bottom:2px">${r.titulo} · <span style="font-weight:400;opacity:.8">${r.campo}</span></div>
+        <div style="font-size:.76rem;opacity:.85;line-height:1.4">${r.recomendacion.slice(0,100)}…</div>
+      </div>
+      <div style="text-align:right;min-width:140px">
+        <div style="font-weight:700;font-size:.85rem;margin-bottom:2px">${r.producto}</div>
+        <div style="font-size:.72rem;opacity:.75;margin-bottom:6px">${r.proveedor}</div>
+        <button onclick="switchMktTab('${r.tab}',document.querySelector('#view-marketplace .tab-bar .tab'))" style="background:#fff;color:#2D7A4F;border:none;border-radius:6px;padding:5px 12px;font-size:.75rem;font-weight:700;cursor:pointer">Ver producto →</button>
+      </div>
+    </div>
+  `).join('');
 }
 
 function renderDashboardOverview(el) {
@@ -1275,7 +2029,7 @@ function renderDashboardOverview(el) {
       <div class="stat-card">
         <div class="stat-card__label">Campos activos</div>
         <div class="stat-card__value">${USER_FARMS.length}</div>
-        <div class="stat-card__sub">${USER_FARMS.filter(f=>f.sensors).length} con sensores IoT</div>
+        <div class="stat-card__sub">${USER_FARMS.filter(f=>f.sensors).length} con datos de maquinaria</div>
       </div>
       <div class="stat-card">
         <div class="stat-card__label">Ahorro estimado</div>
@@ -1287,6 +2041,28 @@ function renderDashboardOverview(el) {
         <div class="stat-card__label">Alertas activas</div>
         <div class="stat-card__value" style="color:${alerts>0?'#DC2626':'#16A34A'}">${alerts}</div>
         <div class="stat-card__sub">${alerts>0?`en ${alerts} campo${alerts!==1?'s':''} · Requieren atención`:'Todos los campos OK'}</div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-bottom:20px;padding:18px 20px">
+      <div class="panel__title" style="margin-bottom:4px">📊 Fuentes de datos · Campaña 2025/2026</div>
+      <div class="panel__sub" style="margin-bottom:14px">Soil-IQ integra tres fuentes para darte una visión completa de cada lote</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+        <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.15);border-radius:10px;padding:14px 16px">
+          <div style="font-size:1.3rem;margin-bottom:8px">🚜</div>
+          <div style="font-size:.82rem;font-weight:700;color:var(--gray-800);margin-bottom:4px">Pasadas del contratista</div>
+          <div style="font-size:.75rem;color:var(--gray-600);line-height:1.5">Datos de suelo recolectados por maquinaria equipada con el kit Soil-IQ durante cosecha, siembra o pulverización</div>
+        </div>
+        <div style="background:rgba(45,122,79,.06);border:1px solid rgba(45,122,79,.15);border-radius:10px;padding:14px 16px">
+          <div style="font-size:1.3rem;margin-bottom:8px">🔬</div>
+          <div style="font-size:.82rem;font-weight:700;color:var(--gray-800);margin-bottom:4px">Análisis de laboratorio</div>
+          <div style="font-size:.75rem;color:var(--gray-600);line-height:1.5">Resultados de análisis de suelo cargados manualmente o digitalizados por OCR desde cualquier laboratorio</div>
+        </div>
+        <div style="background:rgba(232,160,32,.06);border:1px solid rgba(232,160,32,.2);border-radius:10px;padding:14px 16px">
+          <div style="font-size:1.3rem;margin-bottom:8px">📡</div>
+          <div style="font-size:.82rem;font-weight:700;color:var(--gray-800);margin-bottom:4px">Sensores en maquinaria</div>
+          <div style="font-size:.75rem;color:var(--gray-600);line-height:1.5">Sensores instalados en los equipos del contratista que capturan datos de suelo durante cada pasada de siembra, cosecha o pulverización</div>
+        </div>
       </div>
     </div>
 
@@ -1357,9 +2133,9 @@ function renderDashboardFarm(el, f) {
         <div class="stat-card__sub">${f.savings>0?'por ha · esta campaña':'Sin plan Pro activo'}</div>
       </div>
       <div class="stat-card">
-        <div class="stat-card__label">Sensor IoT</div>
-        <div class="stat-card__value" style="font-size:1.4rem">${f.sensors?'📡 Activo':'Sin sensor'}</div>
-        <div class="stat-card__sub">${f.sensors?'LoRaWAN · datos en vivo':'Cargá datos manualmente'}</div>
+        <div class="stat-card__label">Datos de maquinaria</div>
+        <div class="stat-card__value" style="font-size:1.4rem">${f.sensors?'🚜 Disponibles':'Sin pasadas'}</div>
+        <div class="stat-card__sub">${f.sensors?'Registradas por el contratista':'Solo vía análisis de laboratorio'}</div>
       </div>
       <div class="stat-card">
         <div class="stat-card__label">Estado general</div>
@@ -1471,7 +2247,7 @@ function farmPopup(f) {
     <hr style="margin:5px 0;border-color:#eee">
     pH <strong>${f.ph}</strong> &nbsp; N <strong>${f.N} kg/ha</strong><br>
     P <strong style="color:${f.P<15?'#DC2626':f.P<20?'#D97706':'#16A34A'}">${f.P} ppm</strong> &nbsp; MO <strong>${f.MO}%</strong><br>
-    ${f.sensors?'<span style="color:#16A34A">📡 Sensores activos</span>':'<span style="color:#999">Sin sensores</span>'}
+    ${f.sensors?'<span style="color:#16A34A">🚜 Datos de maquinaria</span>':'<span style="color:#999">Sin pasadas registradas</span>'}
   </div>`;
 }
 
@@ -1693,17 +2469,22 @@ function initChartProvincias() {
 ════════════════════════════════════════════════════════ */
 function renderSensorPanels() {
   const el = document.getElementById('sensor-panels');
-  el.innerHTML = USER_FARMS.map((f,i)=>`
+  el.innerHTML = USER_FARMS.map((f,i)=>{
+    // Filtrar lecturas específicas de sensores IoT fijos (no aplican en maquinaria)
+    const readings = f.sensorData ? f.sensorData.filter(s=>!s.label.includes('LoRaWAN')&&!s.label.includes('Batería sensor')) : null;
+    const pasada = f.sensorPasada;
+    const alertCount = readings ? readings.filter(s=>s.status!=='ok').length : 0;
+    return `
     <div class="sensor-tab-panel" id="sp-${i}" style="${i>0?'display:none':''}">
-      <div class="alert-strip ${f.sensorData?'info':''}">
-        ${f.sensorData
-          ? `📡 <strong>${f.name} · ${f.sensorLote}:</strong> ${f.sensorData.filter(s=>s.status!=='ok').length} alertas activas · Última sync hace 4 min`
-          : `⚠️ <strong>${f.name}:</strong> No hay sensores IoT instalados en este campo. <a href="#" onclick="showView('view-marketplace');return false" style="color:inherit;font-weight:700;text-decoration:underline">Ver sensores disponibles →</a>`
+      <div class="alert-strip ${readings?'info':''}">
+        ${readings
+          ? `🚜 <strong>${f.name} · ${f.sensorLote}:</strong> Última pasada: <strong>${pasada?.fecha||'reciente'}</strong> · ${pasada?.maquina||'Maquinaria'} · ${pasada?.contratista||'Contratista'} · ${alertCount>0?alertCount+' parámetros con alerta':'Todos los parámetros normales'}`
+          : `⚠️ <strong>${f.name}:</strong> El contratista aún no realizó pasadas con el kit Soil-IQ en este campo. Los datos aparecerán automáticamente tras la primera pasada.`
         }
       </div>
-      ${f.sensorData ? `
+      ${readings ? `
         <div class="sensor-grid">
-          ${f.sensorData.map(s=>`
+          ${readings.map(s=>`
             <div class="sensor-card">
               <div class="sensor-card__icon">${s.icon}</div>
               <div class="sensor-card__value" style="color:${s.color}">${s.value}</div>
@@ -1717,26 +2498,26 @@ function renderSensorPanels() {
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
           <div class="panel">
-            <div class="panel__title">📈 Humedad últimas 24h</div>
-            <div class="panel__sub">${f.name} · Tendencia horaria</div>
+            <div class="panel__title">📈 Humedad · Últimas lecturas</div>
+            <div class="panel__sub">${f.name} · ${f.sensorLote} · Registrado durante pasada</div>
             <div class="chart-wrap"><canvas id="chart-sensor-${i}"></canvas></div>
           </div>
           <div class="panel">
             <div class="panel__title">🧪 Resumen nutricional del lote</div>
-            <div class="panel__sub">Basado en último análisis + sensor en tiempo real</div>
+            <div class="panel__sub">Basado en último análisis de laboratorio</div>
             ${renderSoilBars(f)}
           </div>
         </div>
       ` : `
         <div class="panel" style="text-align:center;padding:48px">
-          <div style="font-size:3rem;margin-bottom:16px">📡</div>
-          <div style="font-size:1.1rem;font-weight:700;color:var(--gray-800);margin-bottom:8px">Sin sensores IoT instalados</div>
-          <div style="font-size:.85rem;color:var(--gray-400);margin-bottom:24px">Instalá sensores LoRaWAN para monitoreo en tiempo real sin depender de conectividad 4G</div>
-          <button class="btn-submit" onclick="showView('view-marketplace')">🛒 Ver sensores en Marketplace</button>
+          <div style="font-size:3rem;margin-bottom:16px">🚜</div>
+          <div style="font-size:1.1rem;font-weight:700;color:var(--gray-800);margin-bottom:8px">Sin datos de maquinaria</div>
+          <div style="font-size:.85rem;color:var(--gray-400);margin-bottom:24px">Cuando el contratista realice una pasada con el kit Soil-IQ instalado en su maquinaria, los datos de suelo aparecerán aquí automáticamente</div>
+          <button class="btn-submit" onclick="showView('view-marketplace')">🛒 Ver kits Soil-IQ en Marketplace</button>
         </div>
       `}
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 
   // Init sensor charts after render
   setTimeout(()=>{
@@ -1838,7 +2619,7 @@ function renderMktPublish(el) {
                 <option>🔬 Laboratorio de análisis</option>
                 <option>🚜 Contratista / Aplicador</option>
                 <option>👨‍🔬 Asesor agronómico</option>
-                <option>📡 Sensor / Hardware IoT</option>
+                <option>📡 Sensor / Hardware</option>
                 <option>🌾 Insumo fertilizante</option>
                 <option>📊 Software / App</option>
               </select>
@@ -1887,7 +2668,7 @@ function renderMktPublish(el) {
                 <option value="🌿">🌿 Extracto vegetal</option>
                 <option value="🧪">🧪 Laboratorio</option>
                 <option value="🚜">🚜 Maquinaria</option>
-                <option value="📡">📡 Sensor IoT</option>
+                <option value="📡">📡 Sensor</option>
                 <option value="🌱">🌱 Insumo general</option>
                 <option value="💧">💧 Líquido</option>
                 <option value="🔬">🔬 Análisis</option>
@@ -1986,15 +2767,15 @@ const ALL_FIELDS = [
      {id:'#0042',lote:'Lote 2',fecha:'03/04/26',ph:6.1,N:76,P:22,MO:3.6,lab:'INTA 9 de Julio',estado:'Óptimo',cls:'tag-green'},
      {id:'#0039',lote:'Lote 3',fecha:'20/03/26',ph:6.0,N:71,P:21,MO:3.8,lab:'AgroAnálisis',estado:'Óptimo',cls:'tag-green'},
    ],
-   sensorLote:'Lote 2', sensorData:[
+   sensorLote:'Lote 2',
+   sensorPasada:{fecha:'01/06/2026', maquina:'Cosechadora Case IH 9250', contratista:'Roberto Campos'},
+   sensorData:[
      {icon:'💧',label:'Humedad volumétrica',value:'58',unit:'%',status:'ok',color:'#3B82F6'},
      {icon:'🌡️',label:'Temperatura de suelo',value:'18.4',unit:'°C',status:'ok',color:'#F59E0B'},
      {icon:'⚗️',label:'pH en tiempo real',value:'6.1',unit:'pH',status:'ok',color:'#22C55E'},
      {icon:'⚡',label:'Conductividad eléctrica',value:'0.31',unit:'dS/m',status:'ok',color:'#8B5CF6'},
      {icon:'🌬️',label:'Temperatura ambiente',value:'22.1',unit:'°C',status:'ok',color:'#F59E0B'},
      {icon:'🌊',label:'Nivel hídrico freática',value:'3.2',unit:'m',status:'ok',color:'#3B82F6'},
-     {icon:'📡',label:'Señal LoRaWAN',value:'94',unit:'%',status:'ok',color:'#22C55E'},
-     {icon:'🔋',label:'Batería sensor',value:'87',unit:'%',status:'ok',color:'#22C55E'},
    ]},
   // 1 — Pablo: San Martín
   {name:'San Martín', owner:'Ana García', asesor:'Pablo López', ha:320,
@@ -2011,15 +2792,15 @@ const ALL_FIELDS = [
      {id:'#0046',lote:'Lote A',fecha:'12/04/26',ph:6.0,N:66,P:20,MO:3.3,lab:'AgroAnálisis',estado:'Regular',cls:'tag-amber'},
      {id:'#0041',lote:'Lote B',fecha:'12/04/26',ph:5.8,N:58,P:16,MO:2.9,lab:'AgroAnálisis',estado:'Bajo en P',cls:'tag-amber'},
    ],
-   sensorLote:'Lote A', sensorData:[
+   sensorLote:'Lote A',
+   sensorPasada:{fecha:'30/05/2026', maquina:'Pulverizadora John Deere R4040', contratista:'Roberto Campos'},
+   sensorData:[
      {icon:'💧',label:'Humedad volumétrica',value:'43',unit:'%',status:'warn',color:'#F59E0B'},
      {icon:'🌡️',label:'Temperatura de suelo',value:'19.8',unit:'°C',status:'ok',color:'#F59E0B'},
      {icon:'⚗️',label:'pH en tiempo real',value:'5.8',unit:'pH',status:'warn',color:'#F59E0B'},
      {icon:'⚡',label:'Conductividad eléctrica',value:'0.44',unit:'dS/m',status:'warn',color:'#F59E0B'},
      {icon:'🌬️',label:'Temperatura ambiente',value:'24.3',unit:'°C',status:'ok',color:'#F59E0B'},
      {icon:'🌊',label:'Nivel hídrico freática',value:'4.1',unit:'m',status:'ok',color:'#3B82F6'},
-     {icon:'📡',label:'Señal LoRaWAN',value:'78',unit:'%',status:'warn',color:'#F59E0B'},
-     {icon:'🔋',label:'Batería sensor',value:'62',unit:'%',status:'ok',color:'#22C55E'},
    ]},
   // 2 — Pablo: La Pampeana
   {name:'La Pampeana', owner:'Carlos Méndez', asesor:'Pablo López', ha:780,
@@ -2057,15 +2838,15 @@ const ALL_FIELDS = [
      {id:'#0040',lote:'Lote 1',fecha:'25/03/26',ph:6.6,N:94,P:32,MO:4.3,lab:'INTA 9 de Julio',estado:'Óptimo',cls:'tag-green'},
      {id:'#0036',lote:'Lote 3',fecha:'10/03/26',ph:6.5,N:88,P:31,MO:4.2,lab:'AgroAnálisis',estado:'Óptimo',cls:'tag-green'},
    ],
-   sensorLote:'Lote 1', sensorData:[
+   sensorLote:'Lote 1',
+   sensorPasada:{fecha:'25/05/2026', maquina:'Cosechadora Case IH 9250', contratista:'Roberto Campos'},
+   sensorData:[
      {icon:'💧',label:'Humedad volumétrica',value:'71',unit:'%',status:'ok',color:'#3B82F6'},
      {icon:'🌡️',label:'Temperatura de suelo',value:'16.2',unit:'°C',status:'ok',color:'#F59E0B'},
      {icon:'⚗️',label:'pH en tiempo real',value:'6.4',unit:'pH',status:'ok',color:'#22C55E'},
      {icon:'⚡',label:'Conductividad eléctrica',value:'0.22',unit:'dS/m',status:'ok',color:'#22C55E'},
      {icon:'🌬️',label:'Temperatura ambiente',value:'20.5',unit:'°C',status:'ok',color:'#F59E0B'},
      {icon:'🌊',label:'Nivel hídrico freática',value:'2.8',unit:'m',status:'ok',color:'#3B82F6'},
-     {icon:'📡',label:'Señal LoRaWAN',value:'99',unit:'%',status:'ok',color:'#22C55E'},
-     {icon:'🔋',label:'Batería sensor',value:'12',unit:'%',status:'alert',color:'#EF4444'},
    ]},
   // 4 — María: La Esperanza
   {name:'La Esperanza', owner:'A. Rodríguez', asesor:'María Fernández', ha:1240,
@@ -2086,15 +2867,15 @@ const ALL_FIELDS = [
      {id:'#0051',lote:'Lote 3',fecha:'28/04/26',ph:5.9,N:70,P:21,MO:3.4,lab:'INTA Pergamino',estado:'Regular',cls:'tag-amber'},
      {id:'#0049',lote:'Lote 5',fecha:'20/04/26',ph:5.8,N:68,P:20,MO:3.3,lab:'INTA Pergamino',estado:'Regular',cls:'tag-amber'},
    ],
-   sensorLote:'Lote 2', sensorData:[
+   sensorLote:'Lote 2',
+   sensorPasada:{fecha:'02/06/2026', maquina:'Cosechadora Case IH 9250', contratista:'Roberto Campos'},
+   sensorData:[
      {icon:'💧',label:'Humedad volumétrica',value:'62',unit:'%',status:'ok',color:'#3B82F6'},
      {icon:'🌡️',label:'Temperatura de suelo',value:'17.8',unit:'°C',status:'ok',color:'#F59E0B'},
      {icon:'⚗️',label:'pH en tiempo real',value:'6.0',unit:'pH',status:'ok',color:'#22C55E'},
      {icon:'⚡',label:'Conductividad eléctrica',value:'0.28',unit:'dS/m',status:'ok',color:'#8B5CF6'},
      {icon:'🌬️',label:'Temperatura ambiente',value:'21.4',unit:'°C',status:'ok',color:'#F59E0B'},
      {icon:'🌊',label:'Nivel hídrico freática',value:'3.8',unit:'m',status:'ok',color:'#3B82F6'},
-     {icon:'📡',label:'Señal LoRaWAN',value:'91',unit:'%',status:'ok',color:'#22C55E'},
-     {icon:'🔋',label:'Batería sensor',value:'74',unit:'%',status:'ok',color:'#22C55E'},
    ]},
   // 5 — María: Los Pinos
   {name:'Los Pinos', owner:'Agroempresa Los Pinos', asesor:'María Fernández', ha:2100,
@@ -2118,15 +2899,15 @@ const ALL_FIELDS = [
      {id:'#0054',lote:'Lote 1',fecha:'25/04/26',ph:6.4,N:87,P:29,MO:4.2,lab:'AgroAnálisis',estado:'Óptimo',cls:'tag-green'},
      {id:'#0053',lote:'Lote 7',fecha:'18/04/26',ph:6.3,N:84,P:27,MO:4.0,lab:'Laboratorio Sur',estado:'Óptimo',cls:'tag-green'},
    ],
-   sensorLote:'Lote 3', sensorData:[
+   sensorLote:'Lote 3',
+   sensorPasada:{fecha:'28/05/2026', maquina:'Sembradora Apache 8000', contratista:'Roberto Campos'},
+   sensorData:[
      {icon:'💧',label:'Humedad volumétrica',value:'67',unit:'%',status:'ok',color:'#3B82F6'},
      {icon:'🌡️',label:'Temperatura de suelo',value:'16.9',unit:'°C',status:'ok',color:'#F59E0B'},
      {icon:'⚗️',label:'pH en tiempo real',value:'6.2',unit:'pH',status:'ok',color:'#22C55E'},
      {icon:'⚡',label:'Conductividad eléctrica',value:'0.24',unit:'dS/m',status:'ok',color:'#22C55E'},
      {icon:'🌬️',label:'Temperatura ambiente',value:'19.8',unit:'°C',status:'ok',color:'#F59E0B'},
      {icon:'🌊',label:'Nivel hídrico freática',value:'2.9',unit:'m',status:'ok',color:'#3B82F6'},
-     {icon:'📡',label:'Señal LoRaWAN',value:'97',unit:'%',status:'ok',color:'#22C55E'},
-     {icon:'🔋',label:'Batería sensor',value:'91',unit:'%',status:'ok',color:'#22C55E'},
    ]},
   // 6 — Jorge: Campo Verde
   {name:'Campo Verde', owner:'F. Martínez', asesor:'Jorge Ramírez', ha:380,
@@ -2143,15 +2924,15 @@ const ALL_FIELDS = [
      {id:'#0060',lote:'Lote 1',fecha:'18/04/26',ph:5.9,N:60,P:17,MO:3.0,lab:'AgroAnálisis',estado:'Regular',cls:'tag-amber'},
      {id:'#0058',lote:'Lote 2',fecha:'10/04/26',ph:5.7,N:56,P:15,MO:2.8,lab:'INTA Pergamino',estado:'Bajo en P',cls:'tag-amber'},
    ],
-   sensorLote:'Lote 1', sensorData:[
+   sensorLote:'Lote 1',
+   sensorPasada:{fecha:'18/05/2026', maquina:'Pulverizadora John Deere R4040', contratista:'Roberto Campos'},
+   sensorData:[
      {icon:'💧',label:'Humedad volumétrica',value:'49',unit:'%',status:'ok',color:'#3B82F6'},
      {icon:'🌡️',label:'Temperatura de suelo',value:'20.1',unit:'°C',status:'ok',color:'#F59E0B'},
      {icon:'⚗️',label:'pH en tiempo real',value:'5.7',unit:'pH',status:'warn',color:'#F59E0B'},
      {icon:'⚡',label:'Conductividad eléctrica',value:'0.38',unit:'dS/m',status:'ok',color:'#8B5CF6'},
      {icon:'🌬️',label:'Temperatura ambiente',value:'25.2',unit:'°C',status:'ok',color:'#F59E0B'},
      {icon:'🌊',label:'Nivel hídrico freática',value:'4.4',unit:'m',status:'ok',color:'#3B82F6'},
-     {icon:'📡',label:'Señal LoRaWAN',value:'82',unit:'%',status:'ok',color:'#22C55E'},
-     {icon:'🔋',label:'Batería sensor',value:'55',unit:'%',status:'ok',color:'#22C55E'},
    ]},
   // 7 — Jorge: El Ombú
   {name:'El Ombú', owner:'J. Pereyra', asesor:'Jorge Ramírez', ha:220,
@@ -2186,15 +2967,15 @@ const ALL_FIELDS = [
      {id:'#0064',lote:'Lote 1',fecha:'05/04/26',ph:6.5,N:78,P:26,MO:3.9,lab:'AgroAnálisis',estado:'Óptimo',cls:'tag-green'},
      {id:'#0062',lote:'Lote 3',fecha:'28/03/26',ph:6.3,N:74,P:24,MO:3.5,lab:'Laboratorio Sur',estado:'Óptimo',cls:'tag-green'},
    ],
-   sensorLote:'Lote 2', sensorData:[
+   sensorLote:'Lote 2',
+   sensorPasada:{fecha:'12/05/2026', maquina:'Cosechadora Case IH 9250', contratista:'Roberto Campos'},
+   sensorData:[
      {icon:'💧',label:'Humedad volumétrica',value:'55',unit:'%',status:'ok',color:'#3B82F6'},
      {icon:'🌡️',label:'Temperatura de suelo',value:'18.8',unit:'°C',status:'ok',color:'#F59E0B'},
      {icon:'⚗️',label:'pH en tiempo real',value:'6.3',unit:'pH',status:'ok',color:'#22C55E'},
      {icon:'⚡',label:'Conductividad eléctrica',value:'0.26',unit:'dS/m',status:'ok',color:'#22C55E'},
      {icon:'🌬️',label:'Temperatura ambiente',value:'22.7',unit:'°C',status:'ok',color:'#F59E0B'},
      {icon:'🌊',label:'Nivel hídrico freática',value:'3.5',unit:'m',status:'ok',color:'#3B82F6'},
-     {icon:'📡',label:'Señal LoRaWAN',value:'88',unit:'%',status:'ok',color:'#22C55E'},
-     {icon:'🔋',label:'Batería sensor',value:'43',unit:'%',status:'ok',color:'#22C55E'},
    ]},
   // 9 — María: Don Ernesto
   {name:'Don Ernesto', owner:'E. Castro', asesor:'María Fernández', ha:170,
@@ -2209,17 +2990,58 @@ const ALL_FIELDS = [
    analyses:[
      {id:'#0068',lote:'Lote único',fecha:'28/03/26',ph:5.6,N:48,P:11,MO:2.6,lab:'AgroAnálisis',estado:'Bajo en P',cls:'tag-amber'},
    ],
-   sensorLote:null, sensorData:null},
+   sensorLote:null, sensorPasada:null, sensorData:null},
+  // 10 — Martín Gutiérrez (productor): El Mangrullo
+  {name:'El Mangrullo', owner:'Martín Gutiérrez', asesor:'Pablo López · Roberto Campos', contratista:'Roberto Campos', ha:350,
+   provincia:'Buenos Aires', loc:'Rural Trenque Lauquen, Bs.As.',
+   ph:6.3, N:74, P:21, MO:3.6, K:175, plan:'Pro', status:'ok',
+   cultivo:'Soja / Maíz', sensors:true, lastDate:'28/05/2026', lotes:2, savings:58,
+   lat:-35.975, lng:-62.712,
+   polygon:[[-35.965,-62.728],[-35.965,-62.697],[-35.982,-62.694],[-35.985,-62.724]],
+   lotePolygons:[
+     {name:'Lote 1 (175 ha)', ph:6.4, N:77, P:23, status:'ok', coords:[[-35.965,-62.728],[-35.965,-62.712],[-35.974,-62.711],[-35.974,-62.727]]},
+     {name:'Lote 2 (175 ha)', ph:6.2, N:71, P:19, status:'ok', coords:[[-35.965,-62.712],[-35.965,-62.697],[-35.982,-62.694],[-35.982,-62.710]]},
+   ],
+   analyses:[
+     {id:'#0071',lote:'Lote 1',fecha:'20/05/26',ph:6.4,N:77,P:23,MO:3.8,lab:'AgroAnálisis',estado:'Óptimo',cls:'tag-green'},
+     {id:'#0070',lote:'Lote 2',fecha:'15/05/26',ph:6.2,N:71,P:19,MO:3.4,lab:'INTA 9 de Julio',estado:'Regular',cls:'tag-amber'},
+   ],
+   sensorLote:'Lote 1',
+   sensorPasada:{fecha:'28/05/2026', maquina:'Cosechadora Case IH 9250', contratista:'Roberto Campos'},
+   sensorData:[
+     {icon:'💧',label:'Humedad volumétrica',value:'61',unit:'%',status:'ok',color:'#3B82F6'},
+     {icon:'🌡️',label:'Temperatura de suelo',value:'17.2',unit:'°C',status:'ok',color:'#F59E0B'},
+     {icon:'⚗️',label:'pH en tiempo real',value:'6.2',unit:'pH',status:'ok',color:'#22C55E'},
+     {icon:'⚡',label:'Conductividad eléctrica',value:'0.29',unit:'dS/m',status:'ok',color:'#8B5CF6'},
+     {icon:'🌬️',label:'Temperatura ambiente',value:'20.8',unit:'°C',status:'ok',color:'#F59E0B'},
+     {icon:'🌊',label:'Nivel hídrico freática',value:'3.1',unit:'m',status:'ok',color:'#3B82F6'},
+   ]},
+  // 11 — Martín Gutiérrez (productor): La Morocha
+  {name:'La Morocha', owner:'Martín Gutiérrez', asesor:'Pablo López · Roberto Campos', contratista:'Roberto Campos', ha:280,
+   provincia:'Buenos Aires', loc:'Rural Trenque Lauquen, Bs.As.',
+   ph:5.7, N:54, P:13, MO:2.8, K:148, plan:'Free', status:'warn',
+   cultivo:'Trigo', sensors:false, lastDate:'12/04/2026', lotes:1, savings:0,
+   lat:-36.025, lng:-62.681,
+   polygon:[[-36.017,-62.692],[-36.017,-62.670],[-36.034,-62.668],[-36.036,-62.689]],
+   lotePolygons:[
+     {name:'Lote único (280 ha)', ph:5.7, N:54, P:13, status:'warn', coords:[[-36.017,-62.692],[-36.017,-62.670],[-36.034,-62.668],[-36.036,-62.689]]},
+   ],
+   analyses:[
+     {id:'#0072',lote:'Lote único',fecha:'12/04/26',ph:5.7,N:54,P:13,MO:2.8,lab:'Laboratorio Sur',estado:'Bajo en P',cls:'tag-amber'},
+   ],
+   sensorLote:null, sensorPasada:null, sensorData:null},
 ];
 
 /* ════════════════════════════════════════════════════════
    USER → FIELD MAP
 ════════════════════════════════════════════════════════ */
 const USER_FIELD_MAP = {
-  'pablo@soil-iq.com':  [0, 1, 2, 3],
-  'maria@soil-iq.com':  [3, 4, 5, 9],   // índice 3 compartido con Pablo
-  'jorge@soil-iq.com':  [6, 7, 8],
-  'admin@soil-iq.com':  [0,1,2,3,4,5,6,7,8,9],
+  'pablo@soil-iq.com':      [0, 1, 2, 3, 10, 11],  // incluye campos de Martín
+  'maria@soil-iq.com':      [3, 4, 5, 9],
+  'jorge@soil-iq.com':      [6, 7, 8],
+  'roberto@soil-iq.com':    [10, 11],               // asesor de Martín Gutiérrez
+  'productor@soil-iq.com':  [10, 11],
+  'admin@soil-iq.com':      [0,1,2,3,4,5,6,7,8,9,10,11],
 };
 
 /* ════════════════════════════════════════════════════════
@@ -2277,7 +3099,7 @@ function showFieldDetail(i) {
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
       <span class="tag ${f.plan==='Enterprise'?'':f.plan==='Pro'?'tag-green':'tag-gray'}" style="${f.plan==='Enterprise'?'background:#EDE9FE;color:#6D28D9':''}">${f.plan}</span>
       <span class="tag ${STATUS_TAG[f.status]}">${STATUS_LABEL[f.status]}</span>
-      ${f.sensors?'<span class="tag tag-blue">📡 IoT activo</span>':'<span class="tag tag-gray">Sin sensores</span>'}
+      ${f.sensors?'<span class="tag tag-blue">📡 Sensor activo</span>':'<span class="tag tag-gray">Sin sensores</span>'}
       <span class="tag tag-gray">🌱 ${f.cultivo}</span>
     </div>
 
@@ -2379,7 +3201,7 @@ function exportExcel() {
   const totalHa = ALL_FIELDS.reduce((s,f)=>s+f.ha,0);
   const provincias = [...new Set(ALL_FIELDS.map(f=>f.provincia))];
 
-  const headers = ['#','Campo','Propietario','Asesor','Hectáreas','Provincia','Ubicación','Cultivo','Plan','pH','N (kg/ha)','P (ppm)','MO (%)','K (ppm)','Sensores IoT','Lotes','Estado','Último Análisis'];
+  const headers = ['#','Campo','Propietario','Asesor','Hectáreas','Provincia','Ubicación','Cultivo','Plan','pH','N (kg/ha)','P (ppm)','MO (%)','K (ppm)','Sensores instalados','Lotes','Estado','Último Análisis'];
   const rows = ALL_FIELDS.map((f,i)=>[
     i+1, f.name, f.owner, f.asesor, f.ha, f.provincia, f.loc, f.cultivo,
     f.plan, f.ph, f.N, f.P, f.MO, f.K, f.sensors?'Sí':'No', f.lotes,
@@ -2394,7 +3216,7 @@ function exportExcel() {
     [`Total de campos:`, ALL_FIELDS.length],
     [`Superficie total monitoreada (ha):`, totalHa.toLocaleString('es-AR')],
     [`Provincias cubiertas (${provincias.length}):`, provincias.join(', ')],
-    [`Campos con sensores IoT:`, ALL_FIELDS.filter(f=>f.sensors).length],
+    [`Campos con sensores instalados:`, ALL_FIELDS.filter(f=>f.sensors).length],
     [`Campos con alertas activas:`, ALL_FIELDS.filter(f=>f.status!=='ok').length],
     [`pH promedio:`, (ALL_FIELDS.reduce((s,f)=>s+f.ph,0)/ALL_FIELDS.length).toFixed(2)],
     [`N promedio (kg/ha):`, (ALL_FIELDS.reduce((s,f)=>s+f.N,0)/ALL_FIELDS.length).toFixed(1)],
