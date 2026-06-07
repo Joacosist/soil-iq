@@ -8,137 +8,174 @@
   <style>
     :root{
       --verde:#2D7A4F;--verde-dark:#1B5E35;--amber:#E8A020;
-      --gray-50:#F9FAFB;--gray-100:#F3F4F6;--gray-200:#E5E7EB;
-      --gray-400:#9CA3AF;--gray-600:#4B5563;--gray-800:#1F2937;--white:#fff;
+      --gray-50:#F9FAFB;--gray-200:#E5E7EB;--gray-400:#9CA3AF;
+      --gray-600:#4B5563;--gray-800:#1F2937;--white:#fff;
     }
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:'Inter',sans-serif;background:#0F1A13;color:var(--gray-800);min-height:100vh}
 
-    .topbar{background:rgba(0,0,0,.4);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.08);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+    /* ── Top bar ── */
+    .topbar{background:rgba(0,0,0,.45);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.08);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
     .topbar__brand{display:flex;align-items:center;gap:10px}
     .topbar__logo{width:32px;height:32px;background:var(--verde);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:.9rem}
     .topbar__name{font-weight:800;color:#fff;font-size:1rem}
     .topbar__title{font-size:.82rem;color:rgba(255,255,255,.45)}
-    .btn-back{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.8);padding:8px 16px;border-radius:8px;font-size:.82rem;font-weight:600;text-decoration:none;transition:background .2s}
-    .btn-back:hover{background:rgba(255,255,255,.15)}
+    .btn-back{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);padding:8px 16px;border-radius:8px;font-size:.82rem;font-weight:600;text-decoration:none;transition:background .2s}
+    .btn-back:hover{background:rgba(255,255,255,.16)}
 
+    /* ── Hero ── */
     .hero{padding:48px 24px 40px;text-align:center;position:relative}
-    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 50% 0%,rgba(45,122,79,.25) 0%,transparent 70%);pointer-events:none}
+    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 50% 0%,rgba(45,122,79,.22) 0%,transparent 70%);pointer-events:none}
     .badge{display:inline-flex;align-items:center;background:rgba(232,160,32,.15);color:var(--amber);border:1px solid rgba(232,160,32,.3);padding:5px 14px;border-radius:100px;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px;position:relative}
     .hero h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:900;color:#fff;line-height:1.15;margin-bottom:10px;position:relative}
     .hero p{font-size:.95rem;color:rgba(255,255,255,.55);max-width:500px;margin:0 auto;line-height:1.6;position:relative}
 
-    /* ── Canvas ── */
-    .canvas-wrap{padding:32px 20px 64px;max-width:1300px;margin:0 auto}
+    /* ── Canvas wrapper ── */
+    .canvas-wrap{padding:28px 16px 64px;max-width:1400px;margin:0 auto}
 
-    /* Desktop: classic BMC grid */
+    /* ══ BMC GRID ══
+       5 columnas · 3 filas
+       Fila 1+2: bloques principales (auto height por contenido)
+       Fila 3: costos | ingresos
+    */
     .bmc{
       display:grid;
-      grid-template-columns: 1fr 1fr 1.4fr 1fr 1fr;
-      grid-template-rows: 1fr 1fr auto;
-      gap:10px;
-      min-height:680px;
+      grid-template-columns: 1fr 1fr 1.5fr 1fr 1fr;
+      grid-template-rows: auto auto auto;
+      gap:8px;
     }
 
+    /* ── Celda base ── */
     .bmc-cell{
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.09);
       border-radius:12px;
-      padding:20px;
+      padding:18px 20px;
       display:flex;
       flex-direction:column;
-      gap:10px;
+      gap:0;
       position:relative;
-      overflow:hidden;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.04);
     }
-    .bmc-cell::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:12px 12px 0 0}
+    /* Barra de color superior */
+    .bmc-cell::before{
+      content:'';
+      display:block;
+      height:3px;
+      border-radius:3px;
+      margin-bottom:12px;
+    }
 
-    /* Color accents per block */
-    .bmc-kp::before{background:linear-gradient(90deg,#2D7A4F,#4CAF74)}
-    .bmc-ka::before{background:linear-gradient(90deg,#3B82F6,#60A5FA)}
-    .bmc-kr::before{background:linear-gradient(90deg,#8B5CF6,#A78BFA)}
-    .bmc-vp::before{background:linear-gradient(90deg,#E8A020,#FBB040)}
-    .bmc-cr::before{background:linear-gradient(90deg,#EC4899,#F472B6)}
-    .bmc-ch::before{background:linear-gradient(90deg,#14B8A6,#2DD4BF)}
-    .bmc-cs::before{background:linear-gradient(90deg,#F59E0B,#FCD34D)}
-    .bmc-cost::before{background:linear-gradient(90deg,#EF4444,#F87171)}
-    .bmc-rev::before{background:linear-gradient(90deg,#22C55E,#4ADE80)}
+    /* ── Colores de acento ── */
+    .bmc-kp::before{background:linear-gradient(90deg,#2D7A4F,#4ADE80)}
+    .bmc-ka::before{background:linear-gradient(90deg,#3B82F6,#93C5FD)}
+    .bmc-kr::before{background:linear-gradient(90deg,#8B5CF6,#C4B5FD)}
+    .bmc-vp::before{background:linear-gradient(90deg,#E8A020,#FCD34D)}
+    .bmc-cr::before{background:linear-gradient(90deg,#EC4899,#F9A8D4)}
+    .bmc-ch::before{background:linear-gradient(90deg,#14B8A6,#5EEAD4)}
+    .bmc-cs::before{background:linear-gradient(90deg,#F59E0B,#FDE68A)}
+    .bmc-cost::before{background:linear-gradient(90deg,#EF4444,#FCA5A5)}
+    .bmc-rev::before{background:linear-gradient(90deg,#22C55E,#86EFAC)}
 
-    /* Grid placement */
-    .bmc-kp { grid-column:1; grid-row:1/3 }
-    .bmc-ka { grid-column:2; grid-row:1 }
-    .bmc-kr { grid-column:2; grid-row:2 }
-    .bmc-vp { grid-column:3; grid-row:1/3 }
-    .bmc-cr { grid-column:4; grid-row:1 }
-    .bmc-ch { grid-column:4; grid-row:2 }
-    .bmc-cs { grid-column:5; grid-row:1/3 }
-    .bmc-cost { grid-column:1/4; grid-row:3 }
-    .bmc-rev  { grid-column:3/6; grid-row:3 }
+    /* ── Placement ── */
+    .bmc-kp  { grid-column:1;   grid-row:1/3 }
+    .bmc-ka  { grid-column:2;   grid-row:1   }
+    .bmc-kr  { grid-column:2;   grid-row:2   }
+    .bmc-vp  { grid-column:3;   grid-row:1/3 }
+    .bmc-cr  { grid-column:4;   grid-row:1   }
+    .bmc-ch  { grid-column:4;   grid-row:2   }
+    .bmc-cs  { grid-column:5;   grid-row:1/3 }
+    .bmc-cost{ grid-column:1/3; grid-row:3   }
+    .bmc-rev { grid-column:3/6; grid-row:3   }
 
-    /* Cell content */
-    .bmc-label{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:2px}
-    .bmc-title{font-size:.9rem;font-weight:800;color:#fff;margin-bottom:8px}
-    .bmc-items{list-style:none;display:flex;flex-direction:column;gap:7px;flex:1}
-    .bmc-items li{font-size:.78rem;color:rgba(255,255,255,.62);line-height:1.5;padding-left:14px;position:relative}
-    .bmc-items li::before{content:'·';position:absolute;left:0;font-weight:900;font-size:1rem;line-height:1.3}
+    /* ── VP especial ── */
+    .bmc-vp{background:rgba(232,160,32,.05);border-color:rgba(232,160,32,.18)}
 
-    /* VP special styling */
-    .bmc-vp{background:rgba(232,160,32,.06);border-color:rgba(232,160,32,.2)}
-    .bmc-vp .bmc-title{font-size:1rem;color:var(--amber)}
-    .bmc-vp .bmc-items li{color:rgba(255,255,255,.75)}
+    /* ── Costos / Ingresos ── */
+    .bmc-cost{background:rgba(239,68,68,.04);border-color:rgba(239,68,68,.14)}
+    .bmc-rev {background:rgba(34,197,94,.05);border-color:rgba(34,197,94,.18)}
 
-    /* Bottom rows */
-    .bmc-cost,.bmc-rev{min-height:160px}
-    .bmc-cost{background:rgba(239,68,68,.04);border-color:rgba(239,68,68,.15)}
-    .bmc-rev{background:rgba(34,197,94,.05);border-color:rgba(34,197,94,.2)}
-    .bmc-rev .bmc-title{color:#4ADE80}
-    .bmc-cost .bmc-title{color:#F87171}
+    /* ── Tipografía base ── */
+    .bmc-label{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px}
+    .bmc-title{font-size:.88rem;font-weight:800;color:#fff;margin-bottom:10px}
+    .bmc-vp .bmc-title{color:var(--amber)}
+    .bmc-cost .bmc-title{color:#FCA5A5}
+    .bmc-rev .bmc-title{color:#86EFAC}
 
-    /* VP sub-blocks */
-    .vp-block{background:rgba(255,255,255,.04);border-radius:8px;padding:12px;margin-top:4px}
-    .vp-block__who{font-size:.68rem;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
-    .vp-block__items{list-style:none;display:flex;flex-direction:column;gap:5px}
-    .vp-block__items li{font-size:.75rem;color:rgba(255,255,255,.65);line-height:1.4;padding-left:12px;position:relative}
-    .vp-block__items li::before{content:'→';position:absolute;left:0;font-size:.7rem;line-height:1.5;color:var(--amber)}
+    .bmc-items{list-style:none;display:flex;flex-direction:column;gap:6px}
+    .bmc-items li{font-size:.75rem;color:rgba(255,255,255,.58);line-height:1.5;padding-left:12px;position:relative}
+    .bmc-items li::before{content:'·';position:absolute;left:0;font-weight:900;font-size:.95rem;line-height:1.35;color:rgba(255,255,255,.3)}
 
-    /* Revenue streams chips */
-    .rev-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-    .rev-chip{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);border-radius:8px;padding:8px 12px}
-    .rev-chip__label{font-size:.68rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
-    .rev-chip__val{font-size:.85rem;font-weight:700;color:#4ADE80}
-    .rev-chip__type{font-size:.68rem;color:rgba(255,255,255,.4)}
+    /* ── VP sub-bloques ── */
+    .vp-sub{background:rgba(255,255,255,.04);border-radius:8px;padding:10px 12px;margin-bottom:8px}
+    .vp-sub:last-child{margin-bottom:0}
+    .vp-sub__who{font-size:.63rem;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+    .vp-sub .bmc-items li{font-size:.73rem;color:rgba(255,255,255,.65)}
+    .vp-sub .bmc-items li::before{content:'→';font-size:.65rem;color:var(--amber);line-height:1.6}
 
-    /* ── Responsive: stacked ── */
-    @media(max-width:900px){
+    /* ── Costos: 4 sub-columnas ── */
+    .cost-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:2px}
+    .cost-col__label{font-size:.62rem;font-weight:700;color:rgba(239,68,68,.75);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+
+    /* ── Ingresos: chips ── */
+    .rev-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+    .rev-chip{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.22);border-radius:8px;padding:9px 12px;min-width:130px;flex:1}
+    .rev-chip__label{font-size:.62rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
+    .rev-chip__val{font-size:.88rem;font-weight:700;color:#4ADE80;margin-bottom:2px}
+    .rev-chip__type{font-size:.65rem;color:rgba(255,255,255,.35)}
+
+    /* ══ RESPONSIVE ══ */
+    /* 1100px: costos pasa a 2 cols */
+    @media(max-width:1100px){
+      .cost-grid{grid-template-columns:1fr 1fr}
+    }
+
+    /* 860px: todo colapsa a 1 columna, tema claro */
+    @media(max-width:860px){
       body{background:var(--gray-50)}
-      .hero{background:linear-gradient(135deg,#0F1F15 0%,#1B5E35 100%)}
+      .hero{background:linear-gradient(135deg,#0F1F15 0%,#1B5E35 100%);padding:40px 20px 32px}
+      .topbar{background:#0F1F15}
+      .topbar__title{display:none}
+      .canvas-wrap{padding:20px 12px 48px}
+
       .bmc{
         grid-template-columns:1fr;
-        grid-template-rows:auto;
-        min-height:unset;
+        grid-template-rows:none;
+        gap:12px;
       }
       .bmc-kp,.bmc-ka,.bmc-kr,.bmc-vp,.bmc-cr,.bmc-ch,.bmc-cs,.bmc-cost,.bmc-rev{
         grid-column:1;grid-row:auto;
-        background:var(--white);border:1px solid var(--gray-200);
+        background:#fff;
+        border:1px solid var(--gray-200);
       }
-      .bmc-vp{background:#FFFBEB;border-color:#FDE68A}
-      .bmc-cost{background:#FFF5F5;border-color:#FECACA;min-height:unset}
-      .bmc-rev{background:#F0FDF4;border-color:#BBF7D0;min-height:unset}
+      .bmc-vp   {background:#FFFBEB;border-color:#FDE68A}
+      .bmc-cost {background:#FFF5F5;border-color:#FECACA}
+      .bmc-rev  {background:#F0FDF4;border-color:#BBF7D0}
+
       .bmc-label{color:var(--gray-400)}
-      .bmc-title{color:var(--gray-800)}
-      .bmc-vp .bmc-title{color:#B45309}
-      .bmc-rev .bmc-title{color:#16A34A}
-      .bmc-cost .bmc-title{color:#DC2626}
+      .bmc-title{color:var(--gray-800)!important}
+      .bmc-vp .bmc-title{color:#92400E!important}
+      .bmc-cost .bmc-title{color:#B91C1C!important}
+      .bmc-rev .bmc-title{color:#15803D!important}
+
       .bmc-items li{color:var(--gray-600)}
       .bmc-items li::before{color:var(--verde)}
-      .vp-block{background:var(--gray-50)}
-      .vp-block__items li{color:var(--gray-600)}
-      .vp-block__items li::before{color:#B45309}
+
+      .vp-sub{background:var(--gray-50)}
+      .vp-sub .bmc-items li{color:var(--gray-600)}
+      .vp-sub .bmc-items li::before{color:#92400E}
+      .vp-sub__who{color:#92400E}
+
+      .cost-col__label{color:#B91C1C}
+      .cost-grid{grid-template-columns:1fr 1fr}
+
       .rev-chip{background:#DCFCE7;border-color:#BBF7D0}
-      .rev-chip__val{color:#16A34A}
+      .rev-chip__val{color:#15803D}
       .rev-chip__label,.rev-chip__type{color:var(--gray-400)}
-      .topbar{background:#0F1F15}
-      .topbar__title{display:none}
+    }
+
+    @media(max-width:500px){
+      .cost-grid{grid-template-columns:1fr}
+      .rev-chip{min-width:100%}
     }
   </style>
 </head>
@@ -164,121 +201,121 @@
 <div class="canvas-wrap">
 <div class="bmc">
 
-  <!-- Key Partners -->
+  <!-- 1 · Key Partners -->
   <div class="bmc-cell bmc-kp">
     <div class="bmc-label">Bloque 1</div>
     <div class="bmc-title">🤝 Socios Clave</div>
     <ul class="bmc-items">
-      <li>INTA — validación técnica y acceso a red de investigación agronómica</li>
-      <li>CREA / AAPRESID — acceso a productores y asesores con perfil innovador</li>
-      <li>Contratistas ancla — primeros 3–5 operadores en zona piloto de Córdoba Sur y Santa Fe</li>
+      <li>INTA — validación técnica y red de investigación agronómica</li>
+      <li>CREA / AAPRESID — acceso a productores e ingenieros agrónomos innovadores</li>
+      <li>Contratistas ancla — primeros 3–5 operadores en zona piloto (Córdoba Sur / Santa Fe)</li>
       <li>Laboratorios de referencia — calibración del kit ISFET (AgroAnálisis, INTA Pergamino)</li>
-      <li>Proveedores de sensores ISFET — cadena de suministro de hardware</li>
-      <li>Fondos AgriFood Tech — capital de expansión y validación de modelo</li>
-      <li>Universidad Austral — incubación, mentoría y red de contactos institucionales</li>
+      <li>Proveedores de sensores ISFET — cadena de suministro de hardware de precisión</li>
+      <li>Fondos AgriFood Tech — capital de expansión y validación del modelo</li>
+      <li>Universidad Austral — incubación, mentoría y red institucional</li>
     </ul>
   </div>
 
-  <!-- Key Activities -->
+  <!-- 2 · Key Activities -->
   <div class="bmc-cell bmc-ka">
     <div class="bmc-label">Bloque 2</div>
     <div class="bmc-title">⚙️ Actividades Clave</div>
     <ul class="bmc-items">
-      <li>I+D y calibración del kit ISFET en condiciones de campo</li>
-      <li>Desarrollo y mejora continua del motor de ML/IA agronómico</li>
+      <li>I+D y calibración del kit ISFET en condiciones reales de campo</li>
+      <li>Desarrollo del motor ML/IA de prescripción agronómica</li>
       <li>Onboarding y certificación de contratistas</li>
       <li>Customer success con productores y asesores</li>
       <li>Mantenimiento y evolución de la plataforma SaaS</li>
     </ul>
   </div>
 
-  <!-- Key Resources -->
+  <!-- 3 · Key Resources -->
   <div class="bmc-cell bmc-kr">
     <div class="bmc-label">Bloque 3</div>
     <div class="bmc-title">🏗️ Recursos Clave</div>
     <ul class="bmc-items">
-      <li>Dataset acumulado de suelos (activo defensible)</li>
-      <li>Algoritmos ML propietarios de prescripción agronómica</li>
-      <li>Kit ISFET calibrado y certificado</li>
-      <li>Red de contratistas activos en zona núcleo</li>
+      <li>Dataset acumulado de suelos — activo defensible campaña a campaña</li>
+      <li>Algoritmos ML propietarios de prescripción agronómica por zona</li>
+      <li>Kit ISFET calibrado y certificado contra laboratorio</li>
+      <li>Red de contratistas activos en zona núcleo pampeana</li>
       <li>Equipo técnico y comercial fundador</li>
     </ul>
   </div>
 
-  <!-- Value Proposition -->
+  <!-- 4 · Value Proposition -->
   <div class="bmc-cell bmc-vp">
     <div class="bmc-label">Bloque 4 — Centro</div>
     <div class="bmc-title">💡 Propuesta de Valor</div>
-    <div class="vp-block">
-      <div class="vp-block__who">Para el productor</div>
-      <ul class="vp-block__items">
-        <li>Mapa georreferenciado con pH y NPK real por zona del lote en horas, no semanas</li>
-        <li>Prescripción agronómica accionable sin necesidad de hardware propio</li>
-        <li>Historial acumulado del suelo que se valoriza campaña a campaña</li>
-        <li>Ahorro de USD 30–80/ha en fertilización innecesaria o mal dosificada</li>
+    <div class="vp-sub">
+      <div class="vp-sub__who">Para el productor</div>
+      <ul class="bmc-items">
+        <li>Mapa georreferenciado con pH y NPK real por zona en horas, no semanas</li>
+        <li>Prescripción accionable sin necesidad de hardware propio</li>
+        <li>Historial de suelo acumulado que se valoriza campaña a campaña</li>
+        <li>Ahorro de USD 30–80/ha en fertilización mal dosificada</li>
       </ul>
     </div>
-    <div class="vp-block">
-      <div class="vp-block__who">Para el contratista</div>
-      <ul class="vp-block__items">
-        <li>Diferenciación competitiva real en un mercado comoditizado</li>
-        <li>Ingreso adicional de USD 1–2/ha extra sobre el servicio estándar</li>
-        <li>Activo de datos acumulado en cada campaña que incrementa su valor de mercado</li>
+    <div class="vp-sub">
+      <div class="vp-sub__who">Para el contratista</div>
+      <ul class="bmc-items">
+        <li>Diferenciación real en mercado comoditizado de servicios agrícolas</li>
+        <li>Ingreso adicional de USD 1–2/ha extra sobre servicio estándar</li>
+        <li>Activo de datos que crece con cada campaña</li>
       </ul>
     </div>
-    <div class="vp-block">
-      <div class="vp-block__who">Para el asesor agrónomo</div>
-      <ul class="vp-block__items">
-        <li>Datos en tiempo real de los lotes de sus clientes sin visitas adicionales</li>
-        <li>Historial comparativo por campaña para mejores recomendaciones</li>
+    <div class="vp-sub">
+      <div class="vp-sub__who">Para el asesor agrónomo</div>
+      <ul class="bmc-items">
+        <li>Datos en tiempo real sin visitas adicionales al campo</li>
+        <li>Historial comparativo para mejores recomendaciones técnicas</li>
       </ul>
     </div>
   </div>
 
-  <!-- Customer Relationships -->
+  <!-- 5 · Customer Relationships -->
   <div class="bmc-cell bmc-cr">
     <div class="bmc-label">Bloque 5</div>
     <div class="bmc-title">💬 Relación con clientes</div>
     <ul class="bmc-items">
       <li>Customer success in-field para contratistas</li>
       <li>App self-service para productores y asesores</li>
-      <li>Soporte técnico para instalación y calibración del kit</li>
+      <li>Soporte técnico en instalación y calibración</li>
       <li>Comunidad de contratistas certificados Soil-IQ</li>
-      <li>Alertas proactivas y recomendaciones automáticas por IA</li>
+      <li>Alertas proactivas por IA según macros del suelo</li>
     </ul>
   </div>
 
-  <!-- Channels -->
+  <!-- 6 · Channels -->
   <div class="bmc-cell bmc-ch">
     <div class="bmc-label">Bloque 6</div>
     <div class="bmc-title">📡 Canales</div>
     <ul class="bmc-items">
-      <li>Equipo comercial propio (captación de contratistas)</li>
-      <li>App móvil + dashboard web (productores y asesores)</li>
-      <li>Red INTA / CREA / AAPRESID (acceso a productores)</li>
+      <li>Equipo comercial propio — captación directa de contratistas</li>
+      <li>App móvil + dashboard web — productores y asesores</li>
+      <li>Red INTA / CREA / AAPRESID — acceso institucional a productores</li>
       <li>Marketplace AgTech integrado en la plataforma</li>
     </ul>
   </div>
 
-  <!-- Customer Segments -->
+  <!-- 7 · Customer Segments -->
   <div class="bmc-cell bmc-cs">
     <div class="bmc-label">Bloque 7</div>
-    <div class="bmc-title">🌾 Segmentos de Clientes</div>
+    <div class="bmc-title">🌾 Segmentos</div>
     <ul class="bmc-items">
-      <li><strong style="color:rgba(255,255,255,.85)">Productores medianos</strong> — 100 a 500 ha en región pampeana, con asesor agronómico y propensión a adoptar tecnología</li>
-      <li><strong style="color:rgba(255,255,255,.85)">Contratistas rurales</strong> — zonas núcleo de Córdoba, Santa Fe y Buenos Aires, con maquinaria compatible y +10.000 ha/campaña</li>
-      <li><strong style="color:rgba(255,255,255,.85)">Ingenieros agrónomos</strong> — asesores independientes o de cooperativas que gestionan múltiples productores</li>
-      <li><strong style="color:rgba(255,255,255,.85)">Instituciones B2B</strong> — cooperativas, acopios, bolsas de cereales que valoran el dataset regional</li>
+      <li><strong style="color:rgba(255,255,255,.82)">Productores medianos</strong> — 100–500 ha, región pampeana, con asesor y propensión tecnológica</li>
+      <li><strong style="color:rgba(255,255,255,.82)">Contratistas rurales</strong> — zona núcleo, maquinaria compatible, +10.000 ha/campaña</li>
+      <li><strong style="color:rgba(255,255,255,.82)">Ingenieros agrónomos</strong> — asesores independientes que gestionan múltiples productores</li>
+      <li><strong style="color:rgba(255,255,255,.82)">Instituciones B2B</strong> — cooperativas, acopios y bolsas que valoran el dataset regional</li>
     </ul>
   </div>
 
-  <!-- Cost Structure -->
+  <!-- 8 · Cost Structure -->
   <div class="bmc-cell bmc-cost">
     <div class="bmc-label">Bloque 8</div>
     <div class="bmc-title">💸 Estructura de Costos</div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:4px">
+    <div class="cost-grid">
       <div>
-        <div style="font-size:.68rem;font-weight:700;color:rgba(239,68,68,.8);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">I+D Hardware</div>
+        <div class="cost-col__label">I+D Hardware</div>
         <ul class="bmc-items">
           <li>Desarrollo y calibración del kit ISFET</li>
           <li>Validación contra laboratorio de referencia</li>
@@ -286,33 +323,33 @@
         </ul>
       </div>
       <div>
-        <div style="font-size:.68rem;font-weight:700;color:rgba(239,68,68,.8);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Tecnología</div>
+        <div class="cost-col__label">Tecnología</div>
         <ul class="bmc-items">
-          <li>Infraestructura cloud (AWS/GCP)</li>
-          <li>Desarrollo de plataforma SaaS</li>
+          <li>Infraestructura cloud (AWS / GCP)</li>
+          <li>Desarrollo y mantenimiento plataforma SaaS</li>
           <li>Modelos ML y procesamiento satelital</li>
         </ul>
       </div>
       <div>
-        <div style="font-size:.68rem;font-weight:700;color:rgba(239,68,68,.8);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Equipo</div>
+        <div class="cost-col__label">Equipo</div>
         <ul class="bmc-items">
-          <li>Equipo comercial para captación de contratistas</li>
-          <li>Técnicos de instalación y soporte en campo</li>
+          <li>Equipo comercial — captación de contratistas</li>
+          <li>Técnicos de instalación y soporte in-field</li>
           <li>Customer success y onboarding</li>
         </ul>
       </div>
       <div>
-        <div style="font-size:.68rem;font-weight:700;color:rgba(239,68,68,.8);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Operaciones</div>
+        <div class="cost-col__label">Operaciones</div>
         <ul class="bmc-items">
-          <li>Mantenimiento y calibración periódica de kits</li>
+          <li>Calibración periódica y mantenimiento de kits</li>
           <li>Logística de instalación en campo</li>
-          <li>Legal, estructura societaria y compliance</li>
+          <li>Legal, compliance y estructura societaria</li>
         </ul>
       </div>
     </div>
   </div>
 
-  <!-- Revenue Streams -->
+  <!-- 9 · Revenue Streams -->
   <div class="bmc-cell bmc-rev">
     <div class="bmc-label">Bloque 9</div>
     <div class="bmc-title">💰 Fuentes de Ingresos</div>
@@ -323,12 +360,12 @@
         <div class="rev-chip__type">Pago único · por contratista</div>
       </div>
       <div class="rev-chip">
-        <div class="rev-chip__label">Royalty por análisis</div>
+        <div class="rev-chip__label">Royalty análisis</div>
         <div class="rev-chip__val">USD 4/ha</div>
         <div class="rev-chip__type">Recurrente · por pasada</div>
       </div>
       <div class="rev-chip">
-        <div class="rev-chip__label">Plan Pro productor</div>
+        <div class="rev-chip__label">Plan Pro</div>
         <div class="rev-chip__val">USD 180–240/año</div>
         <div class="rev-chip__type">SaaS · suscripción anual</div>
       </div>
