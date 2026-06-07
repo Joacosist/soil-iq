@@ -516,15 +516,15 @@
           <span class="demo-account__tag tag-green" style="background:#DCFCE7;color:#15803D">Ing. Agrónomo</span>
         </div>
 
-        <div class="demo-account" onclick="fillDemo('roberto@soil-iq.com','demo123')">
+        <div class="demo-account" onclick="fillDemo('contratista@soil-iq.com','demo123')">
           <div class="demo-account__left">
             <div class="demo-avatar" style="background:#3B82F6">RC</div>
             <div class="demo-account__info">
               <div class="demo-account__name">Roberto Campos</div>
-              <div class="demo-account__email">roberto@soil-iq.com · demo123</div>
+              <div class="demo-account__email">contratista@soil-iq.com · demo123</div>
             </div>
           </div>
-          <span class="demo-account__tag tag-green" style="background:#DCFCE7;color:#15803D">Ing. Agrónomo</span>
+          <span class="demo-account__tag" style="background:#DBEAFE;color:#1D4ED8">Contratista</span>
         </div>
 
         <div class="demo-account" onclick="fillDemo('productor@soil-iq.com','demo123')">
@@ -1161,7 +1161,7 @@ const DEMO_ACCOUNTS = [
   {email:'pablo@soil-iq.com',        pass:'demo123',  role:'agro',        name:'Pablo López',    initials:'PL', title:'Ing. Agrónomo · CREA'},
   {email:'maria@soil-iq.com',        pass:'demo123',  role:'agro',        name:'María Fernández',initials:'MF', title:'Ing. Agrónoma · AAPRESID'},
   {email:'jorge@soil-iq.com',        pass:'demo123',  role:'agro',        name:'Jorge Ramírez',  initials:'JR', title:'Ing. Agrónomo · Independiente'},
-  {email:'roberto@soil-iq.com',      pass:'demo123',  role:'agro',        name:'Roberto Campos',   initials:'RC', title:'Ing. Agrónomo · Asesor del Productor'},
+  {email:'contratista@soil-iq.com',  pass:'demo123',  role:'contratista', name:'Roberto Campos',   initials:'RC', title:'Contratista · Campos Agro SRL'},
   {email:'productor@soil-iq.com',    pass:'demo123',  role:'productor',   name:'Martín Gutiérrez', initials:'MG', title:'Productor · El Mangrullo y La Morocha'},
   {email:'admin@soil-iq.com',        pass:'admin123', role:'admin',       name:'Administrador',    initials:'AD', title:'Admin · Soil-IQ'},
 ];
@@ -2992,7 +2992,7 @@ const ALL_FIELDS = [
    ],
    sensorLote:null, sensorPasada:null, sensorData:null},
   // 10 — Martín Gutiérrez (productor): El Mangrullo
-  {name:'El Mangrullo', owner:'Martín Gutiérrez', asesor:'Pablo López · Roberto Campos', contratista:'Roberto Campos', ha:350,
+  {name:'El Mangrullo', owner:'Martín Gutiérrez', asesor:'Pablo López', contratista:'Roberto Campos', ha:350,
    provincia:'Buenos Aires', loc:'Rural Trenque Lauquen, Bs.As.',
    ph:6.3, N:74, P:21, MO:3.6, K:175, plan:'Pro', status:'ok',
    cultivo:'Soja / Maíz', sensors:true, lastDate:'28/05/2026', lotes:2, savings:58,
@@ -3017,7 +3017,7 @@ const ALL_FIELDS = [
      {icon:'🌊',label:'Nivel hídrico freática',value:'3.1',unit:'m',status:'ok',color:'#3B82F6'},
    ]},
   // 11 — Martín Gutiérrez (productor): La Morocha
-  {name:'La Morocha', owner:'Martín Gutiérrez', asesor:'Pablo López · Roberto Campos', contratista:'Roberto Campos', ha:280,
+  {name:'La Morocha', owner:'Martín Gutiérrez', asesor:'Pablo López', contratista:'Roberto Campos', ha:280,
    provincia:'Buenos Aires', loc:'Rural Trenque Lauquen, Bs.As.',
    ph:5.7, N:54, P:13, MO:2.8, K:148, plan:'Free', status:'warn',
    cultivo:'Trigo', sensors:false, lastDate:'12/04/2026', lotes:1, savings:0,
@@ -3039,7 +3039,6 @@ const USER_FIELD_MAP = {
   'pablo@soil-iq.com':      [0, 1, 2, 3, 10, 11],  // incluye campos de Martín
   'maria@soil-iq.com':      [3, 4, 5, 9],
   'jorge@soil-iq.com':      [6, 7, 8],
-  'roberto@soil-iq.com':    [10, 11],               // asesor de Martín Gutiérrez
   'productor@soil-iq.com':  [10, 11],
   'admin@soil-iq.com':      [0,1,2,3,4,5,6,7,8,9,10,11],
 };
