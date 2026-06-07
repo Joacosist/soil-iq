@@ -1779,106 +1779,54 @@
 <!-- ═══════════════════════════════════════════════════════════════════
      HERO
 ════════════════════════════════════════════════════════════════════ -->
-<section class="hero">
-  <div class="container">
-    <div class="hero__inner">
-      <!-- Copy -->
-      <div>
-        <div class="hero__badge">
-          <span class="badge badge--amber">🚜 Para contratistas y productores · AgTech argentino</span>
-        </div>
-        <h1 class="hero__title">
-          La maquinaria agrícola<br>
-          convertida en datos que<br>
-          <span class="highlight">tomen decisiones</span>
-        </h1>
-        <p class="hero__subtitle">
-          El kit de sensores Soil-IQ se monta en la maquinaria del contratista. Cada pasada registra datos de suelo que permiten al productor fertilizar con precisión y al contratista diferenciarse de la competencia. <strong style="color:#E8A020">Una inversión que se amortiza en la primera campaña.</strong>
-        </p>
+<section class="hero" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:80px 24px">
+  <div style="display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;z-index:1;width:100%">
 
-        <div class="hero__actions">
-          <a href="app.html" class="btn btn-primary btn-lg">Ver la plataforma →</a>
-          <a href="#problema" class="btn btn-outline btn-lg">Ver cómo funciona</a>
-        </div>
-
-        <div class="hero__trust">
-          <div class="hero__trust-icons">
-            <div class="hero__trust-avatar">RC</div>
-            <div class="hero__trust-avatar">JR</div>
-            <div class="hero__trust-avatar">MC</div>
-            <div class="hero__trust-avatar">PL</div>
-          </div>
-          <span>Contratistas y productores ya usan Soil-IQ · Sin tarjeta de crédito</span>
-        </div>
-      </div>
-
-      <!-- Visual Card -->
-      <div class="hero__visual fade-in">
-        <div class="hero__card">
-          <div class="hero__card-header">
-            <span class="hero__card-title">🚜 Pasada en curso — Est. La Esperanza</span>
-            <span class="dot-live">En vivo</span>
-          </div>
-
-          <div class="soil-meter">
-            <div class="soil-meter__label">
-              <span>Nitrógeno disponible</span><span>78 kg/ha</span>
-            </div>
-            <div class="soil-meter__bar"><div class="soil-meter__fill" style="width:78%"></div></div>
-          </div>
-          <div class="soil-meter">
-            <div class="soil-meter__label">
-              <span>Fósforo asimilable</span><span>42 ppm</span>
-            </div>
-            <div class="soil-meter__bar"><div class="soil-meter__fill" style="width:42%"></div></div>
-          </div>
-          <div class="soil-meter" style="margin-bottom:20px">
-            <div class="soil-meter__label">
-              <span>Humedad volumétrica</span><span>62%</span>
-            </div>
-            <div class="soil-meter__bar"><div class="soil-meter__fill" style="width:62%"></div></div>
-          </div>
-
-          <div class="hero__metrics">
-            <div class="hero__metric">
-              <div class="hero__metric-value positive">+USD 67</div>
-              <div class="hero__metric-label">ahorro / ha · campaña</div>
-            </div>
-            <div class="hero__metric">
-              <div class="hero__metric-value amber">340 ha</div>
-              <div class="hero__metric-label">superficie monitorizada</div>
-            </div>
-            <div class="hero__metric">
-              <div class="hero__metric-value">92%</div>
-              <div class="hero__metric-label">precisión del modelo IA</div>
-            </div>
-            <div class="hero__metric">
-              <div class="hero__metric-value positive">↓18%</div>
-              <div class="hero__metric-label">fertilizante aplicado</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero__floating hero__floating--top">
-          <span class="floating-icon">📍</span>
-          <div class="floating-text">
-            <strong>Lote 3 · 85 ha recorridas</strong>
-            1.240 puntos de datos registrados
-          </div>
-        </div>
-        <div class="hero__floating hero__floating--bottom">
-          💰 Ingreso extra por cada ha de datos subida
-        </div>
-      </div>
+    <!-- Logo icon -->
+    <div style="width:120px;height:120px;background:var(--verde);border-radius:30px;display:flex;align-items:center;justify-content:center;margin-bottom:36px;box-shadow:0 16px 64px rgba(45,122,79,.55)">
+      <svg width="64" height="64" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M26 8C26 8 12 18 12 30C12 37.7 18.3 44 26 44C33.7 44 40 37.7 40 30C40 18 26 8 26 8Z" fill="white" fill-opacity="0.95"/>
+        <path d="M26 16C26 16 19 23 19 30C19 34.4 22.1 38 26 38C29.9 38 33 34.4 33 30C33 23 26 16 26 16Z" fill="#2D7A4F"/>
+        <path d="M26 22C26 22 22 26.5 22 30C22 32.2 23.8 34 26 34C28.2 34 30 32.2 30 30C30 26.5 26 22 26 22Z" fill="white" fill-opacity="0.9"/>
+      </svg>
     </div>
+
+    <!-- Wordmark -->
+    <div style="font-size:clamp(4.5rem,12vw,8rem);font-weight:900;color:#fff;letter-spacing:-.03em;line-height:1;margin-bottom:20px">
+      SOIL<span style="color:var(--amber)">-IQ</span>
+    </div>
+
+    <!-- Tagline -->
+    <p style="font-size:clamp(.95rem,2vw,1.25rem);color:rgba(255,255,255,.55);font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:48px">
+      Agricultura de Precisión · AgTech argentino
+    </p>
+
+    <!-- CTAs -->
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:72px">
+      <a href="app.html" class="btn btn-primary btn-lg">Ver la plataforma →</a>
+      <a href="#problema" class="btn btn-outline btn-lg">Cómo funciona</a>
+    </div>
+
+    <!-- Scroll indicator -->
+    <a href="#contexto" style="display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,.3);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;animation:bounce 2s infinite">
+      <span>Explorar</span>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
   </div>
 </section>
+
+<style>
+@keyframes bounce {
+  0%,100%{transform:translateY(0);opacity:.3}
+  50%{transform:translateY(6px);opacity:.6}
+}
+</style>
 
 
 <!-- ═══════════════════════════════════════════════════════════════════
      STATS BAR
 ════════════════════════════════════════════════════════════════════ -->
-<div class="stats-bar">
+<div class="stats-bar" id="contexto">
   <div class="container">
     <div class="stats-bar__grid">
       <div class="stats-bar__item fade-in">
