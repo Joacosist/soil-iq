@@ -936,9 +936,10 @@
           <div class="stat-card__sub">hectáreas monitoradas</div>
         </div>
         <div class="stat-card">
-          <div class="stat-card__label">Sensores activos</div>
-          <div class="stat-card__value" style="color:var(--verde)">142</div>
-          <div class="stat-card__sub">98.5% uptime · instalados en campo</div>
+          <div class="stat-card__label">Kits en maquinaria</div>
+          <div class="stat-card__value" style="color:var(--verde)">21</div>
+          <div class="stat-card__sub">Soil-IQ · 3 contratistas activos</div>
+          <div class="stat-card__trend"><span style="color:var(--gray-400);font-size:.68rem">📡 4 campos con sensores IoT propios</span></div>
         </div>
       </div>
 
@@ -2713,8 +2714,7 @@ function initChartIngresosMes() {
 function renderSensorPanels() {
   const el = document.getElementById('sensor-panels');
   el.innerHTML = USER_FARMS.map((f,i)=>{
-    // Filtrar lecturas específicas de sensores IoT fijos (no aplican en maquinaria)
-    const readings = f.sensorData ? f.sensorData.filter(s=>!s.label.includes('LoRaWAN')&&!s.label.includes('Batería sensor')) : null;
+    const readings = f.sensorData || null;
     const pasada = f.sensorPasada;
     const alertCount = readings ? readings.filter(s=>s.status!=='ok').length : 0;
     return `
@@ -2997,7 +2997,7 @@ const ALL_FIELDS = [
   {name:'Los Álamos', owner:'Roberto Sánchez', asesor:'Pablo López', ha:500,
    provincia:'Buenos Aires', loc:'Rural 9 de Julio, Bs.As.',
    ph:6.2, N:78, P:24, MO:3.8, K:182, plan:'Pro', status:'ok',
-   cultivo:'Soja / Maíz', sensors:true, lastDate:'15/04/2026', lotes:3, savings:67,
+   cultivo:'Soja / Maíz', sensors:true, iotOwn:true, lastDate:'15/04/2026', lotes:3, savings:67,
    lat:-34.955, lng:-62.248,
    polygon:[[-34.938,-62.268],[-34.942,-62.226],[-34.958,-62.220],[-34.972,-62.233],[-34.966,-62.272],[-34.950,-62.278]],
    lotePolygons:[
@@ -3068,7 +3068,7 @@ const ALL_FIELDS = [
   {name:'El Triunfo', owner:'Luis Fernández', asesor:'Pablo López', ha:430,
    provincia:'Buenos Aires', loc:'Rural Lincoln, Bs.As.',
    ph:6.5, N:91, P:31, MO:4.2, K:210, plan:'Pro', status:'ok',
-   cultivo:'Trigo / Soja', sensors:true, lastDate:'08/04/2026', lotes:3, savings:78,
+   cultivo:'Trigo / Soja', sensors:true, iotOwn:true, lastDate:'08/04/2026', lotes:3, savings:78,
    lat:-35.082, lng:-62.579,
    polygon:[[-35.072,-62.594],[-35.070,-62.566],[-35.085,-62.560],[-35.097,-62.570],[-35.091,-62.598],[-35.078,-62.600]],
    lotePolygons:[
@@ -3095,7 +3095,7 @@ const ALL_FIELDS = [
   {name:'La Esperanza', owner:'A. Rodríguez', asesor:'María Fernández', ha:1240,
    provincia:'Buenos Aires', loc:'Rural Gral. Viamonte, Bs.As.',
    ph:6.0, N:72, P:22, MO:3.5, K:170, plan:'Enterprise', status:'ok',
-   cultivo:'Maíz', sensors:true, lastDate:'02/05/2026', lotes:5, savings:88,
+   cultivo:'Maíz', sensors:true, iotOwn:true, lastDate:'02/05/2026', lotes:5, savings:88,
    lat:-34.152, lng:-61.854,
    polygon:[[-34.140,-61.868],[-34.140,-61.840],[-34.162,-61.836],[-34.165,-61.862]],
    lotePolygons:[
@@ -3124,7 +3124,7 @@ const ALL_FIELDS = [
   {name:'Los Pinos', owner:'Agroempresa Los Pinos', asesor:'María Fernández', ha:2100,
    provincia:'Buenos Aires', loc:'Rural Chivilcoy, Bs.As.',
    ph:6.3, N:85, P:28, MO:4.1, K:198, plan:'Enterprise', status:'ok',
-   cultivo:'Soja / Trigo', sensors:true, lastDate:'30/04/2026', lotes:8, savings:94,
+   cultivo:'Soja / Trigo', sensors:true, iotOwn:true, lastDate:'30/04/2026', lotes:8, savings:94,
    lat:-34.420, lng:-61.448,
    polygon:[[-34.408,-61.465],[-34.408,-61.432],[-34.433,-61.428],[-34.436,-61.460]],
    lotePolygons:[
@@ -3293,7 +3293,7 @@ function renderAdminTable() {
   const table = document.getElementById('admin-all-fields');
   table.innerHTML = `
     <thead>
-      <tr><th>#</th><th>Campo</th><th>Propietario</th><th>Asesor</th><th>Ha</th><th>Provincia</th><th>pH</th><th>N</th><th>P</th><th>MO</th><th>Plan</th><th>Estado</th></tr>
+      <tr><th>#</th><th>Campo</th><th>Propietario</th><th>Asesor</th><th>Ha</th><th>Provincia</th><th>pH</th><th>N</th><th>P</th><th>MO</th><th>Plan</th><th>Datos</th><th>Estado</th></tr>
     </thead>
     <tbody>
       ${ALL_FIELDS.map((f,i)=>`
@@ -3309,6 +3309,11 @@ function renderAdminTable() {
           <td><span style="color:${f.P<15?'#DC2626':f.P<20?'#D97706':'inherit'};font-weight:${f.P<15?700:400}">${f.P}</span></td>
           <td>${f.MO}%</td>
           <td><span class="tag ${f.plan==='Enterprise'?'':f.plan==='Pro'?'tag-green':'tag-gray'}" style="${f.plan==='Enterprise'?'background:#EDE9FE;color:#6D28D9':''}">${f.plan}</span></td>
+          <td style="white-space:nowrap">
+            ${f.sensorData?'<span class="tag tag-blue" style="font-size:.62rem;margin-right:3px">🚜 Kit Soil-IQ</span>':''}
+            ${f.iotOwn?'<span class="tag" style="font-size:.62rem;background:#F5F3FF;color:#6D28D9">📡 IoT propio</span>':''}
+            ${!f.sensorData&&!f.iotOwn?'<span class="tag tag-gray" style="font-size:.62rem">Sin sensores</span>':''}
+          </td>
           <td><span class="tag ${f.status==='ok'?'tag-green':f.status==='warn'?'tag-amber':'tag-red'}">${f.status==='ok'?'OK':f.status==='warn'?'Alerta':'Crítico'}</span></td>
         </tr>
       `).join('')}
