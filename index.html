@@ -619,6 +619,117 @@
     .market-card__sub { font-size: .75rem; color: var(--gray-600); }
     .market-card--full { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; }
 
+    /* ─── Cadena de valor (Cómo funciona) ───────────────────────────── */
+    .cadena-section {
+      background: linear-gradient(160deg, #0F1F15 0%, #111B14 60%, #0D1A12 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .cadena-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(45,122,79,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cadena-section .section__header .badge {
+      background: rgba(232,160,32,.15);
+      color: var(--amber);
+      border-color: rgba(232,160,32,.3);
+    }
+    .cadena-section .section__title { color: #fff; }
+    .cadena-section .section__subtitle { color: rgba(255,255,255,.55); }
+
+    .cadena-track {
+      max-width: 760px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .cadena-track::before {
+      content: '';
+      position: absolute;
+      left: 28px;
+      top: 24px;
+      bottom: 24px;
+      width: 2px;
+      background: linear-gradient(to bottom,
+        rgba(45,122,79,.6) 0%,
+        rgba(232,160,32,.5) 50%,
+        rgba(45,122,79,.3) 100%);
+      border-radius: 2px;
+    }
+
+    .cadena-step {
+      display: flex;
+      gap: 28px;
+      padding: 0 0 40px 0;
+      position: relative;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .cadena-step.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .cadena-dot {
+      flex-shrink: 0;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 900;
+      position: relative;
+      z-index: 1;
+      border: 2px solid rgba(255,255,255,.08);
+    }
+
+    .cadena-body {
+      flex: 1;
+      padding-top: 10px;
+    }
+    .cadena-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+    .cadena-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+    }
+    .cadena-badge {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      padding: 4px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      border: 1px solid;
+    }
+    .cadena-desc {
+      font-size: .83rem;
+      color: rgba(255,255,255,.58);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 640px) {
+      .cadena-track::before { left: 22px; }
+      .cadena-dot { width: 46px; height: 46px; font-size: 1rem; }
+      .cadena-top { flex-direction: column; gap: 6px; }
+      .cadena-badge { align-self: flex-start; }
+      .cadena-step { gap: 18px; }
+    }
+
     /* ─── Pricing ───────────────────────────────────────────────────── */
     .pricing__grid {
       display: grid;
@@ -1559,6 +1670,7 @@
 
       <ul class="navbar__links">
         <li><a href="#problema">Problema</a></li>
+        <li><a href="#cadena">Cómo funciona</a></li>
         <li><a href="#mercado">Mercado</a></li>
         <li><a href="#modelo">Modelo</a></li>
         <li><a href="#equipo">Equipo</a></li>
@@ -1841,6 +1953,124 @@
   </div>
 </section>
 
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     CADENA DE VALOR — CÓMO FUNCIONA
+════════════════════════════════════════════════════════════════════ -->
+<section class="section cadena-section" id="cadena">
+  <div class="container">
+    <div class="section__header fade-in">
+      <span class="badge">Nuestra cadena de valor</span>
+      <h2 class="section__title">Del suelo a la decisión, en horas</h2>
+      <p class="section__subtitle">Así convierte Soil-IQ cada pasada de maquinaria en inteligencia agronómica accionable.</p>
+    </div>
+
+    <div class="cadena-track">
+
+      <!-- 1 -->
+      <div class="cadena-step">
+        <div class="cadena-dot" style="background:rgba(45,122,79,.25);color:#4ADE80">1</div>
+        <div class="cadena-body">
+          <div class="cadena-top">
+            <div class="cadena-title">Captación del contratista</div>
+            <span class="cadena-badge" style="background:rgba(45,122,79,.15);color:#4ADE80;border-color:rgba(45,122,79,.35)">Equipo comercial propio</span>
+          </div>
+          <div class="cadena-desc">Identificamos contratistas con alto volumen de hectáreas, buena reputación local y maquinaria compatible en la zona núcleo pampeana.</div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="cadena-step">
+        <div class="cadena-dot" style="background:rgba(59,130,246,.2);color:#60A5FA">2</div>
+        <div class="cadena-body">
+          <div class="cadena-top">
+            <div class="cadena-title">Instalación del kit</div>
+            <span class="cadena-badge" style="background:rgba(59,130,246,.12);color:#60A5FA;border-color:rgba(59,130,246,.3)">Técnico certificado Soil-IQ</span>
+          </div>
+          <div class="cadena-desc">Nuestro equipo técnico monta el sistema ISFET en la maquinaria, calibra contra laboratorio de referencia y capacita al operario en menos de dos horas.</div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="cadena-step">
+        <div class="cadena-dot" style="background:rgba(232,160,32,.18);color:#FBB040">3</div>
+        <div class="cadena-body">
+          <div class="cadena-top">
+            <div class="cadena-title">Captura "en pasada"</div>
+            <span class="cadena-badge" style="background:rgba(232,160,32,.12);color:#FBB040;border-color:rgba(232,160,32,.3)">Sistema físico integrado</span>
+          </div>
+          <div class="cadena-desc">Mientras el contratista trabaja normalmente, los sensores analizan pH, nitrógeno, fósforo y potasio del suelo en cada pasada. El GPS geolocaliza cada muestra de forma automática.</div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="cadena-step">
+        <div class="cadena-dot" style="background:rgba(139,92,246,.18);color:#A78BFA">4</div>
+        <div class="cadena-body">
+          <div class="cadena-top">
+            <div class="cadena-title">Procesamiento local y sincronización</div>
+            <span class="cadena-badge" style="background:rgba(139,92,246,.12);color:#A78BFA;border-color:rgba(139,92,246,.3)">Sin 4G requerido</span>
+          </div>
+          <div class="cadena-desc">Los datos se almacenan localmente gracias a la arquitectura offline-first y se sincronizan automáticamente cuando el contratista recupera señal. Sin dependencia de conectividad en campo.</div>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="cadena-step">
+        <div class="cadena-dot" style="background:rgba(236,72,153,.15);color:#F472B6">5</div>
+        <div class="cadena-body">
+          <div class="cadena-top">
+            <div class="cadena-title">IA en la nube</div>
+            <span class="cadena-badge" style="background:rgba(236,72,153,.1);color:#F472B6;border-color:rgba(236,72,153,.25)">Activo tecnológico central</span>
+          </div>
+          <div class="cadena-desc">Nuestro motor de Machine Learning cruza los datos del suelo con imágenes satelitales (Sentinel-2), historial de campañas y condiciones climáticas para generar prescripciones agronómicas por zonas.</div>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="cadena-step">
+        <div class="cadena-dot" style="background:rgba(232,160,32,.22);color:var(--amber)">6</div>
+        <div class="cadena-body">
+          <div class="cadena-top">
+            <div class="cadena-title">Entrega al productor</div>
+            <span class="cadena-badge" style="background:rgba(232,160,32,.12);color:var(--amber);border-color:rgba(232,160,32,.3)">App móvil + dashboard web</span>
+          </div>
+          <div class="cadena-desc">El productor recibe en horas —no semanas— un mapa georreferenciado de su lote con pH y NPK por zona, y una prescripción accionable directamente en su celular.</div>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="cadena-step">
+        <div class="cadena-dot" style="background:rgba(45,122,79,.35);color:#86EFAC">7</div>
+        <div class="cadena-body">
+          <div class="cadena-top">
+            <div class="cadena-title">Seguimiento y recurrencia</div>
+            <span class="cadena-badge" style="background:rgba(45,122,79,.18);color:#86EFAC;border-color:rgba(45,122,79,.4)">Customer success activo</span>
+          </div>
+          <div class="cadena-desc">Cada campaña suma datos al historial del lote. El productor y el agrónomo pueden comparar evolución de nutrientes año a año, y el contratista genera un activo de datos acumulado.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  const steps = document.querySelectorAll('.cadena-step');
+  if (!steps.length) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = [...steps].indexOf(entry.target);
+        setTimeout(() => entry.target.classList.add('visible'), idx * 80);
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.15});
+  steps.forEach(s => io.observe(s));
+})();
+</script>
 
 <!-- ═══════════════════════════════════════════════════════════════════
      CÓMO RECOLECTAMOS LOS DATOS
