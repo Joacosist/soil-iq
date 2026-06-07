@@ -955,35 +955,130 @@
     @media (max-width: 1024px) {
       .pricing__grid { grid-template-columns: repeat(2, 1fr); }
       .footer__top   { grid-template-columns: 1fr 1fr; }
-      .marketplace   { grid-template-columns: 1fr; gap: 40px; padding: 40px 32px; }
+      .marketplace   { grid-template-columns: 1fr; gap: 40px; padding: 40px 32px; margin: 0 12px; }
     }
 
     @media (max-width: 768px) {
+      /* — Sección base — */
+      .section         { padding: 60px 0; }
+      .section__header { margin-bottom: 40px; }
+
+      /* — Navbar — */
       .navbar__links { display: none; }
       .navbar__cta   { display: none; }
       .hamburger     { display: flex; }
 
-      .hero          { padding: 60px 0 56px; }
-      .hero__inner   { grid-template-columns: 1fr; gap: 48px; }
-      .hero__visual  { display: none; }
+      /* — Hero — */
+      .hero         { padding: 52px 0 48px; }
+      .hero__inner  { grid-template-columns: 1fr; gap: 36px; }
+      .hero__visual { display: none; }
+      .hero__title  { text-align: center; }
+      .hero__subtitle { text-align: center; }
+      .hero__badge  { text-align: center; }
+      .hero__actions { justify-content: center; }
 
-      .stats-bar__grid     { grid-template-columns: repeat(2, 1fr); }
-      .problem__grid       { grid-template-columns: 1fr 1fr; }
+      /* — Stats bar — */
+      .stats-bar__grid { grid-template-columns: repeat(2, 1fr); }
+
+      /* — Problema — */
+      .problem__grid    { grid-template-columns: 1fr 1fr; }
+
+      /* — Steps / features — */
       .steps__grid         { grid-template-columns: 1fr; }
       .steps__grid::before { display: none; }
       .features__grid      { grid-template-columns: 1fr; }
-      .testimonials__grid  { grid-template-columns: 1fr; }
-      .pricing__grid       { grid-template-columns: 1fr; }
+
+      /* — Testimonials — */
+      .testimonials__grid { grid-template-columns: 1fr; }
+
+      /* — Pricing — */
+      .pricing__grid { grid-template-columns: 1fr; }
+
+      /* — Marketplace section — */
       .marketplace         { margin: 0; padding: 32px 24px; }
       .marketplace__visual { grid-template-columns: 1fr 1fr; }
-      .footer__top         { grid-template-columns: 1fr; gap: 32px; }
-      .footer__bottom      { flex-direction: column; align-items: flex-start; }
+
+      /* — Footer — */
+      .footer__top    { grid-template-columns: 1fr; gap: 32px; }
+      .footer__bottom { flex-direction: column; align-items: flex-start; gap: 12px; }
+
+      /* — Contractor section — */
+      .contractor-section { padding: 60px 0; }
+      .contractor-benefits { grid-template-columns: 1fr; }
+      .earn-banner { grid-template-columns: 1fr; padding: 28px 24px; }
+      .earn-steps  { min-width: unset; }
+
+      /* — Solución — */
+      .solution-split { grid-template-columns: 1fr; gap: 32px; }
+      .solution-visual { padding: 24px; }
+
+      /* — Mercado — */
+      .tam-grid           { grid-template-columns: 1fr; }
+      .bm-grid            { grid-template-columns: 1fr; }
+      .market-stats-strip { grid-template-columns: 1fr 1fr; }
+      .ltvcac-banner      { flex-direction: column; text-align: center; }
+      .ltvcac-stat        { text-align: center; }
+
+      /* — Roadmap — */
+      .roadmap-timeline         { grid-template-columns: 1fr 1fr; gap: 24px; }
+      .roadmap-timeline::before { display: none; }
+
+      /* — Equipo — */
+      .team-grid    { grid-template-columns: 1fr 1fr; }
+      .advisor-card { flex-direction: column; text-align: center; }
     }
 
     @media (max-width: 480px) {
-      .hero__actions   { flex-direction: column; align-items: flex-start; }
-      .stats-bar__grid { grid-template-columns: 1fr 1fr; }
-      .final-cta__actions { flex-direction: column; align-items: center; }
+      /* — Sección base — */
+      .section         { padding: 48px 0; }
+      .section__header { margin-bottom: 28px; }
+
+      /* — Hero — */
+      .hero__actions      { flex-direction: column; align-items: center; width: 100%; }
+      .hero__actions .btn { width: 100%; justify-content: center; text-align: center; }
+      .stats-bar__grid    { grid-template-columns: 1fr 1fr; gap: 0; }
+
+      /* — Problema — */
+      .problem__grid { grid-template-columns: 1fr; }
+      .problem__card { padding: 22px 18px; }
+      .problem__stat { font-size: 2rem; }
+
+      /* — Roadmap — */
+      .roadmap-timeline { grid-template-columns: 1fr; }
+
+      /* — Equipo — */
+      .team-grid { grid-template-columns: 1fr; }
+
+      /* — Market stats — */
+      .market-stats-strip { grid-template-columns: 1fr; }
+
+      /* — Marketplace visual — */
+      .marketplace__visual { grid-template-columns: 1fr; }
+      .market-card--full   { flex-direction: column; align-items: flex-start; gap: 8px; }
+
+      /* — Pricing — */
+      .pricing-card { padding: 24px 20px; }
+
+      /* — CTA final — */
+      .final-cta__actions      { flex-direction: column; align-items: center; width: 100%; }
+      .final-cta__actions .btn { width: 100%; justify-content: center; }
+
+      /* — Marketplace — */
+      .marketplace { padding: 28px 20px; }
+
+      /* — Partners — */
+      .partners__grid { gap: 24px; }
+      .partner-logo   { opacity: 1; filter: none; }
+
+      /* — Steps (how it works circles) — */
+      .step__number { width: 72px; height: 72px; font-size: 1.2rem; }
+      .step { padding: 0 16px 32px; }
+
+      /* — Roadmap steps — */
+      .rm-step { padding: 20px 16px; }
+
+      /* — Mobile menu links — */
+      .mobile-menu a { padding: 4px 24px; }
     }
 
     /* ─── Contractor Section ───────────────────────────────────────── */
@@ -1217,11 +1312,7 @@
       border-color: var(--verde);
     }
 
-    @media (max-width: 768px) {
-      .contractor-benefits { grid-template-columns: 1fr; }
-      .earn-banner { grid-template-columns: 1fr; padding: 28px 24px; }
-      .earn-steps { min-width: unset; }
-    }
+    /* contractor responsive handled in main block above */
 
     /* ─── Solución ──────────────────────────────────────────────────── */
     .solution-split {
@@ -1290,9 +1381,7 @@
       color: var(--gray-400);
       margin-top: 8px;
     }
-    @media (max-width: 768px) {
-      .solution-split { grid-template-columns: 1fr; gap: 40px; }
-    }
+    /* solution responsive handled in main block above */
 
     /* ─── Mercado (TAM/SAM/SOM) ────────────────────────────────────── */
     .tam-grid {
@@ -1624,21 +1713,7 @@
       line-height: 1.5;
     }
 
-    @media (max-width: 768px) {
-      .tam-grid           { grid-template-columns: 1fr; }
-      .bm-grid            { grid-template-columns: 1fr; }
-      .roadmap-timeline   { grid-template-columns: 1fr 1fr; gap: 24px; }
-      .roadmap-timeline::before { display: none; }
-      .team-grid          { grid-template-columns: 1fr 1fr; }
-      .advisor-card       { flex-direction: column; text-align: center; }
-      .market-stats-strip { grid-template-columns: 1fr 1fr; }
-      .ltvcac-banner      { flex-direction: column; text-align: center; }
-      .ltvcac-stat        { text-align: center; }
-    }
-    @media (max-width: 480px) {
-      .team-grid { grid-template-columns: 1fr; }
-      .market-stats-strip { grid-template-columns: 1fr; }
-    }
+    /* tam/bm/roadmap/team responsive handled in main block above */
 
     /* ─── Scroll animations ─────────────────────────────────────────── */
     .fade-in {
