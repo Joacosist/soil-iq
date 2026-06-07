@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5 Fuerzas de Porter · Soil-IQ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --verde:#2D7A4F;--verde-dark:#1B5E35;--amber:#E8A020;
+      --gray-50:#F9FAFB;--gray-200:#E5E7EB;--gray-400:#9CA3AF;
+      --gray-600:#4B5563;--gray-800:#1F2937;--white:#fff;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:var(--gray-50);color:var(--gray-800);min-height:100vh}
+
+    .topbar{background:linear-gradient(135deg,#0F1F15 0%,#1B5E35 100%);padding:18px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+    .topbar__brand{display:flex;align-items:center;gap:10px}
+    .topbar__logo{width:32px;height:32px;background:var(--verde);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:.9rem}
+    .topbar__name{font-weight:800;color:#fff;font-size:1rem}
+    .topbar__title{font-size:.82rem;color:rgba(255,255,255,.55)}
+    .btn-back{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:8px 16px;border-radius:8px;font-size:.82rem;font-weight:600;text-decoration:none;transition:background .2s}
+    .btn-back:hover{background:rgba(255,255,255,.18)}
+
+    .hero{background:linear-gradient(135deg,#0F1F15 0%,#1B5E35 60%,#0D2318 100%);padding:56px 24px 48px;text-align:center}
+    .badge{display:inline-flex;align-items:center;background:rgba(232,160,32,.15);color:var(--amber);border:1px solid rgba(232,160,32,.3);padding:5px 14px;border-radius:100px;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px}
+    .hero h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;color:#fff;line-height:1.15;margin-bottom:12px}
+    .hero p{font-size:1rem;color:rgba(255,255,255,.6);max-width:560px;margin:0 auto;line-height:1.6}
+
+    /* ── Layout ── */
+    .wrap{max-width:900px;margin:0 auto;padding:48px 24px 64px}
+
+    /* ── Fuerza card ── */
+    .fuerza{background:#fff;border:1px solid var(--gray-200);border-radius:14px;padding:28px 32px;margin-bottom:20px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start}
+    .fuerza__left{}
+    .fuerza__number{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-400);margin-bottom:8px}
+    .fuerza__title{font-size:1.1rem;font-weight:800;color:var(--gray-800);margin-bottom:12px}
+    .fuerza__desc{font-size:.875rem;color:var(--gray-600);line-height:1.6;margin-bottom:14px}
+    .fuerza__factors{display:flex;flex-direction:column;gap:6px}
+    .fuerza__factor{display:flex;align-items:flex-start;gap:8px;font-size:.82rem;color:var(--gray-600);line-height:1.5}
+    .fuerza__factor::before{content:'·';color:var(--verde);font-weight:900;font-size:1rem;line-height:1.4;flex-shrink:0}
+
+    /* ── Nivel indicator ── */
+    .nivel{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:90px}
+    .nivel__label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+    .nivel__badge{padding:6px 14px;border-radius:100px;font-size:.78rem;font-weight:700;white-space:nowrap}
+    .nivel__bar{width:8px;height:80px;background:var(--gray-200);border-radius:4px;position:relative;overflow:hidden}
+    .nivel__fill{position:absolute;bottom:0;left:0;right:0;border-radius:4px;transition:height .6s ease}
+
+    /* Colores por nivel */
+    .nivel--baja .nivel__badge{background:#DCFCE7;color:#16A34A}
+    .nivel--baja .nivel__fill{background:#16A34A;height:28%}
+    .nivel--baja .nivel__label{color:#16A34A}
+    .nivel--media .nivel__badge{background:#FEF3C7;color:#D97706}
+    .nivel--media .nivel__fill{background:#D97706;height:55%}
+    .nivel--media .nivel__label{color:#D97706}
+    .nivel--alta .nivel__badge{background:#FEE2E2;color:#DC2626}
+    .nivel--alta .nivel__fill{background:#DC2626;height:85%}
+    .nivel--alta .nivel__label{color:#DC2626}
+
+    /* ── Summary row ── */
+    .summary{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:40px;background:#fff;border:1px solid var(--gray-200);border-radius:14px;padding:20px}
+    .summary-item{text-align:center}
+    .summary-item__name{font-size:.68rem;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+    .summary-item__dot{width:12px;height:12px;border-radius:50%;margin:0 auto 4px}
+    .summary-item__val{font-size:.78rem;font-weight:700}
+
+    @media(max-width:640px){
+      .fuerza{grid-template-columns:1fr;gap:16px}
+      .nivel{flex-direction:row;align-items:center;min-width:unset;gap:10px}
+      .nivel__bar{width:60px;height:8px}
+      .nivel__fill{height:8px!important;bottom:unset;top:0;width:28%;right:unset}
+      .nivel--media .nivel__fill{width:55%}
+      .nivel--alta .nivel__fill{width:85%}
+      .summary{grid-template-columns:1fr 1fr;gap:10px}
+      .topbar__title{display:none}
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar__brand">
+    <div class="topbar__logo">S</div>
+    <div>
+      <div class="topbar__name">Soil-IQ</div>
+      <div class="topbar__title">Análisis Estratégico</div>
+    </div>
+  </div>
+  <a href="index.html" class="btn-back">← Volver a la landing</a>
+</div>
+
+<div class="hero">
+  <div class="badge">Análisis competitivo</div>
+  <h1>5 Fuerzas de Porter</h1>
+  <p>Evaluación del entorno competitivo de Soil-IQ en el mercado AgTech de agricultura de precisión en LATAM.</p>
+</div>
+
+<div class="wrap">
+
+  <!-- Resumen -->
+  <div class="summary">
+    <div class="summary-item">
+      <div class="summary-item__name">Nuevos entrantes</div>
+      <div class="summary-item__dot" style="background:#D97706"></div>
+      <div class="summary-item__val" style="color:#D97706">Media</div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-item__name">Poder proveedores</div>
+      <div class="summary-item__dot" style="background:#D97706"></div>
+      <div class="summary-item__val" style="color:#D97706">Media</div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-item__name">Poder compradores</div>
+      <div class="summary-item__dot" style="background:#D97706"></div>
+      <div class="summary-item__val" style="color:#D97706">Media</div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-item__name">Sustitutos</div>
+      <div class="summary-item__dot" style="background:#D97706"></div>
+      <div class="summary-item__val" style="color:#D97706">Media</div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-item__name">Rivalidad actual</div>
+      <div class="summary-item__dot" style="background:#16A34A"></div>
+      <div class="summary-item__val" style="color:#16A34A">Baja</div>
+    </div>
+  </div>
+
+  <!-- Fuerza 1 -->
+  <div class="fuerza">
+    <div class="fuerza__left">
+      <div class="fuerza__number">Fuerza 1</div>
+      <div class="fuerza__title">🚪 Amenaza de nuevos entrantes</div>
+      <div class="fuerza__desc">El mercado de datos agronómicos en LATAM es atractivo por su tamaño y crecimiento, lo que genera interés de actores externos. Sin embargo, las barreras técnicas y operativas moderan la amenaza en el corto plazo.</div>
+      <div class="fuerza__factors">
+        <div class="fuerza__factor">El desarrollo de hardware ISFET calibrado requiere inversión de I+D significativa y tiempo de validación</div>
+        <div class="fuerza__factor">La integración operativa con contratistas rurales exige presencia local y construcción de confianza — no es replicable en meses</div>
+        <div class="fuerza__factor">El dataset acumulado de Soil-IQ se vuelve cada campaña más difícil de igualar para un entrante nuevo</div>
+        <div class="fuerza__factor">Riesgo: jugadores globales capitalizados (John Deere, AGCO, Climate Corp) podrían entrar al segmento LATAM con recursos propios</div>
+      </div>
+    </div>
+    <div class="nivel nivel--media">
+      <div class="nivel__label">Intensidad</div>
+      <div class="nivel__bar"><div class="nivel__fill"></div></div>
+      <div class="nivel__badge">Media</div>
+    </div>
+  </div>
+
+  <!-- Fuerza 2 -->
+  <div class="fuerza">
+    <div class="fuerza__left">
+      <div class="fuerza__number">Fuerza 2</div>
+      <div class="fuerza__title">🏭 Poder de negociación de proveedores</div>
+      <div class="fuerza__desc">Soil-IQ depende de proveedores de sensores ISFET de precisión y de la cadena de manufactura electrónica para el kit. La concentración en este segmento otorga cierto poder a los proveedores, aunque mitigado por la diversificación posible.</div>
+      <div class="fuerza__factors">
+        <div class="fuerza__factor">Los fabricantes de sensores ISFET de calidad agronómica son relativamente pocos a nivel mundial</div>
+        <div class="fuerza__factor">La dependencia de componentes electrónicos de importación expone a variabilidad de costos por tipo de cambio</div>
+        <div class="fuerza__factor">A medida que escala el volumen, la capacidad de negociación de Soil-IQ mejora sustancialmente</div>
+        <div class="fuerza__factor">Posibilidad de desarrollar proveedores alternativos o fabricación parcial local como estrategia de mitigación</div>
+      </div>
+    </div>
+    <div class="nivel nivel--media">
+      <div class="nivel__label">Intensidad</div>
+      <div class="nivel__bar"><div class="nivel__fill"></div></div>
+      <div class="nivel__badge">Media</div>
+    </div>
+  </div>
+
+  <!-- Fuerza 3 -->
+  <div class="fuerza">
+    <div class="fuerza__left">
+      <div class="fuerza__number">Fuerza 3</div>
+      <div class="fuerza__title">🌾 Poder de negociación de compradores</div>
+      <div class="fuerza__desc">Existen dos segmentos de compradores con dinámicas distintas: los contratistas (mayor poder) y los productores (menor poder una vez dentro del ecosistema de datos).</div>
+      <div class="fuerza__factors">
+        <div class="fuerza__factor">Los contratistas evalúan la compra del kit como una inversión de capital — negocian precio, condiciones y soporte técnico</div>
+        <div class="fuerza__factor">En etapa temprana, la cantidad de contratistas dispuestos a adoptar limita el poder de Soil-IQ para imponer precios</div>
+        <div class="fuerza__factor">Los productores tienen bajo poder individual — el valor del historial de datos los vincula al ecosistema con el tiempo</div>
+        <div class="fuerza__factor">La escasez de alternativas equivalentes en LATAM reduce el poder de los compradores a medida que crece el mercado</div>
+      </div>
+    </div>
+    <div class="nivel nivel--media">
+      <div class="nivel__label">Intensidad</div>
+      <div class="nivel__bar"><div class="nivel__fill"></div></div>
+      <div class="nivel__badge">Media</div>
+    </div>
+  </div>
+
+  <!-- Fuerza 4 -->
+  <div class="fuerza">
+    <div class="fuerza__left">
+      <div class="fuerza__number">Fuerza 4</div>
+      <div class="fuerza__title">🔄 Amenaza de productos sustitutos</div>
+      <div class="fuerza__desc">El análisis de suelo tiene sustitutos establecidos, pero ninguno combina la resolución espacial, velocidad y costo de Soil-IQ. La amenaza existe en el corto plazo pero se debilita a medida que el modelo de captura en pasada se consolida.</div>
+      <div class="fuerza__factors">
+        <div class="fuerza__factor">Análisis de laboratorio tradicional: lento (días o semanas), costoso y con baja resolución espacial (2–4 puntos/100 ha)</div>
+        <div class="fuerza__factor">Imágenes satelitales (NDVI, Sentinel): solo miden cobertura vegetal, no datos químicos reales del suelo</div>
+        <div class="fuerza__factor">Sensores estáticos IoT: requieren instalación permanente, mantenimiento y conectividad — inviables en zonas rurales</div>
+        <div class="fuerza__factor">Servicios de consultoría agronómica sin datos: la solución dominante actual, pero con alta variabilidad de calidad</div>
+      </div>
+    </div>
+    <div class="nivel nivel--media">
+      <div class="nivel__label">Intensidad</div>
+      <div class="nivel__bar"><div class="nivel__fill"></div></div>
+      <div class="nivel__badge">Media</div>
+    </div>
+  </div>
+
+  <!-- Fuerza 5 -->
+  <div class="fuerza">
+    <div class="fuerza__left">
+      <div class="fuerza__number">Fuerza 5</div>
+      <div class="fuerza__title">⚔️ Rivalidad entre competidores actuales</div>
+      <div class="fuerza__desc">El mercado de captura de datos de suelo en pasada con sensores ISFET en LATAM no tiene jugadores locales consolidados. La rivalidad actual es baja, aunque el crecimiento del mercado atraerá competencia en los próximos 2–3 años.</div>
+      <div class="fuerza__factors">
+        <div class="fuerza__factor">No existe un competidor directo con el mismo modelo de negocio (kit en maquinaria + royalty + SaaS) en la región</div>
+        <div class="fuerza__factor">Los actores agronómicos existentes (laboratorios, software de gestión) no compiten en captura física de datos</div>
+        <div class="fuerza__factor">El crecimiento del mercado a 15% anual reduce la presión competitiva — hay espacio para múltiples actores en paralelo</div>
+        <div class="fuerza__factor">Ventana de 18–24 meses para consolidar marca, red de contratistas y dataset antes de que lleguen competidores regionales</div>
+      </div>
+    </div>
+    <div class="nivel nivel--baja">
+      <div class="nivel__label">Intensidad</div>
+      <div class="nivel__bar"><div class="nivel__fill"></div></div>
+      <div class="nivel__badge">Baja</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
