@@ -1480,7 +1480,7 @@
     /* ─── Modelo de Negocio ─────────────────────────────────────────── */
     .bm-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.15fr 1fr;
       gap: 24px;
       margin-bottom: 32px;
     }
@@ -1490,9 +1490,50 @@
       border: 2px solid var(--gray-200);
       background: var(--white);
       box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
     }
-    .bm-card--contractor { border-color: #3B82F6; }
+    .bm-card--contractor {
+      border-color: #3B82F6;
+      box-shadow: 0 0 0 4px rgba(59,130,246,.07), var(--shadow-lg);
+    }
+    .bm-card--contractor::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #3B82F6, #60A5FA);
+    }
     .bm-card--producer   { border-color: var(--verde); }
+    .bm-card__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(59,130,246,.1);
+      border: 1px solid rgba(59,130,246,.25);
+      color: #1D4ED8;
+      font-size: .7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+    .bm-strategy-banner {
+      margin-top: 8px;
+      background: linear-gradient(135deg, #EFF6FF, #F0F9FF);
+      border: 1px solid #BFDBFE;
+      border-left: 4px solid #3B82F6;
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .bm-strategy-banner__icon { font-size: 1.8rem; flex-shrink: 0; margin-top: 2px; }
+    .bm-strategy-banner__title { font-size: .95rem; font-weight: 800; color: #1D4ED8; margin-bottom: 8px; }
+    .bm-strategy-banner__body { font-size: .875rem; color: var(--gray-700); line-height: 1.65; }
     .bm-card__header {
       font-size: 1.1rem;
       font-weight: 800;
@@ -2388,12 +2429,13 @@
   <div class="container">
     <div class="section__header fade-in">
       <span class="badge">Modelo de negocio</span>
-      <h2 class="section__title">Dos clientes, un solo modelo<br>que se autoescala</h2>
-      <p class="section__subtitle">El contratista es el nodo de captura y distribución. El productor es el cliente recurrente. Ambos ganan — y Soil-IQ también.</p>
+      <h2 class="section__title">El contratista es nuestra<br>fuerza de venta</h2>
+      <p class="section__subtitle">No llegamos al campo puerta a puerta — nos apoyamos en los contratistas para penetrar el mercado. Cada uno que adopta Soil-IQ lleva la plataforma a todas las hectáreas que trabaja, convirtiendo su red de clientes en nuestra red de usuarios.</p>
     </div>
 
     <div class="bm-grid fade-in">
       <div class="bm-card bm-card--contractor">
+        <div class="bm-card__badge">📣 Palanca de crecimiento · Estrategia GTM</div>
         <div class="bm-card__header">🚜 Contratista rural</div>
         <div class="bm-row">
           <div class="bm-row__item">
@@ -2441,7 +2483,18 @@
       </div>
     </div>
 
-<div style="text-align:center;margin-top:48px">
+    <!-- Estrategia de penetración -->
+    <div class="bm-strategy-banner fade-in">
+      <div class="bm-strategy-banner__icon">📣</div>
+      <div>
+        <div class="bm-strategy-banner__title">¿Por qué el contratista y no el productor?</div>
+        <div class="bm-strategy-banner__body">
+          Nuestra estrategia de penetración de mercado pasa por los contratistas — no vendemos directo al productor. Un solo contratista trabaja cientos o miles de hectáreas de distintos dueños: adoptando Soil-IQ, lleva la plataforma a todos ellos de forma automática. El productor recibe el valor sin fricciones ni proceso de venta; el contratista se diferencia y fideliza a sus clientes. <strong>Los contratistas son nuestra red de distribución:</strong> cada uno que firmamos multiplica nuestra base de productores activos sin costo de adquisición adicional.
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:40px">
       <a href="bmc.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--verde);color:#fff;padding:13px 28px;border-radius:10px;font-weight:700;font-size:.9rem;text-decoration:none;transition:background .2s" onmouseover="this.style.background='#1B5E35'" onmouseout="this.style.background='var(--verde)'">
         Ver Business Model Canvas →
       </a>
