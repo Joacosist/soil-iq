@@ -1035,7 +1035,8 @@
 
       /* — Mercado — */
       .tam-grid           { grid-template-columns: 1fr; }
-      .bm-grid            { grid-template-columns: 1fr; }
+      .bm-users-grid        { grid-template-columns: 1fr; }
+      .bm-contractor__grid  { grid-template-columns: 1fr; }
       .market-stats-strip { grid-template-columns: 1fr 1fr; }
       .ltvcac-banner      { flex-direction: column; text-align: center; }
       .ltvcac-stat        { text-align: center; }
@@ -1478,62 +1479,139 @@
     }
 
     /* ─── Modelo de Negocio ─────────────────────────────────────────── */
-    .bm-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 1fr;
-      gap: 24px;
-      margin-bottom: 32px;
-    }
-    .bm-card {
+
+    /* Contratista — banner GTM full-width */
+    .bm-contractor {
       border-radius: var(--radius-lg);
-      padding: 36px 32px;
-      border: 2px solid var(--gray-200);
-      background: var(--white);
-      box-shadow: var(--shadow);
+      background: linear-gradient(135deg, #0F2236, #1E3A5F);
+      border: 2px solid #3B82F6;
+      box-shadow: 0 0 0 4px rgba(59,130,246,.08), var(--shadow-lg);
+      padding: 32px 36px;
       position: relative;
       overflow: hidden;
+      margin-bottom: 12px;
     }
-    .bm-card--contractor {
-      border-color: #3B82F6;
-      box-shadow: 0 0 0 4px rgba(59,130,246,.07), var(--shadow-lg);
-    }
-    .bm-card--contractor::before {
+    .bm-contractor::before {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
       height: 4px;
       background: linear-gradient(90deg, #3B82F6, #60A5FA);
     }
-    .bm-card--producer   { border-color: var(--verde); }
-    .bm-card__badge {
+    .bm-contractor__top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .bm-contractor__badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: rgba(59,130,246,.1);
-      border: 1px solid rgba(59,130,246,.25);
-      color: #1D4ED8;
+      background: rgba(59,130,246,.18);
+      border: 1px solid rgba(59,130,246,.4);
+      color: #93C5FD;
+      font-size: .68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+    .bm-contractor__title {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #fff;
+    }
+    .bm-contractor__desc {
+      font-size: .9rem;
+      color: rgba(255,255,255,.6);
+      line-height: 1.6;
+      margin-bottom: 24px;
+      max-width: 720px;
+    }
+    .bm-contractor__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .bm-contractor__item {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+    }
+    .bm-contractor__item-key {
+      font-size: .65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: #93C5FD;
+      margin-bottom: 5px;
+    }
+    .bm-contractor__item-val {
+      font-size: .85rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.85);
+      line-height: 1.4;
+    }
+
+    /* Usuarios — separador */
+    .bm-users-sep {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 28px 0 16px;
+    }
+    .bm-users-sep__label {
       font-size: .7rem;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: .06em;
-      padding: 4px 12px;
-      border-radius: 20px;
-      margin-bottom: 14px;
+      letter-spacing: .1em;
+      color: var(--gray-400);
+      white-space: nowrap;
     }
-    .bm-strategy-banner {
-      margin-top: 8px;
-      background: linear-gradient(135deg, #EFF6FF, #F0F9FF);
-      border: 1px solid #BFDBFE;
-      border-left: 4px solid #3B82F6;
+    .bm-users-sep__line {
+      flex: 1;
+      height: 1px;
+      background: var(--gray-200);
+    }
+
+    /* Grid usuarios */
+    .bm-users-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    .bm-card {
       border-radius: var(--radius-lg);
-      padding: 24px 28px;
-      display: flex;
-      gap: 20px;
-      align-items: flex-start;
+      padding: 32px 28px;
+      border: 2px solid var(--gray-200);
+      background: var(--white);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
     }
-    .bm-strategy-banner__icon { font-size: 1.8rem; flex-shrink: 0; margin-top: 2px; }
-    .bm-strategy-banner__title { font-size: .95rem; font-weight: 800; color: #1D4ED8; margin-bottom: 8px; }
-    .bm-strategy-banner__body { font-size: .875rem; color: var(--gray-700); line-height: 1.65; }
+    .bm-card--producer {
+      border-color: var(--verde);
+    }
+    .bm-card--producer::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--verde), #4ADE80);
+    }
+    .bm-card--agronomo {
+      border-color: #0D9488;
+    }
+    .bm-card--agronomo::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #0D9488, #5EEAD4);
+    }
     .bm-card__header {
       font-size: 1.1rem;
       font-weight: 800;
@@ -2423,67 +2501,78 @@
   <div class="container">
     <div class="section__header fade-in">
       <span class="badge">Modelo de negocio</span>
-      <h2 class="section__title">El contratista es nuestra<br>fuerza de venta</h2>
-      <p class="section__subtitle">No llegamos al campo puerta a puerta — nos apoyamos en los contratistas para penetrar el mercado. Cada uno que adopta Soil-IQ lleva la plataforma a todas las hectáreas que trabaja, convirtiendo su red de clientes en nuestra red de usuarios.</p>
+      <h2 class="section__title">Tres actores,<br>un ecosistema que se retroalimenta</h2>
+      <p class="section__subtitle">Los contratistas son nuestra fuerza de venta — no son usuarios, son nuestro canal de entrada al mercado. Los productores e ingenieros agrónomos son los usuarios que reciben el valor.</p>
     </div>
 
-    <div class="bm-grid fade-in">
-      <div class="bm-card bm-card--contractor">
-        <div class="bm-card__badge">📣 Palanca de crecimiento · Estrategia GTM</div>
-        <div class="bm-card__header">🚜 Contratista rural</div>
-        <div class="bm-row">
-          <div class="bm-row__item">
-            <div class="bm-row__key">Qué paga</div>
-            <div class="bm-row__val">Kit de sensores USD 8.000–15.000 <span class="bm-tag-blue">único</span><br>+ Royalty USD 1,75/ha procesada <span class="bm-tag-blue">recurrente</span></div>
-          </div>
-          <div class="bm-row__item">
-            <div class="bm-row__key">Qué recibe</div>
-            <div class="bm-row__val">Diferenciación competitiva real. Recibe USD 1–2/ha extra sobre el servicio estándar — a 8.000–15.000 ha el kit está repago. Sale de la comoditización.</div>
-          </div>
-          <div class="bm-row__item">
-            <div class="bm-row__key">Payback estimado</div>
-            <div class="bm-row__val">8.000–15.000 ha procesadas al USD 1–2/ha extra — el kit queda repago y desde ahí es ganancia pura</div>
-          </div>
-          <div class="bm-row__item">
-            <div class="bm-row__key">Cómo gana Soil-IQ</div>
-            <div class="bm-row__val">Venta del kit + royalty por volumen de hectáreas procesadas</div>
-          </div>
+    <!-- ── CONTRATISTA: GTM / Canal de distribución ── -->
+    <div class="bm-contractor fade-in">
+      <div class="bm-contractor__top">
+        <div class="bm-contractor__badge">🚀 Go-to-Market · Fuerza de venta</div>
+        <div class="bm-contractor__title">🚜 Contratista Rural</div>
+      </div>
+      <p class="bm-contractor__desc">No es un usuario de la plataforma — es nuestro canal de distribución. Cada contratista que adopta Soil-IQ lleva la plataforma a todos los campos que trabaja, generando exposición masiva sin que Soil-IQ tenga que vender productor por productor. Su red de clientes se convierte en nuestra red de usuarios.</p>
+      <div class="bm-contractor__grid">
+        <div class="bm-contractor__item">
+          <div class="bm-contractor__item-key">Qué invierte</div>
+          <div class="bm-contractor__item-val">Kit de sensores USD 8.000–15.000 (único) + Royalty USD 1,75/ha procesada</div>
+        </div>
+        <div class="bm-contractor__item">
+          <div class="bm-contractor__item-key">Qué gana</div>
+          <div class="bm-contractor__item-val">USD 1–2/ha extra sobre su servicio estándar. Sale de la comoditización y fideliza clientes.</div>
+        </div>
+        <div class="bm-contractor__item">
+          <div class="bm-contractor__item-key">Payback</div>
+          <div class="bm-contractor__item-val">A 8.000–15.000 ha procesadas el kit está repago — desde ahí es ganancia pura por campaña</div>
         </div>
       </div>
+    </div>
 
-      <div class="bm-card bm-card--producer">
+    <!-- ── USUARIOS ── -->
+    <div class="bm-users-sep fade-in">
+      <div class="bm-users-sep__label">👥 Usuarios de la plataforma</div>
+      <div class="bm-users-sep__line"></div>
+    </div>
+
+    <div class="bm-users-grid">
+      <!-- Productor -->
+      <div class="bm-card bm-card--producer fade-in">
         <div class="bm-card__header">🌾 Productor mediano</div>
         <div class="bm-row">
           <div class="bm-row__item">
             <div class="bm-row__key">Qué paga</div>
             <div class="bm-row__val">
-              <strong>Plan Análisis:</strong> incluido en el royalty de USD 4/ha que paga el contratista — sin costo adicional para el productor <span class="bm-tag-green">incluido</span><br>
-              <strong>Plan Pro:</strong> USD 180–240/año para monitoreo continuo con Sentinel-2 semanal, alertas y IA personalizada <span class="bm-tag-green">SaaS</span>
+              <strong>Plan Análisis:</strong> incluido en el royalty del contratista — sin costo extra <span class="bm-tag-green">incluido</span><br>
+              <strong>Plan Pro:</strong> USD 180–240/año para monitoreo continuo, alertas y IA personalizada <span class="bm-tag-green">SaaS</span>
             </div>
           </div>
           <div class="bm-row__item">
             <div class="bm-row__key">Qué recibe</div>
-            <div class="bm-row__val">Mapa georreferenciado con pH, N, P y K por zona + diagnóstico del suelo + acceso al marketplace + historial acumulado campaña a campaña</div>
+            <div class="bm-row__val">Mapa georreferenciado de pH, N, P y K por zona · diagnóstico del suelo · acceso al marketplace · historial acumulado campaña a campaña</div>
           </div>
           <div class="bm-row__item">
-            <div class="bm-row__key">ROI claro</div>
-            <div class="bm-row__val">Ahorro de USD 30–80/ha por fertilización precisa. El Plan Pro a USD 180–240/año se amortiza con corregir una sola decisión por campaña.</div>
-          </div>
-          <div class="bm-row__item">
-            <div class="bm-row__key">Cómo gana Soil-IQ</div>
-            <div class="bm-row__val">USD 4/ha de royalty por cada análisis del contratista + fee anual USD 180–240 del Plan Pro</div>
+            <div class="bm-row__key">ROI</div>
+            <div class="bm-row__val">Ahorro USD 30–80/ha por fertilización precisa. El Plan Pro se amortiza corrigiendo una sola decisión por campaña.</div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Estrategia de penetración -->
-    <div class="bm-strategy-banner fade-in">
-      <div class="bm-strategy-banner__icon">📣</div>
-      <div>
-        <div class="bm-strategy-banner__title">¿Por qué el contratista y no el productor?</div>
-        <div class="bm-strategy-banner__body">
-          Nuestra estrategia de penetración de mercado pasa por los contratistas — no vendemos directo al productor. Un solo contratista trabaja cientos o miles de hectáreas de distintos dueños: adoptando Soil-IQ, lleva la plataforma a todos ellos de forma automática. El productor recibe el valor sin fricciones ni proceso de venta; el contratista se diferencia y fideliza a sus clientes. <strong>Los contratistas son nuestra red de distribución:</strong> cada uno que firmamos multiplica nuestra base de productores activos sin costo de adquisición adicional.
+      <!-- Ingeniero Agrónomo -->
+      <div class="bm-card bm-card--agronomo fade-in fade-in-delay-1">
+        <div class="bm-card__header">🧑‍🔬 Ingeniero Agrónomo</div>
+        <div class="bm-row">
+          <div class="bm-row__item">
+            <div class="bm-row__key">Rol en el ecosistema</div>
+            <div class="bm-row__val">Utiliza Soil-IQ como herramienta profesional para asesorar a sus clientes productores. Los datos del suelo respaldan y potencian sus recomendaciones.</div>
+          </div>
+          <div class="bm-row__item">
+            <div class="bm-row__key">Qué recibe</div>
+            <div class="bm-row__val">Panel unificado de todos sus lotes asesorados · mapas de suelo en tiempo real · historial por lote · datos objetivos para respaldar prescripciones</div>
+          </div>
+          <div class="bm-row__item">
+            <div class="bm-row__key">Qué gana</div>
+            <div class="bm-row__val">Se diferencia de otros asesores sin datos. Recomienda con evidencia real, fideliza a sus clientes y cobra más por un servicio de mayor valor.</div>
+          </div>
         </div>
       </div>
     </div>
