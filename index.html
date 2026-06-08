@@ -797,6 +797,25 @@
     .pricing-card__features li.no::before { content: '✕'; color: var(--gray-300); }
     .pricing-card__features li.no { color: var(--gray-400); }
 
+    .pricing__addon {
+      margin-top: 32px;
+      background: linear-gradient(135deg, #FFF8E7, #FFFDF5);
+      border: 2px solid var(--amber);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .pricing__addon-body { flex: 1; min-width: 220px; }
+    .pricing__addon-prices { display: flex; gap: 32px; align-items: center; flex-shrink: 0; }
+    .pricing__addon-price { text-align: center; }
+    .pricing__addon-price span { display: block; font-size: 1.6rem; font-weight: 900; line-height: 1; }
+    .pricing__addon-price small { font-size: .75rem; color: var(--gray-400); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+    .pricing__addon-divider { width: 1px; height: 44px; background: var(--gray-200); }
+
     .pricing__note {
       text-align: center;
       margin-top: 32px;
@@ -2602,16 +2621,40 @@
           <li>Recomendaciones más personalizadas con mayor integración de IA</li>
           <li>Integración de sensores propios del productor a la plataforma</li>
           <li>Historial unificado: análisis Soil-IQ + laboratorios externos</li>
-          <li>Exportación compatible con sembradoras de fertilización variable</li>
         </ul>
         <a href="#empezar" class="btn btn-verde" style="width:100%;justify-content:center">Empezar con Pro</a>
+      </div>
+    </div>
+
+    <!-- API Add-on -->
+    <div class="pricing__addon fade-in">
+      <div class="pricing__addon-body">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+          <span style="background:var(--amber);color:var(--black);font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:3px 10px;border-radius:20px">⚡ Add-on Exclusivo</span>
+        </div>
+        <strong style="font-size:1.05rem;color:var(--gray-900)">API de Prescripción para Maquinaria</strong>
+        <p style="font-size:.875rem;color:var(--gray-600);margin-top:8px;line-height:1.6">Conectá Soil-IQ directo al monitor de tu sembradora. La API calcula la mezcla óptima de macronutrientes lote por lote y exporta las prescripciones en el formato nativo de tu máquina — sin conversiones manuales, sin pasos intermedios, maximizando el rendimiento de cada hectárea.</p>
+      </div>
+      <div class="pricing__addon-prices">
+        <div class="pricing__addon-price">
+          <small>Primeros 20 usuarios</small>
+          <span style="color:var(--amber);margin-top:4px">Gratis</span>
+          <small style="margin-top:4px;font-size:.7rem">early access</small>
+        </div>
+        <div class="pricing__addon-divider"></div>
+        <div class="pricing__addon-price">
+          <small>Después</small>
+          <span style="color:var(--verde-dark);margin-top:4px">USD 2+/ha</span>
+          <small style="margin-top:4px;font-size:.7rem">por campaña</small>
+        </div>
       </div>
     </div>
 
     <p class="pricing__note">
       <strong>Sin costo adicional para el productor.</strong> El Plan Análisis está incluido en cada análisis que realice el contratista — no hay que pagar nada extra.<br>
       <span style="color:var(--verde);font-weight:700">¿Sos contratista?</span> El modelo es diferente: adquirís el kit de sensores y cada hectárea de datos que subís genera ingresos.
-      <a href="#modelo" style="color:var(--verde);font-weight:700;text-decoration:underline">Ver modelo de negocio →</a>
+      <a href="#modelo" style="color:var(--verde);font-weight:700;text-decoration:underline">Ver modelo de negocio →</a><br>
+      <span style="font-size:.8rem;color:var(--gray-400);margin-top:8px;display:inline-block">* Todos los precios son tentativos y pueden ajustarse durante el período de validación comercial.</span>
     </p>
   </div>
 </section>
