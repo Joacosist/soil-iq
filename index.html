@@ -407,9 +407,11 @@
     }
     .stats-bar__grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 24px;
       text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
     }
     .stats-bar__item { color: var(--white); }
     .stats-bar__number {
@@ -978,7 +980,7 @@
       .hero__actions { justify-content: center; }
 
       /* — Stats bar — */
-      .stats-bar__grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-bar__grid { grid-template-columns: 1fr 1fr; }
 
       /* — Problema — */
       .problem__grid    { grid-template-columns: 1fr 1fr; }
@@ -1830,18 +1832,10 @@
   <div class="container">
     <div class="stats-bar__grid">
       <div class="stats-bar__item fade-in">
-        <div class="stats-bar__number">70%</div>
-        <div class="stats-bar__label">de los productores fertiliza a ciegas, sin análisis de suelo</div>
-      </div>
-      <div class="stats-bar__item fade-in fade-in-delay-1">
-        <div class="stats-bar__number">USD 900M</div>
-        <div class="stats-bar__label">se pierden anualmente en Argentina por mala fertilización</div>
-      </div>
-      <div class="stats-bar__item fade-in fade-in-delay-2">
         <div class="stats-bar__number">USD 80</div>
         <div class="stats-bar__label">ahorro por hectárea con fertilización de precisión guiada por IA</div>
       </div>
-      <div class="stats-bar__item fade-in fade-in-delay-3">
+      <div class="stats-bar__item fade-in fade-in-delay-1">
         <div class="stats-bar__number">+35M ha</div>
         <div class="stats-bar__label">de la Pampa argentina son el mercado objetivo de Soil-IQ</div>
       </div>
@@ -2353,24 +2347,6 @@
       </div>
     </div>
 
-    <div class="market-stats-strip fade-in">
-      <div class="market-stat">
-        <div class="market-stat__value">70–80%</div>
-        <div class="market-stat__label">de los productores fertiliza sin datos actualizados de suelo</div>
-      </div>
-      <div class="market-stat">
-        <div class="market-stat__value">USD 900M</div>
-        <div class="market-stat__label">pérdida anual en capital natural de suelos argentinos (INTA, 2024)</div>
-      </div>
-      <div class="market-stat">
-        <div class="market-stat__value">USD 4/ha</div>
-        <div class="market-stat__label">precio blended por hectárea procesada en escenario base</div>
-      </div>
-      <div class="market-stat">
-        <div class="market-stat__value">66,7%</div>
-        <div class="market-stat__label">de los encuestados pagaría USD 3–6/ha/año (validación propia, n=6)</div>
-      </div>
-    </div>
   </div>
 </section>
 
