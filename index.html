@@ -1750,12 +1750,30 @@
     .rm-step--done   .rm-step__title { color: var(--white); }
     .rm-step--pending .rm-step__title { color: rgba(255,255,255,.65); }
     .rm-step__desc {
-      font-size: .75rem;
-      text-align: center;
-      line-height: 1.5;
-      color: rgba(255,255,255,.4);
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      text-align: left;
+      padding: 0;
+      margin: 0;
     }
-    .rm-step--done .rm-step__desc { color: rgba(255,255,255,.55); }
+    .rm-step__desc li {
+      font-size: .73rem;
+      color: rgba(255,255,255,.4);
+      line-height: 1.4;
+      padding-left: 12px;
+      position: relative;
+    }
+    .rm-step__desc li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      font-weight: 900;
+      color: rgba(255,255,255,.25);
+    }
+    .rm-step--done .rm-step__desc li { color: rgba(255,255,255,.6); }
+    .rm-step--done .rm-step__desc li::before { color: var(--amber); }
 
     /* ─── Equipo ────────────────────────────────────────────────────── */
     .team-grid {
@@ -2603,31 +2621,57 @@
         <div class="rm-step__dot">✓</div>
         <div class="rm-step__period">Fase 0 · May–Ago 2026</div>
         <div class="rm-step__title">Fundación</div>
-        <div class="rm-step__desc">Diseño técnico del kit. Segunda ronda de encuestas. Incorporación del advisor. Avance con instituciones del ecosistema.</div>
+        <ul class="rm-step__desc">
+          <li>Diseño técnico del kit</li>
+          <li>+ encuestas / entrevistas</li>
+          <li>Advisor</li>
+          <li>Avance con instituciones</li>
+        </ul>
       </div>
       <div class="rm-step rm-step--pending">
         <div class="rm-step__dot">🚜</div>
         <div class="rm-step__period">Fase 1 · Sep–Dic 2026</div>
         <div class="rm-step__title">Piloto</div>
-        <div class="rm-step__desc">Kit operativo con 3–5 contratistas ancla en Córdoba Sur / Sur de Santa Fe. Primeros mapas entregados a productores. Validación de pricing en campo.</div>
+        <ul class="rm-step__desc">
+          <li>3–5 alianzas clave</li>
+          <li>Zona núcleo</li>
+          <li>Primeros mapas</li>
+          <li>Validación de pricing</li>
+          <li>Hardware indestructible</li>
+        </ul>
       </div>
       <div class="rm-step rm-step--pending">
         <div class="rm-step__dot">📈</div>
         <div class="rm-step__period">Fase 2 · 2027</div>
         <div class="rm-step__title">Tracción</div>
-        <div class="rm-step__desc">20–40 contratistas activos. 150.000–300.000 ha procesadas. App y dashboard en versión estable. Primeros ingresos recurrentes validados.</div>
+        <ul class="rm-step__desc">
+          <li>40 contratistas activos</li>
+          <li>300.000 ha procesadas</li>
+          <li>App dashboard estable</li>
+          <li>Primeros ingresos recurrentes validados</li>
+        </ul>
       </div>
       <div class="rm-step rm-step--pending">
         <div class="rm-step__dot">🇦🇷</div>
         <div class="rm-step__period">Fase 3 · 2028</div>
         <div class="rm-step__title">Escala Argentina</div>
-        <div class="rm-step__desc">100–200 contratistas activos. 600.000–1.000.000 ha procesadas. Lanzamiento del marketplace. Primeros contactos con socios en Uruguay y Brasil.</div>
+        <ul class="rm-step__desc">
+          <li>200 contratistas activos</li>
+          <li>1.000.000 ha procesadas</li>
+          <li>Marketplace</li>
+          <li>Primeros contactos exteriores</li>
+        </ul>
       </div>
       <div class="rm-step rm-step--pending">
         <div class="rm-step__dot">🌎</div>
         <div class="rm-step__period">Fase 4 · 2029–2030</div>
         <div class="rm-step__title">Expansión LATAM</div>
-        <div class="rm-step__desc">Operación en Uruguay y Brasil con socios locales. +2.000.000 ha mapeadas. Primeros contratos B2B institucionales. Ronda de expansión regional.</div>
+        <ul class="rm-step__desc">
+          <li>Saltamos las fronteras</li>
+          <li>Modelo = estándar en Argentina</li>
+          <li>Replicamos la operación (Uy &amp; Sur Br)</li>
+          <li>Dinámica de contratistas espeja la nuestra</li>
+        </ul>
       </div>
     </div>
   </div>
